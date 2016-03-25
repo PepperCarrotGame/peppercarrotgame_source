@@ -37,7 +37,7 @@ func change_state(name, params):
 			print("Current state is invalid")
 	else:
 			# This can happen, but if it does we are dumb
-			print("State is invalid")
+			print("New state is invalid")
 			
 func _process(delta):
 	if(is_valid_state(current_state)):

@@ -26,7 +26,7 @@
 			<array  len="1" shared="false">
 				<dictionary  shared="false">
 					<string> "__editor_plugin_screen__" </string>
-					<string> "2D" </string>
+					<string> "Script" </string>
 				</dictionary>
 			</array>
 			<string> "version" </string>
