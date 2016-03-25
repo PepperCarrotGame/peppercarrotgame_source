@@ -1,11 +1,16 @@
+# ==== Pepper & Carrot Game ====
+#
+# Purpose: Code for the options menu
+#
+# ==============================
 
 extends Container
 
-var allowed_actions = ["ui_accept", "ui_cancel", "left","right", "down", "up"]
+var allowed_actions = ["ui_accept", "ui_cancel", "left","right", "down", "up", "jump"]
 
 func _ready():
 	# Setup tree
-	var tree = get_node("Tree")
+	var tree = get_node("tree")
 	tree.set_hide_root(true)
 	tree.set_columns(2)
 	tree.set_select_mode(tree.SELECT_ROW)
@@ -30,4 +35,8 @@ func _ready():
 func _on_back_button_pressed():
 	var game_manager = get_node("/root/game_manager")
 	game_manager.change_to_cached_scene()
-	pass # replace with function body
+
+
+func _on_tree_item_selected():
+	
+	pass
