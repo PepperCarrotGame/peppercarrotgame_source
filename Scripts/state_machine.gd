@@ -34,11 +34,9 @@ func change_state(name, params):
 			current_state.on_enter()
 		else:
 			# This should never happen
-			if(OS.is_debug_build()):
-				print("Current state is invalid")
+			print("Current state is invalid")
 	else:
-		# This can happen, but if it does we are dumb
-		if(OS.is_debug_build()):
+			# This can happen, but if it does we are dumb
 			print("State is invalid")
 			
 func _process(delta):

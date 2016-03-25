@@ -13,7 +13,8 @@ var DEBUG = null
 
 func _ready():
 	DEBUG = OS.is_debug_build()
-	change_scene("res://Scenes/main_menu.xscn")
+	if(!DEBUG):
+		change_scene("res://Scenes/main_menu.xscn")
 	
 
 func change_scene(path, cached = false):
