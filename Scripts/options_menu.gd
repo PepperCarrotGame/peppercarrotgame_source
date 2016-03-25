@@ -1,11 +1,11 @@
 
-extends Tree
+extends Container
 
 var allowed_actions = ["ui_accept", "ui_cancel", "left","right", "down", "up"]
 
 func _ready():
 	# Setup tree
-	var tree = get_node(".")
+	var tree = get_node("Tree")
 	tree.set_hide_root(true)
 	tree.set_columns(2)
 	tree.set_select_mode(tree.SELECT_ROW)
@@ -15,7 +15,7 @@ func _ready():
 	for action in allowed_actions:
 		# First input should always be keyboard, but just in case
 		input_event = InputMap.get_action_list(action)[0]
-		if(input_event.type == KEY):
+		if(input_event.type == InputEvent.KEY):
 			if(input_event != null):
 				var item = tree.create_item(tree.get_root())
 				item.set_text(0,tr("input_" + action))
@@ -25,3 +25,9 @@ func _ready():
 	pass
 
 
+
+
+func _on_back_button_pressed():
+	var game_manager = get_node("/root/game_manager")
+	game_manager.change_to_cached_scene()
+	pass # replace with function body

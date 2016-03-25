@@ -56,5 +56,6 @@ func change_to_cached_scene_impl():
 		current_scene.free()
 		#Create an instance from the packed scene
 		current_scene = stored_scene.instance()
-		stored_scene.free()
+		stored_scene = null
+		
 		tree_root.add_child(current_scene)
