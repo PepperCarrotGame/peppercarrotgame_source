@@ -9,7 +9,7 @@ extents = Vector2( 309.273, 84.0586 )
 
 [node name="Node2D" type="Node2D"]
 
-__meta__ = { "__editor_plugin_screen__":"2D" }
+__meta__ = { "__editor_plugin_screen__":"Script" }
 
 [node name="Root" parent="." instance=ExtResource( 1 )]
 

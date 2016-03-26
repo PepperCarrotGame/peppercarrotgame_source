@@ -15,8 +15,8 @@ func _ready():
 	DEBUG = OS.is_debug_build()
 	# This avoids the singleton from loading the menu scene on load when loading in debug mode, but it allows
 	# loading the menu scene if the scene currently being loaded is the base scene (which should be the default)
-	if(DEBUG and get_tree().get_current_scene().get_filename() == "res://Scenes/base_scene.xscn"):
-		change_scene("res://Scenes/main_menu.xscn")
+	if(DEBUG and get_tree().get_current_scene().get_filename() == "res://Scenes/base_scene.tscn"):
+		change_scene("res://Scenes/main_menu.tscn")
 	
 
 func change_scene(path, cached = false):
