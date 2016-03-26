@@ -1,0 +1,60 @@
+[gd_scene load_steps=4 format=1]
+
+[ext_resource path="res://Fonts/OpenSans.fnt" type="Font" id=1]
+[ext_resource path="res://Scripts/Dialogs/dialog_test.gd" type="Script" id=2]
+[ext_resource path="res://Images/chara_pepper.tex" type="Texture" id=3]
+
+[node name="Panel" type="Panel"]
+
+margin/left = 6.0
+margin/top = 484.0
+margin/right = 749.0
+margin/bottom = 585.0
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+__meta__ = { "__editor_plugin_screen__":"Script" }
+
+[node name="Character Name" type="Label" parent="."]
+
+margin/left = 10.0
+margin/top = 12.0
+margin/right = 734.0
+margin/bottom = 31.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+custom_fonts/font = ExtResource( 1 )
+text = "Character name"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Text" type="Label" parent="."]
+
+margin/left = 9.0
+margin/top = 32.0
+margin/right = 733.0
+margin/bottom = 91.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+custom_fonts/font = ExtResource( 1 )
+text = "Here goes the animated text"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+script/script = ExtResource( 2 )
+speed = 10
+character_name = "Pepper"
+animated_text = "Hello world, this is an animated text for testing.\nDo you like it\?\nI hope so."
+
+[node name="Character" type="Sprite" parent="."]
+
+transform/pos = Vector2( 72.5865, -72.7785 )
+texture = ExtResource( 3 )
+
+

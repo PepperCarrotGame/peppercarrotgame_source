@@ -8,8 +8,8 @@ extends Label
 
 # Text speed y chars per second
 export var speed = 10
-export var character_name = "Type Name here"
-export var animated_text = "Type text here"
+export var character_name = "Pepper"
+export var animated_text = "Chavez vive la lucha sigue"
 var counter = 0;
 
 func _ready():

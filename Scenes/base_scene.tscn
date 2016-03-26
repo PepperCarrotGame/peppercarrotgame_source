@@ -1,0 +1,7 @@
+[gd_scene format=1]
+
+[node name="Root" type="Node2D"]
+
+__meta__ = { "__editor_plugin_screen__":"2D" }
+
+

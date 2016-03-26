@@ -1,0 +1,44 @@
+[gd_scene load_steps=2 format=1]
+
+[ext_resource path="res://Scripts/options_menu.gd" type="Script" id=1]
+
+[node name="Container" type="Container"]
+
+margin/bottom = 1.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+script/script = ExtResource( 1 )
+__meta__ = { "__editor_plugin_screen__":"2D" }
+
+[node name="tree" type="Tree" parent="."]
+
+margin/left = 16.0
+margin/top = 18.0
+margin/right = 1012.0
+margin/bottom = 377.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+
+[node name="back_button" type="Button" parent="."]
+
+margin/left = 121.0
+margin/top = 468.0
+margin/right = 297.0
+margin/bottom = 487.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+toggle_mode = false
+text = "<-Go Back"
+flat = false
+
+[connection signal="item_selected" from="tree" to="." method="_on_tree_item_selected"]
+
+[connection signal="pressed" from="back_button" to="." method="_on_back_button_pressed"]
+
+
