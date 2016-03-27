@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<resource_file type="PackedScene" subresource_count="4" version="2.1" version_name="Godot Engine v2.1.alpha.custom_build">
+<resource_file type="PackedScene" subresource_count="5" version="2.0" version_name="Godot Engine v2.0.stable.official">
 	<ext_resource path="res://Fonts/OpenSans.fnt" type="Font" index="0"></ext_resource>
-	<ext_resource path="res://Images/chara_pepper.tex" type="Texture" index="2"></ext_resource>
-	<ext_resource path="res://Scripts/Dialogs/dialog_test.gd" type="Script" index="1"></ext_resource>
+	<ext_resource path="res://Images/chara_pepper.tex" type="Texture" index="1"></ext_resource>
+	<ext_resource path="res://Images/dialog_bubble.tex" type="Texture" index="2"></ext_resource>
+	<ext_resource path="res://Scripts/Dialogs/dialog_test.gd" type="Script" index="3"></ext_resource>
 	<main_resource>
 		<dictionary name="_bundled" shared="false">
 			<string> "conn_count" </string>
@@ -13,16 +14,16 @@
 			<array  len="0" shared="false">
 			</array>
 			<string> "names" </string>
-			<string_array  len="25">
+			<string_array  len="38">
 				<string> "Panel" </string>
-				<string> "focus/ignore_mouse" </string>
-				<string> "focus/stop_mouse" </string>
-				<string> "size_flags/horizontal" </string>
-				<string> "size_flags/vertical" </string>
 				<string> "margin/left" </string>
 				<string> "margin/top" </string>
 				<string> "margin/right" </string>
 				<string> "margin/bottom" </string>
+				<string> "focus/ignore_mouse" </string>
+				<string> "focus/stop_mouse" </string>
+				<string> "size_flags/horizontal" </string>
+				<string> "size_flags/vertical" </string>
 				<string> "Character Name" </string>
 				<string> "custom_fonts/font" </string>
 				<string> "text" </string>
@@ -30,52 +31,78 @@
 				<string> "lines_skipped" </string>
 				<string> "max_lines_visible" </string>
 				<string> "Label" </string>
-				<string> "Text" </string>
-				<string> "script/script" </string>
-				<string> "speed" </string>
-				<string> "character_name" </string>
-				<string> "animated_text" </string>
 				<string> "Character" </string>
 				<string> "transform/pos" </string>
 				<string> "texture" </string>
 				<string> "Sprite" </string>
+				<string> "left_bubble" </string>
+				<string> "offset" </string>
+				<string> "region" </string>
+				<string> "region_rect" </string>
+				<string> "center_bubble" </string>
+				<string> "transform/scale" </string>
+				<string> "right_bubble" </string>
+				<string> "flip_h" </string>
+				<string> "talking" </string>
+				<string> "thinking" </string>
+				<string> "visibility/visible" </string>
+				<string> "Text" </string>
+				<string> "custom_colors/font_color" </string>
+				<string> "autowrap" </string>
+				<string> "script/script" </string>
+				<string> "speed" </string>
+				<string> "character_name" </string>
+				<string> "animated_text" </string>
 			</string_array>
 			<string> "node_count" </string>
-			<int> 4 </int>
+			<int> 9 </int>
 			<string> "node_paths" </string>
 			<array  len="0" shared="false">
 			</array>
 			<string> "nodes" </string>
-			<int_array  len="108"> 				-1, -1, 0, 0, -1, 8, 1, 0, 2, 0, 3, 1, 4, 1, 5, 2, 6, 3, 7, 4, 8, 5, 0, 0, 0, 15, 9, -1, 13, 1, 6, 2, 0, 3, 1, 4, 1, 5, 7, 6, 8, 7, 9, 8, 10, 10, 11, 11, 12, 12, 13, 13, 14, 14, 15, 0, 0, 0, 15, 16, -1, 17, 1, 6, 2, 0, 3, 1, 4, 1, 5, 16, 6, 17, 7, 18, 8, 19, 10, 11, 11, 20, 12, 13, 13, 14, 14, 15, 17, 21, 18, 22, 19, 23, 20, 24, 0, 0, 0, 24, 21, -1, 2, 22, 25, 23, 26, 0 </int_array>
+			<int_array  len="203"> 				-1, -1, 0, 0, -1, 8, 1, 0, 2, 1, 3, 2, 4, 3, 5, 4, 6, 4, 7, 5, 8, 5, 0, 0, 0, 15, 9, -1, 13, 1, 6, 2, 7, 3, 8, 4, 9, 5, 10, 6, 4, 7, 5, 8, 5, 10, 11, 11, 12, 12, 13, 13, 14, 14, 15, 0, 0, 0, 19, 16, -1, 2, 17, 16, 18, 17, 0, 0, 0, 19, 20, -1, 5, 17, 18, 18, 19, 21, 20, 22, 4, 23, 21, 0, 0, 0, 19, 24, -1, 6, 17, 22, 25, 23, 18, 19, 21, 20, 22, 4, 23, 24, 0, 0, 0, 19, 26, -1, 6, 17, 25, 18, 19, 21, 20, 27, 4, 22, 4, 23, 21, 0, 0, 0, 19, 28, -1, 5, 17, 26, 18, 19, 21, 20, 22, 4, 23, 27, 0, 0, 0, 19, 29, -1, 6, 30, 10, 17, 28, 18, 19, 21, 20, 22, 4, 23, 29, 0, 0, 0, 15, 31, -1, 19, 1, 30, 2, 31, 3, 32, 4, 33, 5, 10, 6, 4, 7, 5, 8, 5, 10, 11, 32, 34, 11, 35, 33, 4, 12, 13, 13, 14, 14, 15, 34, 36, 35, 37, 36, 38, 37, 39, 0 </int_array>
 			<string> "variants" </string>
-			<array  len="27" shared="false">
-				<bool> True </bool>
-				<int> 2 </int>
+			<array  len="40" shared="false">
 				<real> 6 </real>
 				<real> 484 </real>
 				<real> 749 </real>
 				<real> 585 </real>
-				<bool> False </bool>
+				<bool> True </bool>
+				<int> 2 </int>
 				<real> 10 </real>
 				<real> 12 </real>
 				<real> 734 </real>
 				<real> 31 </real>
+				<bool> False </bool>
 				<resource  external="0">  </resource>
 				<string> "Character name" </string>
 				<real> 1 </real>
 				<int> 0 </int>
 				<int> -1 </int>
-				<real> 9 </real>
-				<real> 32 </real>
-				<real> 733 </real>
-				<real> 91 </real>
-				<string> "Here goes the animated text" </string>
+				<vector2> 72.5865, -72.7785 </vector2>
 				<resource  external="1">  </resource>
+				<vector2> 129.631, -211.027 </vector2>
+				<resource  external="2">  </resource>
+				<vector2> 10, 0 </vector2>
+				<rect2> 0, 0, 40, 126 </rect2>
+				<vector2> 230.836, -211.027 </vector2>
+				<vector2> 1.56166, 1 </vector2>
+				<rect2> 60, 0, 112, 126 </rect2>
+				<vector2> 343.071, -211.027 </vector2>
+				<vector2> 171.03, -132.105 </vector2>
+				<rect2> 186, 2, 66, 40 </rect2>
+				<vector2> 171.03, -122.815 </vector2>
+				<rect2> 182, 45, 70, 50 </rect2>
+				<real> 145 </real>
+				<real> -259 </real>
+				<real> 346 </real>
+				<real> -159 </real>
+				<color> 0, 0, 0, 1 </color>
+				<string> "Here goes the animated text" </string>
+				<resource  external="3">  </resource>
 				<int> 10 </int>
 				<string> "Pepper" </string>
 				<string> "Hello world, this is an animated text for testing.&#000a;Do you like it?&#000a;I hope so." </string>
-				<vector2> 72.5865, -72.7785 </vector2>
-				<resource  external="2">  </resource>
 			</array>
 			<string> "version" </string>
 			<int> 2 </int>
