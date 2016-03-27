@@ -1,0 +1,81 @@
+[gd_scene load_steps=4 format=1]
+
+[ext_resource path="res://Scenes/Dialogs/dialog_bubble.gd" type="Script" id=1]
+[ext_resource path="res://Images/dialog_bubble.tex" type="Texture" id=2]
+[ext_resource path="res://Fonts/OpenSans.fnt" type="Font" id=3]
+
+[node name="Bubble" type="Node2D"]
+
+script/script = ExtResource( 1 )
+speed = 10
+thinking = false
+right_character = false
+animated_text = ""
+next_dialog = null
+
+[node name="left_bubble" type="Sprite" parent="."]
+
+transform/pos = Vector2( -23.5954, -116.065 )
+texture = ExtResource( 2 )
+offset = Vector2( 10, 0 )
+region = true
+region_rect = Rect2( 0, 0, 40, 126 )
+
+[node name="center_bubble" type="Sprite" parent="."]
+
+transform/pos = Vector2( 77.6096, -116.065 )
+transform/scale = Vector2( 1.56166, 1 )
+texture = ExtResource( 2 )
+offset = Vector2( 10, 0 )
+region = true
+region_rect = Rect2( 60, 0, 112, 126 )
+
+[node name="right_bubble" type="Sprite" parent="."]
+
+transform/pos = Vector2( 189.845, -116.065 )
+texture = ExtResource( 2 )
+offset = Vector2( 10, 0 )
+flip_h = true
+region = true
+region_rect = Rect2( 0, 0, 40, 126 )
+
+[node name="Spike" type="Node2D" parent="."]
+
+transform/pos = Vector2( 94.7737, -56.0378 )
+
+[node name="talking" type="Sprite" parent="Spike"]
+
+transform/pos = Vector2( -70, 19.2074 )
+texture = ExtResource( 2 )
+offset = Vector2( 10, 0 )
+region = true
+region_rect = Rect2( 186, 2, 66, 40 )
+
+[node name="thinking" type="Sprite" parent="Spike"]
+
+visibility/visible = false
+transform/pos = Vector2( -70, 28.4973 )
+texture = ExtResource( 2 )
+offset = Vector2( 10, 0 )
+region = true
+region_rect = Rect2( 182, 45, 70, 50 )
+
+[node name="Text" type="Label" parent="."]
+
+margin/left = -8.0
+margin/top = -164.0
+margin/right = 193.0
+margin/bottom = -64.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Put animated text here."
+autowrap = true
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+

@@ -1,0 +1,161 @@
+[gd_scene load_steps=8 format=1]
+
+[ext_resource path="res://Fonts/OpenSans.fnt" type="Font" id=1]
+[ext_resource path="res://Images/chara_pepper.tex" type="Texture" id=2]
+[ext_resource path="res://Images/dialog_bubble.tex" type="Texture" id=3]
+[ext_resource path="res://Scripts/Dialogs/dialog_test.gd" type="Script" id=4]
+[ext_resource path="res://Scripts/Dialogs/start_dialog.gd" type="Script" id=5]
+[ext_resource path="res://Scenes/Dialogs/dialog_bubble.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Images/chara_thyme.tex" type="Texture" id=7]
+
+[node name="Root" type="Control"]
+
+margin/left = 6.0
+margin/top = 484.0
+margin/right = 749.0
+margin/bottom = 585.0
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+
+[node name="tests" type="Node2D" parent="."]
+
+visibility/visible = false
+__meta__ = { "_editor_collapsed":true }
+
+[node name="Character Name" type="Label" parent="tests"]
+
+margin/left = 10.0
+margin/top = 12.0
+margin/right = 734.0
+margin/bottom = 31.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+custom_fonts/font = ExtResource( 1 )
+text = "Character name"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Character" type="Sprite" parent="tests"]
+
+transform/pos = Vector2( 72.5865, -72.7785 )
+texture = ExtResource( 2 )
+
+[node name="left_bubble" type="Sprite" parent="tests"]
+
+transform/pos = Vector2( 129.631, -211.027 )
+texture = ExtResource( 3 )
+offset = Vector2( 10, 0 )
+region = true
+region_rect = Rect2( 0, 0, 40, 126 )
+
+[node name="center_bubble" type="Sprite" parent="tests"]
+
+transform/pos = Vector2( 230.836, -211.027 )
+transform/scale = Vector2( 1.56166, 1 )
+texture = ExtResource( 3 )
+offset = Vector2( 10, 0 )
+region = true
+region_rect = Rect2( 60, 0, 112, 126 )
+
+[node name="right_bubble" type="Sprite" parent="tests"]
+
+transform/pos = Vector2( 343.071, -211.027 )
+texture = ExtResource( 3 )
+offset = Vector2( 10, 0 )
+flip_h = true
+region = true
+region_rect = Rect2( 0, 0, 40, 126 )
+
+[node name="Spike" type="Node2D" parent="tests"]
+
+transform/pos = Vector2( 248, -151 )
+__meta__ = { "_editor_collapsed":true }
+
+[node name="talking" type="Sprite" parent="tests/Spike"]
+
+transform/pos = Vector2( -70, 19.2074 )
+texture = ExtResource( 3 )
+offset = Vector2( 10, 0 )
+region = true
+region_rect = Rect2( 186, 2, 66, 40 )
+
+[node name="thinking" type="Sprite" parent="tests/Spike"]
+
+transform/pos = Vector2( -70, 28.4973 )
+texture = ExtResource( 3 )
+offset = Vector2( 10, 0 )
+region = true
+region_rect = Rect2( 182, 45, 70, 50 )
+
+[node name="Text" type="Label" parent="tests"]
+
+margin/left = 145.0
+margin/top = -259.0
+margin/right = 346.0
+margin/bottom = -159.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Hello world, this is an animated text for testing.\nDo you like it\?\nI hope so."
+autowrap = true
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+script/script = ExtResource( 4 )
+speed = 10
+character_name = "Pepper"
+thinking = true
+right_character = true
+
+[node name="Start_dialog" type="Control" parent="."]
+
+margin/right = 40.0
+margin/bottom = 40.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+script/script = ExtResource( 5 )
+first_dialog = NodePath("../Pepper/Bubble")
+
+[node name="Pepper" type="Sprite" parent="."]
+
+transform/pos = Vector2( 133.205, -193.427 )
+texture = ExtResource( 2 )
+
+[node name="Bubble" parent="Pepper" instance=ExtResource( 6 )]
+
+transform/pos = Vector2( 84.21, -15.5124 )
+animated_text = "Hello, my name is Pepper, nice to meet you."
+next_dialog = NodePath("../../Thyme/Bubble")
+
+[node name="Bubble1" parent="Pepper" instance=ExtResource( 6 )]
+
+visibility/visible = false
+transform/pos = Vector2( 84.21, -15.5124 )
+thinking = true
+animated_text = "Ohh no, I forgot to buy the ingredients for the potion."
+next_dialog = NodePath("")
+
+[node name="Thyme" type="Sprite" parent="."]
+
+transform/pos = Vector2( 813.533, -61.5717 )
+texture = ExtResource( 7 )
+
+[node name="Bubble" parent="Thyme" instance=ExtResource( 6 )]
+
+visibility/visible = false
+transform/pos = Vector2( -261.494, -27.7007 )
+right_character = true
+animated_text = "Hey Pepper, what are you doing\?\n¡¡Stop talking and start making your potion!!"
+next_dialog = NodePath("../../Pepper/Bubble1")
+
+
