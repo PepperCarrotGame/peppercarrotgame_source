@@ -12,22 +12,22 @@ extends KinematicBody2D
 # as long as it starts from a non-colliding spot too.
 
 # Member variables
-const GRAVITY = 980.0 # Pixels/second
+const GRAVITY = 1980.0 # Pixels/second
 
 # Angle in degrees towards either side that the player can consider "floor"
 const FLOOR_ANGLE_TOLERANCE = 40
 const WALK_FORCE = 600
 const WALK_MIN_SPEED = 10
-const WALK_MAX_SPEED = 200
-const STOP_FORCE = 1500
-const JUMP_SPEED = 400
-
+const WALK_MAX_SPEED = 250
+const STOP_FORCE = 1700
+const JUMP_SPEED = 600
+const AIR_CONTROL_FORCE = 600 # Provides extra control over air force
 
 # Make the game feel less floaty by adding more force when falling down
 const POST_APEX_FALL_SPEED = 980
 
-# This is used to allow the player to jump if he has left he ledge a few seconds ago
-const JUMP_MAX_AIRBORNE_TIME = 0.2
+# This is used to allow the player to jump if he has left he ledge a few frames ago
+const JUMP_MAX_AIRBORNE_TIME = 0.2 # 12 frames...
 
 const SLIDE_STOP_VELOCITY = 1.0 # One pixel per second
 const SLIDE_STOP_MIN_TRAVEL = 1.0 # One pixel
@@ -54,11 +54,17 @@ func _fixed_process(delta):
 	
 	if (walk_left):
 		if (velocity.x <= WALK_MIN_SPEED and velocity.x > -WALK_MAX_SPEED):
-			force.x -= WALK_FORCE
+			if(on_air_time > 0):
+				force.x -= AIR_CONTROL_FORCE
+			else:
+				force.x -= WALK_FORCE
 			stop = false
 	elif (walk_right):
 		if (velocity.x >= -WALK_MIN_SPEED and velocity.x < WALK_MAX_SPEED):
-			force.x += WALK_FORCE
+			if(on_air_time > 0):
+				force.x += AIR_CONTROL_FORCE
+			else:
+				force.x += WALK_FORCE
 			stop = false
 	
 	if (stop):
