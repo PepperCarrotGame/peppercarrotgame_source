@@ -15,6 +15,9 @@ export(String, MULTILINE) var animated_text = "Put animated text here."
 export(NodePath) var next_dialog
 
 var counter = 0
+var finished = false
+var button_pressed = false
+var button_released = false
 
 func start():
 	set_hidden(false)
@@ -37,8 +40,41 @@ func _ready():
 
 
 func _process(delta):
-	animate_text(delta)
+	check_button()
+	
+	if !finished:
+		if button_released:
+			finish_animation()
+		else:
+			animate_text(delta)
+	else:
+		if button_released:
+			close_dialog()
 
+
+func check_button():
+	var button = Input.is_action_pressed("jump")
+	
+	# Button pressed for first time
+	if !button_pressed && button:
+		# print("button Pressed for first time")
+		button_pressed = true
+		button_released = false
+	# Button pressed and released
+	elif button_pressed && !button:
+		# print("button Released for first time")
+		button_released = true
+		button_pressed = false
+	# If button released previously reset vars
+	elif button_released:
+		# print("button Released, reset vars")
+		button_pressed = false
+		button_released = false
+
+
+func finish_animation():
+	get_node("Text").set_text(animated_text)
+	finished = true
 
 func animate_text(delta):
 	counter += delta
@@ -46,7 +82,8 @@ func animate_text(delta):
 	
 	get_node("Text").set_text(animated_text.substr(0, characters));
 	if (characters > animated_text.length()):
-		close_dialog()
+		finished = true
+		# close_dialog()
 
 
 func close_dialog():
