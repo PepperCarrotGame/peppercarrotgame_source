@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=1]
+
+[ext_resource path="res://Scripts/UI/keybind_button.gd" type="Script" id=1]
+
+[node name="Button" type="MenuButton"]
+
+margin/right = 26.0
+margin/bottom = 19.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 3
+size_flags/vertical = 3
+toggle_mode = false
+click_on_press = true
+text = "as"
+flat = true
+items = [  ]
+script/script = ExtResource( 1 )
+
+

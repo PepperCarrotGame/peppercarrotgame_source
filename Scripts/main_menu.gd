@@ -17,7 +17,7 @@ func _on_disable_debug_button_pressed():
 
 
 func _on_options_button_pressed():
-	game_manager.change_scene("res://Scenes/UI/keybindings.xscn", true)
+	game_manager.change_scene("res://Scenes/UI/keybindings.tscn", true)
 
 
 func _on_exit_button_pressed():

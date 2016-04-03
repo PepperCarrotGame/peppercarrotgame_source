@@ -19,7 +19,8 @@ const FLOOR_ANGLE_TOLERANCE = 40
 const WALK_FORCE = 600
 const WALK_MIN_SPEED = 10
 const WALK_MAX_SPEED = 250
-const STOP_FORCE = 1700
+const STOP_FORCE = 700
+const AIR_STOP_FORCE = 700
 const JUMP_SPEED = 600
 const AIR_CONTROL_FORCE = 600 # Provides extra control over air force
 
@@ -31,6 +32,8 @@ const JUMP_MAX_AIRBORNE_TIME = 0.2 # 12 frames...
 
 const SLIDE_STOP_VELOCITY = 1.0 # One pixel per second
 const SLIDE_STOP_MIN_TRAVEL = 1.0 # One pixel
+
+var is_falling = true
 
 var velocity = Vector2()
 var on_air_time = 100
@@ -45,23 +48,20 @@ func _ready():
 func _fixed_process(delta):
 	# Create forces
 	var force = Vector2(0, GRAVITY)
-	
 	var walk_left = Input.is_action_pressed("left")
 	var walk_right = Input.is_action_pressed("right")
 	var jump = Input.is_action_pressed("jump")
-	
 	var stop = true
-	
 	if (walk_left):
 		if (velocity.x <= WALK_MIN_SPEED and velocity.x > -WALK_MAX_SPEED):
-			if(on_air_time > 0):
+			if(is_falling):
 				force.x -= AIR_CONTROL_FORCE
 			else:
 				force.x -= WALK_FORCE
 			stop = false
 	elif (walk_right):
 		if (velocity.x >= -WALK_MIN_SPEED and velocity.x < WALK_MAX_SPEED):
-			if(on_air_time > 0):
+			if(is_falling):
 				force.x += AIR_CONTROL_FORCE
 			else:
 				force.x += WALK_FORCE
@@ -70,8 +70,10 @@ func _fixed_process(delta):
 	if (stop):
 		var vsign = sign(velocity.x)
 		var vlen = abs(velocity.x)
-		
-		vlen -= STOP_FORCE*delta
+		if(is_falling):
+			vlen -= AIR_STOP_FORCE*delta
+		else:
+			vlen -= STOP_FORCE*delta
 		if (vlen < 0):
 			vlen = 0
 		
@@ -101,7 +103,7 @@ func _fixed_process(delta):
 			# char is on floor
 			on_air_time = 0
 			floor_velocity = get_collider_velocity()
-		
+			is_falling = false
 		if (on_air_time == 0 and force.x == 0 and get_travel().length() < SLIDE_STOP_MIN_TRAVEL and abs(velocity.x) < SLIDE_STOP_VELOCITY and get_collider_velocity() == Vector2()):
 			# Since this formula will always slide the character around, 
 			# a special case must be considered to to stop it from moving 
@@ -120,7 +122,8 @@ func _fixed_process(delta):
 			velocity = n.slide(velocity)
 			# Then move again
 			move(motion)
-	
+	else:
+		is_falling = true
 	if (floor_velocity != Vector2()):
 		# If floor moves, move with floor
 		move(floor_velocity*delta)
