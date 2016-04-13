@@ -4,12 +4,14 @@
 
 [node name="Button" type="MenuButton"]
 
-margin/right = 26.0
-margin/bottom = 19.0
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 3
 size_flags/vertical = 3
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 26.0
+margin/bottom = 19.0
 toggle_mode = false
 click_on_press = true
 text = "as"
