@@ -144,7 +144,6 @@ func load_config():
 				if old_event.type != InputEvent.JOYSTICK_BUTTON:
 					InputMap.action_erase_event(action, old_event)
 			InputMap.action_add_event(action, event)
-			print("asd")
 			
 func set_from_cfg(config, section, key):
 	"""Retrieve the parameter from the config file, or restore it
@@ -176,5 +175,3 @@ func save_screen_size():
 	"""
 	# TODO: FIX THIS
 	pass
-func get_allowed_actions():
-	return INPUT_ACTIONS

@@ -25,9 +25,6 @@ func set_action(action_name):
 		if event.type == InputEvent.KEY:
 			input_event = event
 			break
-	
-	
-	print(input_event.type)
 	if(input_event.type == InputEvent.KEY):
 		if(input_event != null):
 			action = action_name

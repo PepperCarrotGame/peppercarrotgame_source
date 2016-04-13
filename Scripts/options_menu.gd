@@ -6,14 +6,14 @@
 
 extends Container
 
-var allowed_actions = game_manager.get_allowed_actions()
+var allowed_actions = game_manager.INPUT_ACTIONS
 var button = null
 func _ready():
 	
 	get_node(".").connect("resized",self,"_resized")
 	
 	set_process(true)
-	print(game_manager.get_allowed_actions())
+	
 	for action in allowed_actions:
 		var button_scene = ResourceLoader.load("res://Scenes/UI/keybind_button.tscn")
 		button_scene = button_scene.instance()
@@ -36,7 +36,6 @@ func wait_for_input():
 	set_process_input(true)
 
 func _input(event):
-	print("test")
 	if event.type == InputEvent.KEY:
 		# Got a valid input, stop polling and reinitialise context help
 		set_process_input(false)
@@ -56,4 +55,4 @@ func change_key(action, event):
 	InputMap.action_add_event(action, event)
 	# Save the human-readable string in the config file
 	game_manager.save_to_config("input", action, OS.get_scancode_string(event.scancode))
-	button.set_action(button.action)	
+	button.set_action(button.action)
