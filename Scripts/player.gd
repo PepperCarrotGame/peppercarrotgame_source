@@ -19,7 +19,7 @@ const FLOOR_ANGLE_TOLERANCE = 40
 const WALK_FORCE = 600
 const WALK_MIN_SPEED = 10
 const WALK_MAX_SPEED = 250
-const STOP_FORCE = 1000
+const STOP_FORCE = 2000
 const AIR_STOP_FORCE = 700
 const JUMP_SPEED = 600
 const AIR_CONTROL_FORCE = 600 # Provides extra control over air force
@@ -42,11 +42,13 @@ var jumping = false
 var prev_jump_pressed = false
 
 func _ready():
+	game_manager.set_player(self)
 	set_fixed_process(true)
 	pass
 
 func _fixed_process(delta):
 	# Create forces
+
 	var force = Vector2(0, GRAVITY)
 	var walk_left = Input.is_action_pressed("left")
 	var walk_right = Input.is_action_pressed("right")
@@ -94,6 +96,8 @@ func _fixed_process(delta):
 	if (is_colliding()):
 		# You can check which tile was collision against with this
 		# print(get_collider_metadata())
+		
+		
 		
 		# Ran against something, is it the floor? Get normal
 		var n = get_collision_normal()

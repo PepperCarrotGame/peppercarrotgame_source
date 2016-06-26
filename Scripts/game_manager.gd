@@ -11,6 +11,8 @@ var stored_scene = null
 
 const INPUT_ACTIONS = ["ui_accept", "jump", "up", "down", "left", "right"]
 
+var player = null
+
 # Display
 var width = 1280 # Display width
 var height = 720 # Display height
@@ -22,8 +24,9 @@ var music_volume = 1 # Volume of the music, between 0 and 1
 var sfx = true # Should sound effects play
 var sfx_volume = 1 # Volume of sound effects, between 0 and 1
 
-const settings_filename = "user://config.cfg"
 
+const settings_filename = "user://config.cfg"
+var PLAYER_SCENE = preload("res://Scenes/Player/player.tscn")
 var DEBUG = null
 
 func _ready():
@@ -32,6 +35,8 @@ func _ready():
 	# loading the menu scene if the scene currently being loaded is the base scene (which should be the default)
 	if(DEBUG and get_tree().get_current_scene().get_filename() == "res://Scenes/base_scene.xscn"):
 		change_scene("res://Scenes/main_menu.xscn")
+	if(DEBUG):
+		change_scene(get_tree().get_current_scene().get_filename())
 		
 	# Load parameters from the config file, overriding the default ones
 	load_config()
@@ -42,7 +47,28 @@ func _ready():
 	
 	# Save window size if changed by the user
 	get_tree().connect("screen_resized", self, "save_screen_size")
+	
+func change_scene_door(path, door_number):
+	change_scene(path, false)
+	spawn_player(door_number)
 
+func spawn_player(door_number=-1):
+	var doors = get_tree().get_nodes_in_group("doors")
+	if door_number != -1:
+		for door in doors:
+			if door.door_number == door_number:
+				var player_instance = PLAYER_SCENE.instance()
+				get_tree().get_current_scene().add_child(player_instance)
+				player_instance.set_pos(door.get_pos())
+				print("Player spawned on door: " + str(door_number))
+				return
+	
+	var player_spawn = get_tree().get_nodes_in_group("player_start")
+	if player_spawn.size() > 0:
+		var player_instance = PLAYER_SCENE.instance()
+		get_tree().get_current_scene().add_child(player_instance)
+		player_instance.set_pos(player_spawn[0].get_pos())
+		print("Player spawned")
 func change_scene(path, cached = false):
 	# Make sure there's no scene code running to avoid crashes
 	call_deferred("change_scene_impl", path, cached)
@@ -50,7 +76,14 @@ func change_scene(path, cached = false):
 func change_to_cached_scene():
 	# Make sure there's no scene code running to avoid crashes
 	call_deferred("change_to_cached_scene_impl")
-	
+
+func set_player(new_player):
+	print(new_player)
+	player=new_player
+
+func get_player():
+	return player;
+
 # Actual implementation of change_scene
 func change_scene_impl(path, cached = false):
 	var tree_root = get_tree().get_root()
@@ -70,7 +103,7 @@ func change_scene_impl(path, cached = false):
 	
 	print("Loaded scene: ", path)
 	print("Caching last scene: ", cached)
-
+	spawn_player(0)
 
 
 func change_to_cached_scene_impl():
