@@ -10,5 +10,4 @@ func _ready():
 	if get_tree().is_editor_hint():
 		get_node(".").set_hidden(false)
 	else:
-		if !get_node("/root/game_manager").DEBUG:
-			get_node(".").set_hidden(true)
+		get_node(".").set_hidden(true)

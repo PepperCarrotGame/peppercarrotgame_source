@@ -1,0 +1,1545 @@
+[gd_scene load_steps=25 format=1]
+
+[ext_resource path="res://Images/Tools/tools_door.tex" type="Texture" id=1]
+[ext_resource path="res://Images/Characters/Pepper/pepper_leg_top.png" type="Texture" id=2]
+[ext_resource path="res://Images/Characters/Pepper/pepper_leg_patch.tex" type="Texture" id=3]
+[ext_resource path="res://Images/Characters/Pepper/pepper_leg_bottom.png" type="Texture" id=4]
+[ext_resource path="res://Images/Characters/Pepper/pepper_boot.png" type="Texture" id=5]
+[ext_resource path="res://Images/Characters/Pepper/pepper_torso.png" type="Texture" id=6]
+[ext_resource path="res://Images/Characters/Pepper/pepper_necko_bottom.png" type="Texture" id=7]
+[ext_resource path="res://Images/Characters/Pepper/pepper_neck_top.png" type="Texture" id=8]
+[ext_resource path="res://Images/Characters/Pepper/pepper-head-m.png" type="Texture" id=9]
+[ext_resource path="res://Images/Characters/Pepper/lips-m.png" type="Texture" id=10]
+[ext_resource path="res://Images/Characters/Pepper/pepper_hat.png" type="Texture" id=11]
+[ext_resource path="res://Images/Characters/Pepper/pepper_bottom_hat.png" type="Texture" id=12]
+[ext_resource path="res://Images/Characters/Pepper/pepper_upperarm.png" type="Texture" id=13]
+[ext_resource path="res://Images/Characters/Pepper/pepper_arm.png" type="Texture" id=14]
+[ext_resource path="res://Images/Characters/Pepper/pepper-hand-m.png" type="Texture" id=15]
+[ext_resource path="res://Images/Characters/Pepper/pepper_skirt.png" type="Texture" id=16]
+
+[sub_resource type="Animation" id=10]
+
+resource/name = "fall"
+length = 1.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Root/Skirt:transform/pos")
+tracks/0/interp = 1
+tracks/0/keys = { "cont":true, "times":FloatArray(  ), "transitions":FloatArray(  ), "values":[  ] }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Root/Skirt:transform/rot")
+tracks/1/interp = 1
+tracks/1/keys = { "cont":true, "times":FloatArray(  ), "transitions":FloatArray(  ), "values":[  ] }
+tracks/2/type = "value"
+tracks/2/path = NodePath("Root/RUpperLeg/RLowerLeg/RFoot:transform/pos")
+tracks/2/interp = 1
+tracks/2/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( 3.74939, 921.513 ) ] }
+tracks/3/type = "value"
+tracks/3/path = NodePath("Root/RUpperLeg/RLowerLeg/RFoot:transform/rot")
+tracks/3/interp = 1
+tracks/3/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ -3.99821 ] }
+tracks/4/type = "value"
+tracks/4/path = NodePath("Root/RUpperLeg/RLowerLeg:transform/pos")
+tracks/4/interp = 1
+tracks/4/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( 12.5166, 890.56 ) ] }
+tracks/5/type = "value"
+tracks/5/path = NodePath("Root/RUpperLeg/RLowerLeg:transform/rot")
+tracks/5/interp = 1
+tracks/5/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ -70.9174 ] }
+tracks/6/type = "value"
+tracks/6/path = NodePath("Root/RUpperLeg:transform/pos")
+tracks/6/interp = 1
+tracks/6/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( 62.721, 607.965 ) ] }
+tracks/7/type = "value"
+tracks/7/path = NodePath("Root/RUpperLeg:transform/rot")
+tracks/7/interp = 1
+tracks/7/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ 55.4373 ] }
+tracks/8/type = "value"
+tracks/8/path = NodePath("Root/LUpperLeg/LLowerLeg/LFoot:transform/pos")
+tracks/8/interp = 1
+tracks/8/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( 3.75, 921.517 ) ] }
+tracks/9/type = "value"
+tracks/9/path = NodePath("Root/LUpperLeg/LLowerLeg/LFoot:transform/rot")
+tracks/9/interp = 1
+tracks/9/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ -55.5252 ] }
+tracks/10/type = "value"
+tracks/10/path = NodePath("Root/LUpperLeg/LLowerLeg:transform/pos")
+tracks/10/interp = 1
+tracks/10/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( 12.5167, 890.561 ) ] }
+tracks/11/type = "value"
+tracks/11/path = NodePath("Root/LUpperLeg/LLowerLeg:transform/rot")
+tracks/11/interp = 1
+tracks/11/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ -6.65236 ] }
+tracks/12/type = "value"
+tracks/12/path = NodePath("Root/LUpperLeg:transform/pos")
+tracks/12/interp = 1
+tracks/12/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( -139.494, 612.509 ) ] }
+tracks/13/type = "value"
+tracks/13/path = NodePath("Root/LUpperLeg:transform/rot")
+tracks/13/interp = 1
+tracks/13/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ 10.6371 ] }
+tracks/14/type = "value"
+tracks/14/path = NodePath("Root/Torso/LUpperArm/LLowerArm/LHand:frame")
+tracks/14/interp = 1
+tracks/14/keys = { "cont":false, "times":FloatArray(  ), "transitions":FloatArray(  ), "values":[  ] }
+tracks/15/type = "value"
+tracks/15/path = NodePath("Root/Torso/LUpperArm/LLowerArm/LHand:transform/pos")
+tracks/15/interp = 1
+tracks/15/keys = { "cont":true, "times":FloatArray(  ), "transitions":FloatArray(  ), "values":[  ] }
+tracks/16/type = "value"
+tracks/16/path = NodePath("Root/Torso/LUpperArm/LLowerArm/LHand:transform/rot")
+tracks/16/interp = 1
+tracks/16/keys = { "cont":true, "times":FloatArray(  ), "transitions":FloatArray(  ), "values":[  ] }
+tracks/17/type = "value"
+tracks/17/path = NodePath("Root/Torso/LUpperArm/LLowerArm:transform/pos")
+tracks/17/interp = 1
+tracks/17/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( 532.066, 27.2646 ) ] }
+tracks/18/type = "value"
+tracks/18/path = NodePath("Root/Torso/LUpperArm/LLowerArm:transform/rot")
+tracks/18/interp = 1
+tracks/18/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ 105.583 ] }
+tracks/19/type = "value"
+tracks/19/path = NodePath("Root/Torso/LUpperArm:transform/pos")
+tracks/19/interp = 1
+tracks/19/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( -204.745, -639.611 ) ] }
+tracks/20/type = "value"
+tracks/20/path = NodePath("Root/Torso/LUpperArm:transform/rot")
+tracks/20/interp = 1
+tracks/20/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ -14.8513 ] }
+tracks/21/type = "value"
+tracks/21/path = NodePath("Root/Torso/RUpperArm/RLowerArm/RHand:transform/pos")
+tracks/21/interp = 1
+tracks/21/keys = { "cont":true, "times":FloatArray(  ), "transitions":FloatArray(  ), "values":[  ] }
+tracks/22/type = "value"
+tracks/22/path = NodePath("Root/Torso/RUpperArm/RLowerArm/RHand:transform/rot")
+tracks/22/interp = 1
+tracks/22/keys = { "cont":true, "times":FloatArray(  ), "transitions":FloatArray(  ), "values":[  ] }
+tracks/23/type = "value"
+tracks/23/path = NodePath("Root/Torso/RUpperArm/RLowerArm:transform/pos")
+tracks/23/interp = 1
+tracks/23/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( 532.066, 27.2646 ) ] }
+tracks/24/type = "value"
+tracks/24/path = NodePath("Root/Torso/RUpperArm/RLowerArm:transform/rot")
+tracks/24/interp = 1
+tracks/24/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ 61.11 ] }
+tracks/25/type = "value"
+tracks/25/path = NodePath("Root/Torso/RUpperArm:transform/pos")
+tracks/25/interp = 1
+tracks/25/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( 183.9, -571.943 ) ] }
+tracks/26/type = "value"
+tracks/26/path = NodePath("Root/Torso/RUpperArm:transform/rot")
+tracks/26/interp = 1
+tracks/26/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ 10.6024 ] }
+tracks/27/type = "value"
+tracks/27/path = NodePath("Root/Torso/RUpperArm/RLowerArm/RHand:frame")
+tracks/27/interp = 1
+tracks/27/keys = { "cont":false, "times":FloatArray(  ), "transitions":FloatArray(  ), "values":[  ] }
+tracks/28/type = "value"
+tracks/28/path = NodePath("Root:transform/pos")
+tracks/28/interp = 1
+tracks/28/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( 0, 68.4304 ) ] }
+tracks/29/type = "value"
+tracks/29/path = NodePath("Root:transform/rot")
+tracks/29/interp = 1
+tracks/29/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ -14.685 ] }
+
+[sub_resource type="Animation" id=9]
+
+resource/name = "idle"
+length = 1.0
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Root/RUpperLeg/RLowerLeg/RFoot/Position2D:transform/pos")
+tracks/0/interp = 1
+tracks/0/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( 154.513, 51.4429 ) ] }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Root/RUpperLeg/RLowerLeg/RFoot/Position2D:transform/rot")
+tracks/1/interp = 1
+tracks/1/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ 0.0 ] }
+tracks/2/type = "value"
+tracks/2/path = NodePath("Root/RUpperLeg/RLowerLeg/RFoot:transform/pos")
+tracks/2/interp = 1
+tracks/2/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( 3.74765, 921.517 ) ] }
+tracks/3/type = "value"
+tracks/3/path = NodePath("Root/RUpperLeg/RLowerLeg/RFoot:transform/rot")
+tracks/3/interp = 1
+tracks/3/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ 7.07636 ] }
+tracks/4/type = "value"
+tracks/4/path = NodePath("Root/RUpperLeg/RLowerLeg:transform/pos")
+tracks/4/interp = 1
+tracks/4/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( 12.5167, 890.561 ) ] }
+tracks/5/type = "value"
+tracks/5/path = NodePath("Root/RUpperLeg/RLowerLeg:transform/rot")
+tracks/5/interp = 1
+tracks/5/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ -13.729 ] }
+tracks/6/type = "value"
+tracks/6/path = NodePath("Root/RUpperLeg:transform/pos")
+tracks/6/interp = 1
+tracks/6/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( 62.721, 607.965 ) ] }
+tracks/7/type = "value"
+tracks/7/path = NodePath("Root/RUpperLeg:transform/rot")
+tracks/7/interp = 1
+tracks/7/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ 7.92418 ] }
+tracks/8/type = "value"
+tracks/8/path = NodePath("Sprite:transform/pos")
+tracks/8/interp = 1
+tracks/8/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( 438.255, 2526.86 ) ] }
+tracks/9/type = "value"
+tracks/9/path = NodePath("Sprite:transform/rot")
+tracks/9/interp = 1
+tracks/9/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ 0.0 ] }
+tracks/10/type = "value"
+tracks/10/path = NodePath("Root:transform/pos")
+tracks/10/interp = 1
+tracks/10/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( 1.09275e-05, 18.3334 ) ] }
+tracks/11/type = "value"
+tracks/11/path = NodePath("Root:transform/rot")
+tracks/11/interp = 1
+tracks/11/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ -1.72121 ] }
+tracks/12/type = "value"
+tracks/12/path = NodePath("Root/RUpperLeg/RLowerLegPatch:transform/pos")
+tracks/12/interp = 1
+tracks/12/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( 10.5475, 888.321 ) ] }
+tracks/13/type = "value"
+tracks/13/path = NodePath("Root/RUpperLeg/RLowerLegPatch:transform/rot")
+tracks/13/interp = 1
+tracks/13/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ 0.0 ] }
+tracks/14/type = "value"
+tracks/14/path = NodePath("Root/Torso:transform/pos")
+tracks/14/interp = 1
+tracks/14/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( 42.7659, 374.552 ) ] }
+tracks/15/type = "value"
+tracks/15/path = NodePath("Root/Torso:transform/rot")
+tracks/15/interp = 1
+tracks/15/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ 0.0 ] }
+tracks/16/type = "value"
+tracks/16/path = NodePath("Root/Torso/Neck:transform/pos")
+tracks/16/interp = 1
+tracks/16/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( -6.40143, -783.005 ) ] }
+tracks/17/type = "value"
+tracks/17/path = NodePath("Root/Torso/Neck:transform/rot")
+tracks/17/interp = 1
+tracks/17/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ 0.0 ] }
+tracks/18/type = "value"
+tracks/18/path = NodePath("Root/Torso/Neck/NeckBase:transform/pos")
+tracks/18/interp = 1
+tracks/18/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( -5.04898, -17.2093 ) ] }
+tracks/19/type = "value"
+tracks/19/path = NodePath("Root/Torso/Neck/NeckBase:transform/rot")
+tracks/19/interp = 1
+tracks/19/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ 0.0 ] }
+tracks/20/type = "value"
+tracks/20/path = NodePath("Root/Torso/Neck/NeckBase/HeadShape:transform/pos")
+tracks/20/interp = 1
+tracks/20/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( -4.96213, -178.333 ) ] }
+tracks/21/type = "value"
+tracks/21/path = NodePath("Root/Torso/Neck/NeckBase/HeadShape:transform/rot")
+tracks/21/interp = 1
+tracks/21/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ 0.0 ] }
+tracks/22/type = "value"
+tracks/22/path = NodePath("Root/Torso/Neck/NeckBase/HeadShape/Nose:transform/pos")
+tracks/22/interp = 1
+tracks/22/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( 264.132, -143.631 ) ] }
+tracks/23/type = "value"
+tracks/23/path = NodePath("Root/Torso/Neck/NeckBase/HeadShape/Nose:transform/rot")
+tracks/23/interp = 1
+tracks/23/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ 0.0 ] }
+tracks/24/type = "value"
+tracks/24/path = NodePath("Root/Torso/Neck/NeckBase/HeadShape/EyeBase:transform/pos")
+tracks/24/interp = 1
+tracks/24/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( 173.161, -267.314 ) ] }
+tracks/25/type = "value"
+tracks/25/path = NodePath("Root/Torso/Neck/NeckBase/HeadShape/EyeBase:transform/rot")
+tracks/25/interp = 1
+tracks/25/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ 0.0 ] }
+tracks/26/type = "value"
+tracks/26/path = NodePath("Root/Torso/Neck/NeckBase/HeadShape/EyeBase/EyeColorR:transform/pos")
+tracks/26/interp = 1
+tracks/26/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( -54.9132, -12.8598 ) ] }
+tracks/27/type = "value"
+tracks/27/path = NodePath("Root/Torso/Neck/NeckBase/HeadShape/EyeBase/EyeColorR:transform/rot")
+tracks/27/interp = 1
+tracks/27/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ 0.0 ] }
+tracks/28/type = "value"
+tracks/28/path = NodePath("Root/Torso/Neck/NeckBase/HeadShape/EyeBase/EyeWhiteR:transform/pos")
+tracks/28/interp = 1
+tracks/28/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( -67.1494, -29.4584 ) ] }
+tracks/29/type = "value"
+tracks/29/path = NodePath("Root/Torso/Neck/NeckBase/HeadShape/EyeBase/EyeWhiteR:transform/rot")
+tracks/29/interp = 1
+tracks/29/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ 0.0 ] }
+tracks/30/type = "value"
+tracks/30/path = NodePath("Root/Torso/Neck/NeckBase/HeadShape/EyeBase/EyeColorL:transform/pos")
+tracks/30/interp = 1
+tracks/30/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( 137.464, -12.0653 ) ] }
+tracks/31/type = "value"
+tracks/31/path = NodePath("Root/Torso/Neck/NeckBase/HeadShape/EyeBase/EyeColorL:transform/rot")
+tracks/31/interp = 1
+tracks/31/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ 0.0 ] }
+tracks/32/type = "value"
+tracks/32/path = NodePath("Root/Torso/Neck/NeckBase/HeadShape/EyeBase/EyeWhiteL:transform/pos")
+tracks/32/interp = 1
+tracks/32/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( 135.683, -28.6537 ) ] }
+tracks/33/type = "value"
+tracks/33/path = NodePath("Root/Torso/Neck/NeckBase/HeadShape/EyeBase/EyeWhiteL:transform/rot")
+tracks/33/interp = 1
+tracks/33/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ 0.0 ] }
+tracks/34/type = "value"
+tracks/34/path = NodePath("Root/Torso/Neck/NeckBase/HeadShape/Mouth:transform/pos")
+tracks/34/interp = 1
+tracks/34/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( 242.969, -44.0455 ) ] }
+tracks/35/type = "value"
+tracks/35/path = NodePath("Root/Torso/Neck/NeckBase/HeadShape/Mouth:transform/rot")
+tracks/35/interp = 1
+tracks/35/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ 5.59309 ] }
+tracks/36/type = "value"
+tracks/36/path = NodePath("Root/Torso/Neck/NeckBase/HeadShape/HairBack:transform/pos")
+tracks/36/interp = 1
+tracks/36/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( -67.9328, 134.534 ) ] }
+tracks/37/type = "value"
+tracks/37/path = NodePath("Root/Torso/Neck/NeckBase/HeadShape/HairBack:transform/rot")
+tracks/37/interp = 1
+tracks/37/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ 0.0 ] }
+tracks/38/type = "value"
+tracks/38/path = NodePath("Root/Torso/Neck/NeckBase/HeadShape/EyeBrows:transform/pos")
+tracks/38/interp = 1
+tracks/38/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( 211.546, -444.307 ) ] }
+tracks/39/type = "value"
+tracks/39/path = NodePath("Root/Torso/Neck/NeckBase/HeadShape/EyeBrows:transform/rot")
+tracks/39/interp = 1
+tracks/39/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ 0.0 ] }
+tracks/40/type = "value"
+tracks/40/path = NodePath("Root/Torso/Neck/NeckBase/HeadShape/Hair:transform/pos")
+tracks/40/interp = 1
+tracks/40/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( -87.3115, -573.729 ) ] }
+tracks/41/type = "value"
+tracks/41/path = NodePath("Root/Torso/Neck/NeckBase/HeadShape/Hair:transform/rot")
+tracks/41/interp = 1
+tracks/41/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ 89.7086 ] }
+tracks/42/type = "value"
+tracks/42/path = NodePath("Root/Torso/Neck/NeckBase/HeadShape/Hair2:transform/pos")
+tracks/42/interp = 1
+tracks/42/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( 280.571, 172.372 ) ] }
+tracks/43/type = "value"
+tracks/43/path = NodePath("Root/Torso/Neck/NeckBase/HeadShape/Hair2:transform/rot")
+tracks/43/interp = 1
+tracks/43/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ -85.431 ] }
+tracks/44/type = "value"
+tracks/44/path = NodePath("Root/Torso/Neck/NeckBase/HeadShape/HatTop:transform/pos")
+tracks/44/interp = 1
+tracks/44/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( -871.871, -331.831 ) ] }
+tracks/45/type = "value"
+tracks/45/path = NodePath("Root/Torso/Neck/NeckBase/HeadShape/HatTop:transform/rot")
+tracks/45/interp = 1
+tracks/45/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ 7.01325 ] }
+tracks/46/type = "value"
+tracks/46/path = NodePath("Root/Torso/Neck/NeckBase/HeadShape/HatTop/HatBack:transform/pos")
+tracks/46/interp = 1
+tracks/46/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( -1.6875, 21.3046 ) ] }
+tracks/47/type = "value"
+tracks/47/path = NodePath("Root/Torso/Neck/NeckBase/HeadShape/HatTop/HatBack:transform/rot")
+tracks/47/interp = 1
+tracks/47/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ 1.92938 ] }
+tracks/48/type = "value"
+tracks/48/path = NodePath("Root/Torso/Neck/NeckBase/HeadShape/Position2D:transform/pos")
+tracks/48/interp = 1
+tracks/48/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( 75.2178, -449.835 ) ] }
+tracks/49/type = "value"
+tracks/49/path = NodePath("Root/Torso/Neck/NeckBase/HeadShape/Position2D:transform/rot")
+tracks/49/interp = 1
+tracks/49/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ 0.0 ] }
+tracks/50/type = "value"
+tracks/50/path = NodePath("Root/Torso/RUpperArm:transform/pos")
+tracks/50/interp = 1
+tracks/50/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( 183.9, -571.943 ) ] }
+tracks/51/type = "value"
+tracks/51/path = NodePath("Root/Torso/RUpperArm:transform/rot")
+tracks/51/interp = 1
+tracks/51/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ -122.085 ] }
+tracks/52/type = "value"
+tracks/52/path = NodePath("Root/Torso/RUpperArm/RLowerArm:transform/pos")
+tracks/52/interp = 1
+tracks/52/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( 532.066, 27.2646 ) ] }
+tracks/53/type = "value"
+tracks/53/path = NodePath("Root/Torso/RUpperArm/RLowerArm:transform/rot")
+tracks/53/interp = 1
+tracks/53/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ 48.399 ] }
+tracks/54/type = "value"
+tracks/54/path = NodePath("Root/Torso/RUpperArm/RLowerArm/RHand:transform/pos")
+tracks/54/interp = 1
+tracks/54/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( 511.766, 30.1343 ) ] }
+tracks/55/type = "value"
+tracks/55/path = NodePath("Root/Torso/RUpperArm/RLowerArm/RHand:transform/rot")
+tracks/55/interp = 1
+tracks/55/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ 82.4075 ] }
+tracks/56/type = "value"
+tracks/56/path = NodePath("Root/Torso/RUpperArm/RLowerArm/RHand/RArmEnd:transform/pos")
+tracks/56/interp = 1
+tracks/56/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( 7.30371, 326.714 ) ] }
+tracks/57/type = "value"
+tracks/57/path = NodePath("Root/Torso/RUpperArm/RLowerArm/RHand/RArmEnd:transform/rot")
+tracks/57/interp = 1
+tracks/57/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ 0.0 ] }
+tracks/58/type = "value"
+tracks/58/path = NodePath("Root/Torso/LUpperArm:transform/pos")
+tracks/58/interp = 1
+tracks/58/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( -204.745, -639.611 ) ] }
+tracks/59/type = "value"
+tracks/59/path = NodePath("Root/Torso/LUpperArm:transform/rot")
+tracks/59/interp = 1
+tracks/59/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ -100.62 ] }
+tracks/60/type = "value"
+tracks/60/path = NodePath("Root/Torso/LUpperArm/LLowerArm:transform/pos")
+tracks/60/interp = 1
+tracks/60/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( 532.066, 27.2646 ) ] }
+tracks/61/type = "value"
+tracks/61/path = NodePath("Root/Torso/LUpperArm/LLowerArm:transform/rot")
+tracks/61/interp = 1
+tracks/61/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ 21.8318 ] }
+tracks/62/type = "value"
+tracks/62/path = NodePath("Root/Torso/LUpperArm/LLowerArm/LHand:transform/pos")
+tracks/62/interp = 1
+tracks/62/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( 529.391, 16.445 ) ] }
+tracks/63/type = "value"
+tracks/63/path = NodePath("Root/Torso/LUpperArm/LLowerArm/LHand:transform/rot")
+tracks/63/interp = 1
+tracks/63/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ 66.8966 ] }
+tracks/64/type = "value"
+tracks/64/path = NodePath("Root/Torso/LUpperArm/LLowerArm/LHand/LArmEnd:transform/pos")
+tracks/64/interp = 1
+tracks/64/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( 58.4996, 323.813 ) ] }
+tracks/65/type = "value"
+tracks/65/path = NodePath("Root/Torso/LUpperArm/LLowerArm/LHand/LArmEnd:transform/rot")
+tracks/65/interp = 1
+tracks/65/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ 0.0 ] }
+tracks/66/type = "value"
+tracks/66/path = NodePath("Root/LUpperLeg:transform/pos")
+tracks/66/interp = 1
+tracks/66/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( -139.494, 612.509 ) ] }
+tracks/67/type = "value"
+tracks/67/path = NodePath("Root/LUpperLeg:transform/rot")
+tracks/67/interp = 1
+tracks/67/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ -2.03021 ] }
+tracks/68/type = "value"
+tracks/68/path = NodePath("Root/LUpperLeg/LLowerLegPatch:transform/pos")
+tracks/68/interp = 1
+tracks/68/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( 10.5475, 888.321 ) ] }
+tracks/69/type = "value"
+tracks/69/path = NodePath("Root/LUpperLeg/LLowerLegPatch:transform/rot")
+tracks/69/interp = 1
+tracks/69/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ 0.0 ] }
+tracks/70/type = "value"
+tracks/70/path = NodePath("Root/LUpperLeg/LLowerLeg:transform/pos")
+tracks/70/interp = 1
+tracks/70/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( 12.5167, 890.561 ) ] }
+tracks/71/type = "value"
+tracks/71/path = NodePath("Root/LUpperLeg/LLowerLeg:transform/rot")
+tracks/71/interp = 1
+tracks/71/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ -5.00855 ] }
+tracks/72/type = "value"
+tracks/72/path = NodePath("Root/LUpperLeg/LLowerLeg/LFoot:transform/pos")
+tracks/72/interp = 1
+tracks/72/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( 3.7482, 921.519 ) ] }
+tracks/73/type = "value"
+tracks/73/path = NodePath("Root/LUpperLeg/LLowerLeg/LFoot:transform/rot")
+tracks/73/interp = 1
+tracks/73/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ 9.70206 ] }
+tracks/74/type = "value"
+tracks/74/path = NodePath("Root/LUpperLeg/LLowerLeg/LFoot/Position2D:transform/pos")
+tracks/74/interp = 1
+tracks/74/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( 157.938, 51.4429 ) ] }
+tracks/75/type = "value"
+tracks/75/path = NodePath("Root/LUpperLeg/LLowerLeg/LFoot/Position2D:transform/rot")
+tracks/75/interp = 1
+tracks/75/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ 0.0 ] }
+tracks/76/type = "value"
+tracks/76/path = NodePath("Root/Skirt:transform/pos")
+tracks/76/interp = 1
+tracks/76/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( 27.4548, 423.617 ) ] }
+tracks/77/type = "value"
+tracks/77/path = NodePath("Root/Skirt:transform/rot")
+tracks/77/interp = 1
+tracks/77/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ 0.0 ] }
+
+[sub_resource type="Animation" id=3]
+
+resource/name = "jump"
+length = 1.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Root/Skirt:transform/pos")
+tracks/0/interp = 1
+tracks/0/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( 27.4548, 423.617 ) ] }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Root/Skirt:transform/rot")
+tracks/1/interp = 1
+tracks/1/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ 16.829 ] }
+tracks/2/type = "value"
+tracks/2/path = NodePath("Root/RUpperLeg/RLowerLeg/RFoot:transform/pos")
+tracks/2/interp = 1
+tracks/2/keys = { "cont":true, "times":FloatArray( 0, 0.1, 0.4 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ Vector2( 3.74866, 921.514 ), Vector2( 3.74841, 921.514 ), Vector2( 3.74939, 921.513 ) ] }
+tracks/3/type = "value"
+tracks/3/path = NodePath("Root/RUpperLeg/RLowerLeg/RFoot:transform/rot")
+tracks/3/interp = 1
+tracks/3/keys = { "cont":true, "times":FloatArray( 0, 0.1, 0.4 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ -21.6718, 16.0935, -3.99821 ] }
+tracks/4/type = "value"
+tracks/4/path = NodePath("Root/RUpperLeg/RLowerLeg:transform/pos")
+tracks/4/interp = 1
+tracks/4/keys = { "cont":true, "times":FloatArray( 0, 0.1, 0.4 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ Vector2( 12.5166, 890.56 ), Vector2( 12.5166, 890.56 ), Vector2( 12.5166, 890.56 ) ] }
+tracks/5/type = "value"
+tracks/5/path = NodePath("Root/RUpperLeg/RLowerLeg:transform/rot")
+tracks/5/interp = 1
+tracks/5/keys = { "cont":true, "times":FloatArray( 0, 0.1, 0.4 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ -58.0488, -88.2706, -70.9174 ] }
+tracks/6/type = "value"
+tracks/6/path = NodePath("Root/RUpperLeg:transform/pos")
+tracks/6/interp = 1
+tracks/6/keys = { "cont":true, "times":FloatArray( 0, 0.1, 0.4 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ Vector2( 62.721, 607.965 ), Vector2( 62.721, 607.965 ), Vector2( 62.721, 607.965 ) ] }
+tracks/7/type = "value"
+tracks/7/path = NodePath("Root/RUpperLeg:transform/rot")
+tracks/7/interp = 1
+tracks/7/keys = { "cont":true, "times":FloatArray( 0, 0.1, 0.4 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ 39.8052, 52.6989, 55.4373 ] }
+tracks/8/type = "value"
+tracks/8/path = NodePath("Root/LUpperLeg/LLowerLeg/LFoot:transform/pos")
+tracks/8/interp = 1
+tracks/8/keys = { "cont":true, "times":FloatArray( 0, 0.1, 0.4 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ Vector2( 3.74994, 921.518 ), Vector2( 3.75, 921.517 ), Vector2( 3.75, 921.517 ) ] }
+tracks/9/type = "value"
+tracks/9/path = NodePath("Root/LUpperLeg/LLowerLeg/LFoot:transform/rot")
+tracks/9/interp = 1
+tracks/9/keys = { "cont":true, "times":FloatArray( 0, 0.1, 0.4 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ 19.8697, 22.0973, -55.5252 ] }
+tracks/10/type = "value"
+tracks/10/path = NodePath("Root/LUpperLeg/LLowerLeg:transform/pos")
+tracks/10/interp = 1
+tracks/10/keys = { "cont":true, "times":FloatArray( 0, 0.1, 0.4 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ Vector2( 12.5167, 890.561 ), Vector2( 12.5167, 890.561 ), Vector2( 12.5167, 890.561 ) ] }
+tracks/11/type = "value"
+tracks/11/path = NodePath("Root/LUpperLeg/LLowerLeg:transform/rot")
+tracks/11/interp = 1
+tracks/11/keys = { "cont":true, "times":FloatArray( 0, 0.1, 0.4 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ -29.211, -25.1364, -6.65236 ] }
+tracks/12/type = "value"
+tracks/12/path = NodePath("Root/LUpperLeg:transform/pos")
+tracks/12/interp = 1
+tracks/12/keys = { "cont":true, "times":FloatArray( 0, 0.1, 0.4 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ Vector2( -139.494, 612.509 ), Vector2( -139.494, 612.509 ), Vector2( -139.494, 612.509 ) ] }
+tracks/13/type = "value"
+tracks/13/path = NodePath("Root/LUpperLeg:transform/rot")
+tracks/13/interp = 1
+tracks/13/keys = { "cont":true, "times":FloatArray( 0, 0.1, 0.4 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ 18.4095, 12.1073, 10.6371 ] }
+tracks/14/type = "value"
+tracks/14/path = NodePath("Root/Torso/LUpperArm/LLowerArm/LHand:frame")
+tracks/14/interp = 1
+tracks/14/keys = { "cont":false, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ 10 ] }
+tracks/15/type = "value"
+tracks/15/path = NodePath("Root/Torso/LUpperArm/LLowerArm/LHand:transform/pos")
+tracks/15/interp = 1
+tracks/15/keys = { "cont":true, "times":FloatArray( 0, 0.1 ), "transitions":FloatArray( 1, 1 ), "values":[ Vector2( 585.551, -4.29712 ), Vector2( 585.551, -4.29694 ) ] }
+tracks/16/type = "value"
+tracks/16/path = NodePath("Root/Torso/LUpperArm/LLowerArm/LHand:transform/rot")
+tracks/16/interp = 1
+tracks/16/keys = { "cont":true, "times":FloatArray( 0, 0.1 ), "transitions":FloatArray( 1, 1 ), "values":[ 113.447, 89.051 ] }
+tracks/17/type = "value"
+tracks/17/path = NodePath("Root/Torso/LUpperArm/LLowerArm:transform/pos")
+tracks/17/interp = 1
+tracks/17/keys = { "cont":true, "times":FloatArray( 0, 0.1, 0.4 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ Vector2( 532.066, 27.2646 ), Vector2( 532.066, 27.2646 ), Vector2( 532.066, 27.2646 ) ] }
+tracks/18/type = "value"
+tracks/18/path = NodePath("Root/Torso/LUpperArm/LLowerArm:transform/rot")
+tracks/18/interp = 1
+tracks/18/keys = { "cont":true, "times":FloatArray( 0, 0.1, 0.4 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ 75.6621, 76.4483, 95.1809 ] }
+tracks/19/type = "value"
+tracks/19/path = NodePath("Root/Torso/LUpperArm:transform/pos")
+tracks/19/interp = 1
+tracks/19/keys = { "cont":true, "times":FloatArray( 0, 0.1, 0.4 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ Vector2( -204.745, -639.611 ), Vector2( -204.745, -639.611 ), Vector2( -204.745, -639.611 ) ] }
+tracks/20/type = "value"
+tracks/20/path = NodePath("Root/Torso/LUpperArm:transform/rot")
+tracks/20/interp = 1
+tracks/20/keys = { "cont":true, "times":FloatArray( 0, 0.1, 0.4 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ -7.31804, 16.2913, -2.4413 ] }
+tracks/21/type = "value"
+tracks/21/path = NodePath("Root/Torso/RUpperArm/RLowerArm/RHand:transform/pos")
+tracks/21/interp = 1
+tracks/21/keys = { "cont":true, "times":FloatArray( 0, 0.1 ), "transitions":FloatArray( 1, 1 ), "values":[ Vector2( 513.713, 17.3532 ), Vector2( 513.712, 17.3534 ) ] }
+tracks/22/type = "value"
+tracks/22/path = NodePath("Root/Torso/RUpperArm/RLowerArm/RHand:transform/rot")
+tracks/22/interp = 1
+tracks/22/keys = { "cont":true, "times":FloatArray( 0, 0.1 ), "transitions":FloatArray( 1, 1 ), "values":[ 106.067, 90.4769 ] }
+tracks/23/type = "value"
+tracks/23/path = NodePath("Root/Torso/RUpperArm/RLowerArm:transform/pos")
+tracks/23/interp = 1
+tracks/23/keys = { "cont":true, "times":FloatArray( 0, 0.1, 0.4 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ Vector2( 532.066, 27.2646 ), Vector2( 532.066, 27.2646 ), Vector2( 532.066, 27.2646 ) ] }
+tracks/24/type = "value"
+tracks/24/path = NodePath("Root/Torso/RUpperArm/RLowerArm:transform/rot")
+tracks/24/interp = 1
+tracks/24/keys = { "cont":true, "times":FloatArray( 0, 0.1, 0.4 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ 70.9339, 66.3326, 89.0282 ] }
+tracks/25/type = "value"
+tracks/25/path = NodePath("Root/Torso/RUpperArm:transform/pos")
+tracks/25/interp = 1
+tracks/25/keys = { "cont":true, "times":FloatArray( 0, 0.1, 0.4 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ Vector2( 183.9, -571.943 ), Vector2( 183.9, -571.943 ), Vector2( 183.9, -571.943 ) ] }
+tracks/26/type = "value"
+tracks/26/path = NodePath("Root/Torso/RUpperArm:transform/rot")
+tracks/26/interp = 1
+tracks/26/keys = { "cont":true, "times":FloatArray( 0, 0.1, 0.4 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ 13.1061, 33.298, 10.6024 ] }
+tracks/27/type = "value"
+tracks/27/path = NodePath("Root/Torso/RUpperArm/RLowerArm/RHand:frame")
+tracks/27/interp = 1
+tracks/27/keys = { "cont":false, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ 10 ] }
+tracks/28/type = "value"
+tracks/28/path = NodePath("Root:transform/pos")
+tracks/28/interp = 1
+tracks/28/keys = { "cont":true, "times":FloatArray( 0, 0.1, 0.4 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ Vector2( 0, 68.4304 ), Vector2( 0, 68.4304 ), Vector2( 0, 68.4304 ) ] }
+tracks/29/type = "value"
+tracks/29/path = NodePath("Root:transform/rot")
+tracks/29/interp = 1
+tracks/29/keys = { "cont":true, "times":FloatArray( 0, 0.1, 0.4 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ -3.82828, -7.74322, -14.685 ] }
+
+[sub_resource type="Animation" id=4]
+
+resource/name = "land"
+length = 0.45
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Root/LUpperLeg/LLowerLeg/LFoot:transform/pos")
+tracks/0/interp = 1
+tracks/0/keys = { "cont":true, "times":FloatArray( 0, 0.1, 0.4 ), "transitions":FloatArray( 4, 0.25, 4 ), "values":[ Vector2( 3.74756, 921.518 ), Vector2( 3.74805, 921.517 ), Vector2( 3.7478, 921.517 ) ] }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Root/LUpperLeg/LLowerLeg/LFoot:transform/rot")
+tracks/1/interp = 1
+tracks/1/keys = { "cont":true, "times":FloatArray( 0, 0.1, 0.3 ), "transitions":FloatArray( 4, -4, 4 ), "values":[ 50.5879, 64.9885, 48.5172 ] }
+tracks/2/type = "value"
+tracks/2/path = NodePath("Root/LUpperLeg/LLowerLeg:transform/pos")
+tracks/2/interp = 1
+tracks/2/keys = { "cont":true, "times":FloatArray( 0, 0.1, 0.3 ), "transitions":FloatArray( 4, -4, 4 ), "values":[ Vector2( 12.5167, 890.561 ), Vector2( 12.5167, 890.561 ), Vector2( 12.5167, 890.561 ) ] }
+tracks/3/type = "value"
+tracks/3/path = NodePath("Root/LUpperLeg/LLowerLeg:transform/rot")
+tracks/3/interp = 1
+tracks/3/keys = { "cont":true, "times":FloatArray( 0, 0.1, 0.3 ), "transitions":FloatArray( 4, -4, 4 ), "values":[ -98.5949, -90.6873, -69.0849 ] }
+tracks/4/type = "value"
+tracks/4/path = NodePath("Root/LUpperLeg:transform/pos")
+tracks/4/interp = 1
+tracks/4/keys = { "cont":true, "times":FloatArray( 0, 0.1, 0.3 ), "transitions":FloatArray( 4, -4, 4 ), "values":[ Vector2( -139.494, 612.509 ), Vector2( -139.494, 612.509 ), Vector2( -139.494, 612.509 ) ] }
+tracks/5/type = "value"
+tracks/5/path = NodePath("Root/LUpperLeg:transform/rot")
+tracks/5/interp = 1
+tracks/5/keys = { "cont":true, "times":FloatArray( 0, 0.1, 0.3 ), "transitions":FloatArray( 4, -4, 4 ), "values":[ 78.4853, 75.4121, 78.4531 ] }
+tracks/6/type = "value"
+tracks/6/path = NodePath("Root/RUpperLeg/RLowerLeg/RFoot:transform/pos")
+tracks/6/interp = 1
+tracks/6/keys = { "cont":true, "times":FloatArray( 0, 0.1, 0.3 ), "transitions":FloatArray( 4, -4, 4 ), "values":[ Vector2( 3.74683, 921.516 ), Vector2( 3.74719, 921.517 ), Vector2( 3.74707, 921.517 ) ] }
+tracks/7/type = "value"
+tracks/7/path = NodePath("Root/RUpperLeg/RLowerLeg/RFoot:transform/rot")
+tracks/7/interp = 1
+tracks/7/keys = { "cont":true, "times":FloatArray( 0, 0.1, 0.3 ), "transitions":FloatArray( 4, -4, 4 ), "values":[ 53.963, 33.0433, 32.1154 ] }
+tracks/8/type = "value"
+tracks/8/path = NodePath("Root/RUpperLeg/RLowerLeg:transform/pos")
+tracks/8/interp = 1
+tracks/8/keys = { "cont":true, "times":FloatArray( 0, 0.1, 0.3 ), "transitions":FloatArray( 4, -4, 4 ), "values":[ Vector2( 12.5167, 890.561 ), Vector2( 12.5167, 890.561 ), Vector2( 12.5167, 890.561 ) ] }
+tracks/9/type = "value"
+tracks/9/path = NodePath("Root/RUpperLeg/RLowerLeg:transform/rot")
+tracks/9/interp = 1
+tracks/9/keys = { "cont":true, "times":FloatArray( 0, 0.1, 0.3 ), "transitions":FloatArray( 4, -4, 4 ), "values":[ -117.807, -108.748, -84.8552 ] }
+tracks/10/type = "value"
+tracks/10/path = NodePath("Root/RUpperLeg:transform/pos")
+tracks/10/interp = 1
+tracks/10/keys = { "cont":true, "times":FloatArray( 0, 0.1, 0.3 ), "transitions":FloatArray( 4, -4, 4 ), "values":[ Vector2( 62.721, 607.965 ), Vector2( 62.721, 607.965 ), Vector2( 62.721, 607.965 ) ] }
+tracks/11/type = "value"
+tracks/11/path = NodePath("Root/RUpperLeg:transform/rot")
+tracks/11/interp = 1
+tracks/11/keys = { "cont":true, "times":FloatArray( 0, 0.1, 0.3 ), "transitions":FloatArray( 4, -4, 4 ), "values":[ 113.964, 132.122, 109.157 ] }
+tracks/12/type = "value"
+tracks/12/path = NodePath("Root/Torso/LUpperArm/LLowerArm/LHand:transform/pos")
+tracks/12/interp = 1
+tracks/12/keys = { "cont":true, "times":FloatArray( 0, 0.1 ), "transitions":FloatArray( 4, -4 ), "values":[ Vector2( 529.391, 16.445 ), Vector2( 529.39, 16.4451 ) ] }
+tracks/13/type = "value"
+tracks/13/path = NodePath("Root/Torso/LUpperArm/LLowerArm/LHand:transform/rot")
+tracks/13/interp = 1
+tracks/13/keys = { "cont":true, "times":FloatArray( 0, 0.1 ), "transitions":FloatArray( 4, -4 ), "values":[ 66.8966, 84.6989 ] }
+tracks/14/type = "value"
+tracks/14/path = NodePath("Root/Torso/LUpperArm/LLowerArm:transform/pos")
+tracks/14/interp = 1
+tracks/14/keys = { "cont":true, "times":FloatArray( 0, 0.1 ), "transitions":FloatArray( 4, -4 ), "values":[ Vector2( 532.066, 27.2646 ), Vector2( 532.066, 27.2646 ) ] }
+tracks/15/type = "value"
+tracks/15/path = NodePath("Root/Torso/LUpperArm/LLowerArm:transform/rot")
+tracks/15/interp = 1
+tracks/15/keys = { "cont":true, "times":FloatArray( 0, 0.1 ), "transitions":FloatArray( 4, -4 ), "values":[ 21.8318, 60.7797 ] }
+tracks/16/type = "value"
+tracks/16/path = NodePath("Root/Torso/LUpperArm:transform/pos")
+tracks/16/interp = 1
+tracks/16/keys = { "cont":true, "times":FloatArray( 0, 0.1 ), "transitions":FloatArray( 4, -4 ), "values":[ Vector2( -204.745, -639.611 ), Vector2( -204.745, -639.611 ) ] }
+tracks/17/type = "value"
+tracks/17/path = NodePath("Root/Torso/LUpperArm:transform/rot")
+tracks/17/interp = 1
+tracks/17/keys = { "cont":true, "times":FloatArray( 0, 0.1 ), "transitions":FloatArray( 4, -4 ), "values":[ -100.62, -102.517 ] }
+tracks/18/type = "value"
+tracks/18/path = NodePath("Root/Torso/RUpperArm/RLowerArm/RHand:transform/pos")
+tracks/18/interp = 1
+tracks/18/keys = { "cont":true, "times":FloatArray( 0, 0.1 ), "transitions":FloatArray( 4, -4 ), "values":[ Vector2( 511.766, 30.1343 ), Vector2( 511.766, 30.1343 ) ] }
+tracks/19/type = "value"
+tracks/19/path = NodePath("Root/Torso/RUpperArm/RLowerArm/RHand:transform/rot")
+tracks/19/interp = 1
+tracks/19/keys = { "cont":true, "times":FloatArray( 0, 0.1 ), "transitions":FloatArray( 4, -4 ), "values":[ 82.4075, 92.1337 ] }
+tracks/20/type = "value"
+tracks/20/path = NodePath("Root/Torso/RUpperArm/RLowerArm:transform/pos")
+tracks/20/interp = 1
+tracks/20/keys = { "cont":true, "times":FloatArray( 0, 0.1 ), "transitions":FloatArray( 4, -4 ), "values":[ Vector2( 532.066, 27.2646 ), Vector2( 532.066, 27.2646 ) ] }
+tracks/21/type = "value"
+tracks/21/path = NodePath("Root/Torso/RUpperArm/RLowerArm:transform/rot")
+tracks/21/interp = 1
+tracks/21/keys = { "cont":true, "times":FloatArray( 0, 0.1 ), "transitions":FloatArray( 4, -4 ), "values":[ 48.399, 67.7315 ] }
+tracks/22/type = "value"
+tracks/22/path = NodePath("Root/Torso/RUpperArm:transform/pos")
+tracks/22/interp = 1
+tracks/22/keys = { "cont":true, "times":FloatArray( 0, 0.1 ), "transitions":FloatArray( 4, -4 ), "values":[ Vector2( 183.9, -571.943 ), Vector2( 183.9, -571.943 ) ] }
+tracks/23/type = "value"
+tracks/23/path = NodePath("Root/Torso/RUpperArm:transform/rot")
+tracks/23/interp = 1
+tracks/23/keys = { "cont":true, "times":FloatArray( 0, 0.1 ), "transitions":FloatArray( 4, -4 ), "values":[ -122.085, -111.188 ] }
+tracks/24/type = "value"
+tracks/24/path = NodePath("Root/Torso:transform/pos")
+tracks/24/interp = 1
+tracks/24/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 4 ), "values":[ Vector2( 42.7659, 374.552 ) ] }
+tracks/25/type = "value"
+tracks/25/path = NodePath("Root/Torso:transform/rot")
+tracks/25/interp = 1
+tracks/25/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 4 ), "values":[ 25.9269 ] }
+tracks/26/type = "value"
+tracks/26/path = NodePath("Root/Skirt:transform/pos")
+tracks/26/interp = 1
+tracks/26/keys = { "cont":true, "times":FloatArray( 0.1, 0.3 ), "transitions":FloatArray( -4, 4 ), "values":[ Vector2( 27.4548, 423.617 ), Vector2( 27.4548, 423.617 ) ] }
+tracks/27/type = "value"
+tracks/27/path = NodePath("Root/Skirt:transform/rot")
+tracks/27/interp = 1
+tracks/27/keys = { "cont":true, "times":FloatArray( 0.1, 0.3 ), "transitions":FloatArray( -4, 4 ), "values":[ 88.3857, 63.5951 ] }
+tracks/28/type = "value"
+tracks/28/path = NodePath("Root:transform/pos")
+tracks/28/interp = 1
+tracks/28/keys = { "cont":true, "times":FloatArray( 0, 0.1, 0.3 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ Vector2( 72, 551.985 ), Vector2( 72, 553.985 ), Vector2( 72, 385.985 ) ] }
+tracks/29/type = "value"
+tracks/29/path = NodePath("Root:transform/rot")
+tracks/29/interp = 1
+tracks/29/keys = { "cont":true, "times":FloatArray( 0, 0.1, 0.3 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ -55.2475, -55.2475, -55.2475 ] }
+tracks/30/type = "value"
+tracks/30/path = NodePath("Root/Torso/Neck/NeckBase/HeadShape:transform/pos")
+tracks/30/interp = 1
+tracks/30/keys = { "cont":true, "times":FloatArray( 0, 0.3 ), "transitions":FloatArray( 1, 4 ), "values":[ Vector2( -4.96213, -178.333 ), Vector2( -4.96213, -178.333 ) ] }
+tracks/31/type = "value"
+tracks/31/path = NodePath("Root/Torso/Neck/NeckBase/HeadShape:transform/rot")
+tracks/31/interp = 1
+tracks/31/keys = { "cont":true, "times":FloatArray( 0, 0.3 ), "transitions":FloatArray( 1, 4 ), "values":[ -7.22072, 16.6908 ] }
+tracks/32/type = "method"
+tracks/32/path = NodePath(".")
+tracks/32/interp = 1
+tracks/32/keys = { "times":FloatArray(  ), "transitions":FloatArray(  ), "values":[  ] }
+
+[sub_resource type="Animation" id=5]
+
+resource/name = "run"
+length = 1.0
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Root/Torso/LUpperArm:transform/rot")
+tracks/0/interp = 1
+tracks/0/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ -92.1494 ] }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Root/Torso/LUpperArm:transform/pos")
+tracks/1/interp = 1
+tracks/1/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( -204.745, -639.611 ) ] }
+tracks/2/type = "value"
+tracks/2/path = NodePath("Root/Torso/LUpperArm/LLowerArm:transform/rot")
+tracks/2/interp = 1
+tracks/2/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ 102.515 ] }
+tracks/3/type = "value"
+tracks/3/path = NodePath("Root/Torso/LUpperArm/LLowerArm:transform/pos")
+tracks/3/interp = 1
+tracks/3/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( 532.066, 27.2646 ) ] }
+tracks/4/type = "value"
+tracks/4/path = NodePath("Root/Torso/LUpperArm/LLowerArm/LHand:transform/rot")
+tracks/4/interp = 1
+tracks/4/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ 59.5566 ] }
+tracks/5/type = "value"
+tracks/5/path = NodePath("Root/Torso/LUpperArm/LLowerArm/LHand:transform/pos")
+tracks/5/interp = 1
+tracks/5/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( 529.39, 16.4449 ) ] }
+tracks/6/type = "value"
+tracks/6/path = NodePath("Root/RUpperLeg:transform/rot")
+tracks/6/interp = 1
+tracks/6/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.4 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ -0.505159, -5.30658, 17.5191 ] }
+tracks/7/type = "value"
+tracks/7/path = NodePath("Root/RUpperLeg:transform/pos")
+tracks/7/interp = 1
+tracks/7/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.4 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ Vector2( 62.721, 607.965 ), Vector2( 62.721, 607.965 ), Vector2( 62.721, 607.965 ) ] }
+tracks/8/type = "value"
+tracks/8/path = NodePath("Root/RUpperLeg/RLowerLeg:transform/rot")
+tracks/8/interp = 1
+tracks/8/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.4 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ -17.6322, -6.2737, -53.4168 ] }
+tracks/9/type = "value"
+tracks/9/path = NodePath("Root/RUpperLeg/RLowerLeg:transform/pos")
+tracks/9/interp = 1
+tracks/9/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.4 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ Vector2( 12.5167, 890.561 ), Vector2( 12.5167, 890.561 ), Vector2( 12.5167, 890.561 ) ] }
+tracks/10/type = "value"
+tracks/10/path = NodePath("Root/RUpperLeg/RLowerLeg/RFoot:transform/rot")
+tracks/10/interp = 1
+tracks/10/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.4 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ 13.3501, -2.09786, 24.4423 ] }
+tracks/11/type = "value"
+tracks/11/path = NodePath("Root/RUpperLeg/RLowerLeg/RFoot:transform/pos")
+tracks/11/interp = 1
+tracks/11/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.4 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ Vector2( 3.74744, 921.515 ), Vector2( 3.74728, 921.515 ), Vector2( 3.74805, 921.514 ) ] }
+tracks/12/type = "value"
+tracks/12/path = NodePath("Root:transform/rot")
+tracks/12/interp = 1
+tracks/12/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.4 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ -7.14124, -13.1527, -11.6498 ] }
+tracks/13/type = "value"
+tracks/13/path = NodePath("Root:transform/pos")
+tracks/13/interp = 1
+tracks/13/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.4 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ Vector2( 125.839, 56.7202 ), Vector2( 243.647, 51.0004 ), Vector2( 214.195, 106.43 ) ] }
+tracks/14/type = "value"
+tracks/14/path = NodePath("Root/Torso/RUpperArm:transform/rot")
+tracks/14/interp = 1
+tracks/14/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ -90.412 ] }
+tracks/15/type = "value"
+tracks/15/path = NodePath("Root/Torso/RUpperArm:transform/pos")
+tracks/15/interp = 1
+tracks/15/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( 183.9, -571.943 ) ] }
+tracks/16/type = "value"
+tracks/16/path = NodePath("Root/Torso/RUpperArm/RLowerArm:transform/rot")
+tracks/16/interp = 1
+tracks/16/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ 7.33093 ] }
+tracks/17/type = "value"
+tracks/17/path = NodePath("Root/Torso/RUpperArm/RLowerArm:transform/pos")
+tracks/17/interp = 1
+tracks/17/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( 532.066, 27.2646 ) ] }
+tracks/18/type = "value"
+tracks/18/path = NodePath("Root/Torso/RUpperArm/RLowerArm/RHand:transform/rot")
+tracks/18/interp = 1
+tracks/18/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ 103.493 ] }
+tracks/19/type = "value"
+tracks/19/path = NodePath("Root/Torso/RUpperArm/RLowerArm/RHand:transform/pos")
+tracks/19/interp = 1
+tracks/19/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( 511.765, 30.1342 ) ] }
+tracks/20/type = "value"
+tracks/20/path = NodePath("Root/LUpperLeg:transform/rot")
+tracks/20/interp = 1
+tracks/20/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.4 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ 35.8003, 38.6491, 36.3455 ] }
+tracks/21/type = "value"
+tracks/21/path = NodePath("Root/LUpperLeg:transform/pos")
+tracks/21/interp = 1
+tracks/21/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.4 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ Vector2( -139.494, 612.509 ), Vector2( -139.494, 612.509 ), Vector2( -139.494, 612.509 ) ] }
+tracks/22/type = "value"
+tracks/22/path = NodePath("Root/LUpperLeg/LLowerLeg:transform/rot")
+tracks/22/interp = 1
+tracks/22/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.4 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ -62.0402, -52.8532, -27.2276 ] }
+tracks/23/type = "value"
+tracks/23/path = NodePath("Root/LUpperLeg/LLowerLeg:transform/pos")
+tracks/23/interp = 1
+tracks/23/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.4 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ Vector2( 12.5167, 890.561 ), Vector2( 12.5167, 890.561 ), Vector2( 12.5167, 890.561 ) ] }
+tracks/24/type = "value"
+tracks/24/path = NodePath("Root/LUpperLeg/LLowerLeg/LFoot:transform/rot")
+tracks/24/interp = 1
+tracks/24/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.4 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ -14.8292, -0.400146, -0.0497254 ] }
+tracks/25/type = "value"
+tracks/25/path = NodePath("Root/LUpperLeg/LLowerLeg/LFoot:transform/pos")
+tracks/25/interp = 1
+tracks/25/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.4 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ Vector2( 3.74963, 921.517 ), Vector2( 3.74963, 921.517 ), Vector2( 3.74942, 921.517 ) ] }
+tracks/26/type = "value"
+tracks/26/path = NodePath("Root/Skirt:transform/pos")
+tracks/26/interp = 1
+tracks/26/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( 27.4548, 423.617 ) ] }
+tracks/27/type = "value"
+tracks/27/path = NodePath("Root/Skirt:transform/rot")
+tracks/27/interp = 1
+tracks/27/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ -6.41158 ] }
+tracks/28/type = "value"
+tracks/28/path = NodePath("Root/Skirt:transform/scale")
+tracks/28/interp = 1
+tracks/28/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( 1, 1 ) ] }
+
+[sub_resource type="Animation" id=6]
+
+resource/name = "test"
+length = 1.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Root/Torso/LUpperArm/LLowerArm/LHand:transform/pos")
+tracks/0/interp = 1
+tracks/0/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( 529.391, 16.4452 ) ] }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Root/Torso/LUpperArm/LLowerArm/LHand:transform/rot")
+tracks/1/interp = 1
+tracks/1/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ 88.3347 ] }
+tracks/2/type = "value"
+tracks/2/path = NodePath("Root/Torso/LUpperArm/LLowerArm:transform/pos")
+tracks/2/interp = 1
+tracks/2/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( 532.066, 27.2646 ) ] }
+tracks/3/type = "value"
+tracks/3/path = NodePath("Root/Torso/LUpperArm/LLowerArm:transform/rot")
+tracks/3/interp = 1
+tracks/3/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ 75.6749 ] }
+tracks/4/type = "value"
+tracks/4/path = NodePath("Root/Torso/LUpperArm:transform/pos")
+tracks/4/interp = 1
+tracks/4/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( -204.745, -639.611 ) ] }
+tracks/5/type = "value"
+tracks/5/path = NodePath("Root/Torso/LUpperArm:transform/rot")
+tracks/5/interp = 1
+tracks/5/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ -92.6955 ] }
+tracks/6/type = "value"
+tracks/6/path = NodePath("Root/Torso/RUpperArm/RLowerArm/RHand:transform/pos")
+tracks/6/interp = 1
+tracks/6/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( 511.766, 30.1343 ) ] }
+tracks/7/type = "value"
+tracks/7/path = NodePath("Root/Torso/RUpperArm/RLowerArm/RHand:transform/rot")
+tracks/7/interp = 1
+tracks/7/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ 98.9834 ] }
+tracks/8/type = "value"
+tracks/8/path = NodePath("Root/Torso/RUpperArm/RLowerArm:transform/pos")
+tracks/8/interp = 1
+tracks/8/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( 532.066, 27.2646 ) ] }
+tracks/9/type = "value"
+tracks/9/path = NodePath("Root/Torso/RUpperArm/RLowerArm:transform/rot")
+tracks/9/interp = 1
+tracks/9/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ 110.86 ] }
+tracks/10/type = "value"
+tracks/10/path = NodePath("Root/Torso/RUpperArm:transform/pos")
+tracks/10/interp = 1
+tracks/10/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( 183.9, -571.943 ) ] }
+tracks/11/type = "value"
+tracks/11/path = NodePath("Root/Torso/RUpperArm:transform/rot")
+tracks/11/interp = 1
+tracks/11/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ -126.96 ] }
+
+[sub_resource type="Animation" id=7]
+
+resource/name = "walk"
+length = 1.0
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Root/Torso/LUpperArm:transform/rot")
+tracks/0/interp = 1
+tracks/0/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.5, 0.8, 1 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "values":[ -95.005, -92.3148, -80.8094, -91.9369, -95.005 ] }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Root/Torso/LUpperArm:transform/pos")
+tracks/1/interp = 1
+tracks/1/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.5, 0.8, 1 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "values":[ Vector2( -204.745, -639.611 ), Vector2( -204.745, -639.611 ), Vector2( -204.745, -639.611 ), Vector2( -204.745, -639.611 ), Vector2( -204.745, -639.611 ) ] }
+tracks/2/type = "value"
+tracks/2/path = NodePath("Root/Torso/LUpperArm/LLowerArm:transform/rot")
+tracks/2/interp = 1
+tracks/2/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.5, 0.8, 1 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "values":[ 5.01472, 16.2621, 6.78957, 6.34668, 5.01472 ] }
+tracks/3/type = "value"
+tracks/3/path = NodePath("Root/Torso/LUpperArm/LLowerArm:transform/pos")
+tracks/3/interp = 1
+tracks/3/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.5, 0.8, 1 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "values":[ Vector2( 532.066, 27.2646 ), Vector2( 532.066, 27.2646 ), Vector2( 532.066, 27.2646 ), Vector2( 532.066, 27.2646 ), Vector2( 532.066, 27.2646 ) ] }
+tracks/4/type = "value"
+tracks/4/path = NodePath("Root/Torso/LUpperArm/LLowerArm/LHand:transform/rot")
+tracks/4/interp = 1
+tracks/4/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.5, 0.8, 1 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "values":[ 64.4354, 88.5227, 83.9368, 67.5744, 64.4354 ] }
+tracks/5/type = "value"
+tracks/5/path = NodePath("Root/Torso/LUpperArm/LLowerArm/LHand:transform/pos")
+tracks/5/interp = 1
+tracks/5/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.5, 0.8, 1 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "values":[ Vector2( 529.391, 16.4452 ), Vector2( 529.391, 16.4451 ), Vector2( 529.391, 16.4452 ), Vector2( 529.391, 16.4451 ), Vector2( 529.391, 16.4452 ) ] }
+tracks/6/type = "value"
+tracks/6/path = NodePath("Root/RUpperLeg:transform/rot")
+tracks/6/interp = 1
+tracks/6/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.5, 0.8, 1 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "values":[ 12.1483, -0.860397, -2.39133, 23.7944, 12.1483 ] }
+tracks/7/type = "value"
+tracks/7/path = NodePath("Root/RUpperLeg:transform/pos")
+tracks/7/interp = 1
+tracks/7/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.5, 0.8, 1 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "values":[ Vector2( 62.721, 607.965 ), Vector2( 62.721, 607.965 ), Vector2( 62.721, 607.965 ), Vector2( 62.721, 607.965 ), Vector2( 62.721, 607.965 ) ] }
+tracks/8/type = "value"
+tracks/8/path = NodePath("Root/RUpperLeg/RLowerLeg:transform/rot")
+tracks/8/interp = 1
+tracks/8/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.5, 0.8, 1 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "values":[ -20.183, -6.00264, -14.5891, -49.7618, -20.183 ] }
+tracks/9/type = "value"
+tracks/9/path = NodePath("Root/RUpperLeg/RLowerLeg:transform/pos")
+tracks/9/interp = 1
+tracks/9/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.5, 0.8, 1 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "values":[ Vector2( 12.5167, 890.561 ), Vector2( 12.5167, 890.561 ), Vector2( 12.5167, 890.561 ), Vector2( 12.5167, 890.561 ), Vector2( 12.5167, 890.561 ) ] }
+tracks/10/type = "value"
+tracks/10/path = NodePath("Root/RUpperLeg/RLowerLeg/RFoot:transform/rot")
+tracks/10/interp = 1
+tracks/10/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.5, 0.8, 1 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "values":[ 10.4275, 9.25579, 11.2392, -12.3875, 10.4275 ] }
+tracks/11/type = "value"
+tracks/11/path = NodePath("Root/RUpperLeg/RLowerLeg/RFoot:transform/pos")
+tracks/11/interp = 1
+tracks/11/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.5, 0.8, 1 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "values":[ Vector2( 3.7475, 921.515 ), Vector2( 3.74745, 921.516 ), Vector2( 3.74756, 921.516 ), Vector2( 3.74854, 921.519 ), Vector2( 3.7475, 921.515 ) ] }
+tracks/12/type = "value"
+tracks/12/path = NodePath("Root:transform/rot")
+tracks/12/interp = 1
+tracks/12/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.5, 0.8, 1 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "values":[ -1.72121, -1.72121, -1.72121, -1.72121, -1.72121 ] }
+tracks/13/type = "value"
+tracks/13/path = NodePath("Root:transform/pos")
+tracks/13/interp = 1
+tracks/13/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.5, 0.8, 1 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "values":[ Vector2( 1.78814e-05, 30 ), Vector2( 5.96046e-07, 1 ), Vector2( 1.60933e-05, 27 ), Vector2( 4.29153e-06, 7.20001 ), Vector2( 1.78814e-05, 30 ) ] }
+tracks/14/type = "value"
+tracks/14/path = NodePath("Root/Torso/RUpperArm:transform/rot")
+tracks/14/interp = 1
+tracks/14/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.5, 1 ), "transitions":FloatArray( 1, 1, 1, 1 ), "values":[ -120.579, -124.363, -128.35, -120.579 ] }
+tracks/15/type = "value"
+tracks/15/path = NodePath("Root/Torso/RUpperArm:transform/pos")
+tracks/15/interp = 1
+tracks/15/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.5, 1 ), "transitions":FloatArray( 1, 1, 1, 1 ), "values":[ Vector2( 183.9, -571.943 ), Vector2( 183.9, -571.943 ), Vector2( 183.9, -571.943 ), Vector2( 183.9, -571.943 ) ] }
+tracks/16/type = "value"
+tracks/16/path = NodePath("Root/Torso/RUpperArm/RLowerArm:transform/rot")
+tracks/16/interp = 1
+tracks/16/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.5, 1 ), "transitions":FloatArray( 1, 1, 1, 1 ), "values":[ 62.1656, 45.7154, 39.3873, 62.1656 ] }
+tracks/17/type = "value"
+tracks/17/path = NodePath("Root/Torso/RUpperArm/RLowerArm:transform/pos")
+tracks/17/interp = 1
+tracks/17/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.5, 1 ), "transitions":FloatArray( 1, 1, 1, 1 ), "values":[ Vector2( 532.066, 27.2646 ), Vector2( 532.066, 27.2646 ), Vector2( 532.066, 27.2646 ), Vector2( 532.066, 27.2646 ) ] }
+tracks/18/type = "value"
+tracks/18/path = NodePath("Root/Torso/RUpperArm/RLowerArm/RHand:transform/rot")
+tracks/18/interp = 1
+tracks/18/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.5, 1 ), "transitions":FloatArray( 1, 1, 1, 1 ), "values":[ 102.691, 59.1551, 46.5032, 102.691 ] }
+tracks/19/type = "value"
+tracks/19/path = NodePath("Root/Torso/RUpperArm/RLowerArm/RHand:transform/pos")
+tracks/19/interp = 1
+tracks/19/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.5, 1 ), "transitions":FloatArray( 1, 1, 1, 1 ), "values":[ Vector2( 511.766, 30.1343 ), Vector2( 511.766, 30.1344 ), Vector2( 511.766, 30.1344 ), Vector2( 511.766, 30.1343 ) ] }
+tracks/20/type = "value"
+tracks/20/path = NodePath("Root/LUpperLeg:transform/rot")
+tracks/20/interp = 1
+tracks/20/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.5, 0.8, 1 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "values":[ 4.25794, 25.7822, 14.8151, 8.682, 4.25794 ] }
+tracks/21/type = "value"
+tracks/21/path = NodePath("Root/LUpperLeg:transform/pos")
+tracks/21/interp = 1
+tracks/21/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.5, 0.8, 1 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "values":[ Vector2( -139.494, 612.509 ), Vector2( -139.494, 612.509 ), Vector2( -139.494, 612.509 ), Vector2( -139.494, 612.509 ), Vector2( -139.494, 612.509 ) ] }
+tracks/22/type = "value"
+tracks/22/path = NodePath("Root/LUpperLeg/LLowerLeg:transform/rot")
+tracks/22/interp = 1
+tracks/22/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.5, 0.8, 1 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "values":[ -21.2932, -53.9818, -3.93281, -15.9759, -21.2932 ] }
+tracks/23/type = "value"
+tracks/23/path = NodePath("Root/LUpperLeg/LLowerLeg:transform/pos")
+tracks/23/interp = 1
+tracks/23/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.5, 0.8, 1 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "values":[ Vector2( 12.5167, 890.561 ), Vector2( 12.5167, 890.561 ), Vector2( 12.5167, 890.561 ), Vector2( 12.5167, 890.561 ), Vector2( 12.5167, 890.561 ) ] }
+tracks/24/type = "value"
+tracks/24/path = NodePath("Root/LUpperLeg/LLowerLeg/LFoot:transform/rot")
+tracks/24/interp = 1
+tracks/24/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.5, 0.8, 1 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "values":[ 12.5758, -13.15, 6.2574, 5.75384, 12.5758 ] }
+tracks/25/type = "value"
+tracks/25/path = NodePath("Root/LUpperLeg/LLowerLeg/LFoot:transform/pos")
+tracks/25/interp = 1
+tracks/25/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.5, 0.8, 1 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "values":[ Vector2( 3.7482, 921.517 ), Vector2( 3.74805, 921.518 ), Vector2( 3.74831, 921.518 ), Vector2( 3.74815, 921.52 ), Vector2( 3.7482, 921.517 ) ] }
+tracks/26/type = "value"
+tracks/26/path = NodePath("Root/Torso/Neck/NeckBase/HeadShape:transform/pos")
+tracks/26/interp = 1
+tracks/26/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( -4.96213, -178.333 ) ] }
+tracks/27/type = "value"
+tracks/27/path = NodePath("Root/Torso/Neck/NeckBase/HeadShape:transform/rot")
+tracks/27/interp = 1
+tracks/27/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ 0.216253 ] }
+tracks/28/type = "value"
+tracks/28/path = NodePath("Root/Torso:transform/pos")
+tracks/28/interp = 1
+tracks/28/keys = { "cont":true, "times":FloatArray( 0, 0.3, 0.5, 0.8, 1 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "values":[ Vector2( 42.7659, 374.552 ), Vector2( 42.7659, 374.552 ), Vector2( 42.7659, 374.552 ), Vector2( 42.7659, 374.552 ), Vector2( 42.7659, 374.552 ) ] }
+tracks/29/type = "value"
+tracks/29/path = NodePath("Root/Torso:transform/rot")
+tracks/29/interp = 1
+tracks/29/keys = { "cont":true, "times":FloatArray( 0, 0.3, 0.5, 0.8, 1 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "values":[ 0.0, 0.125914, -1.50732, -0.50962, 0.0 ] }
+tracks/30/type = "value"
+tracks/30/path = NodePath("Root/Skirt:transform/pos")
+tracks/30/interp = 1
+tracks/30/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ Vector2( 27.4548, 423.617 ) ] }
+tracks/31/type = "value"
+tracks/31/path = NodePath("Root/Skirt:transform/rot")
+tracks/31/interp = 1
+tracks/31/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ 5.88178 ] }
+
+[sub_resource type="Animation" id=8]
+
+resource/name = "walk"
+length = 1.0
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Root/Torso/LUpperArm:transform/rot")
+tracks/0/interp = 1
+tracks/0/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.5, 0.8, 1 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "values":[ -95.005, -92.3148, -80.8094, -91.9369, -95.005 ] }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Root/Torso/LUpperArm:transform/pos")
+tracks/1/interp = 1
+tracks/1/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.5, 0.8, 1 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "values":[ Vector2( -204.745, -639.611 ), Vector2( -204.745, -639.611 ), Vector2( -204.745, -639.611 ), Vector2( -204.745, -639.611 ), Vector2( -204.745, -639.611 ) ] }
+tracks/2/type = "value"
+tracks/2/path = NodePath("Root/Torso/LUpperArm/LLowerArm:transform/rot")
+tracks/2/interp = 1
+tracks/2/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.5, 0.8, 1 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "values":[ 5.01472, 16.2621, 6.78957, 6.34668, 5.01472 ] }
+tracks/3/type = "value"
+tracks/3/path = NodePath("Root/Torso/LUpperArm/LLowerArm:transform/pos")
+tracks/3/interp = 1
+tracks/3/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.5, 0.8, 1 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "values":[ Vector2( 532.066, 27.2646 ), Vector2( 532.066, 27.2646 ), Vector2( 532.066, 27.2646 ), Vector2( 532.066, 27.2646 ), Vector2( 532.066, 27.2646 ) ] }
+tracks/4/type = "value"
+tracks/4/path = NodePath("Root/Torso/LUpperArm/LLowerArm/LHand:transform/rot")
+tracks/4/interp = 1
+tracks/4/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.5, 0.8, 1 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "values":[ 64.4354, 88.5227, 83.9368, 67.5744, 64.4354 ] }
+tracks/5/type = "value"
+tracks/5/path = NodePath("Root/Torso/LUpperArm/LLowerArm/LHand:transform/pos")
+tracks/5/interp = 1
+tracks/5/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.5, 0.8, 1 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "values":[ Vector2( 529.391, 16.4452 ), Vector2( 529.391, 16.4451 ), Vector2( 529.391, 16.4452 ), Vector2( 529.391, 16.4451 ), Vector2( 529.391, 16.4452 ) ] }
+tracks/6/type = "value"
+tracks/6/path = NodePath("Root/RUpperLeg:transform/rot")
+tracks/6/interp = 1
+tracks/6/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.5, 0.8, 1 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "values":[ 12.1483, -0.860397, -2.39133, 23.7944, 12.1483 ] }
+tracks/7/type = "value"
+tracks/7/path = NodePath("Root/RUpperLeg:transform/pos")
+tracks/7/interp = 1
+tracks/7/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.5, 0.8, 1 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "values":[ Vector2( 62.721, 607.965 ), Vector2( 62.721, 607.965 ), Vector2( 62.721, 607.965 ), Vector2( 62.721, 607.965 ), Vector2( 62.721, 607.965 ) ] }
+tracks/8/type = "value"
+tracks/8/path = NodePath("Root/RUpperLeg/RLowerLeg:transform/rot")
+tracks/8/interp = 1
+tracks/8/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.5, 0.8, 1 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "values":[ -20.183, -6.00264, -14.5891, -49.7618, -20.183 ] }
+tracks/9/type = "value"
+tracks/9/path = NodePath("Root/RUpperLeg/RLowerLeg:transform/pos")
+tracks/9/interp = 1
+tracks/9/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.5, 0.8, 1 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "values":[ Vector2( 12.5167, 890.561 ), Vector2( 12.5167, 890.561 ), Vector2( 12.5167, 890.561 ), Vector2( 12.5167, 890.561 ), Vector2( 12.5167, 890.561 ) ] }
+tracks/10/type = "value"
+tracks/10/path = NodePath("Root/RUpperLeg/RLowerLeg/RFoot:transform/rot")
+tracks/10/interp = 1
+tracks/10/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.5, 0.8, 1 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "values":[ 10.4275, 9.25579, 11.2392, -12.3875, 10.4275 ] }
+tracks/11/type = "value"
+tracks/11/path = NodePath("Root/RUpperLeg/RLowerLeg/RFoot:transform/pos")
+tracks/11/interp = 1
+tracks/11/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.5, 0.8, 1 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "values":[ Vector2( 3.7475, 921.515 ), Vector2( 3.74745, 921.516 ), Vector2( 3.74756, 921.516 ), Vector2( 3.74854, 921.519 ), Vector2( 3.7475, 921.515 ) ] }
+tracks/12/type = "value"
+tracks/12/path = NodePath("Root:transform/rot")
+tracks/12/interp = 1
+tracks/12/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.5, 0.8, 1 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "values":[ -1.72121, -1.72121, -1.72121, -1.72121, -1.72121 ] }
+tracks/13/type = "value"
+tracks/13/path = NodePath("Root:transform/pos")
+tracks/13/interp = 1
+tracks/13/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.5, 0.8, 1 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "values":[ Vector2( 1.78814e-05, 30 ), Vector2( 5.96046e-07, 1 ), Vector2( 1.60933e-05, 27 ), Vector2( 4.29153e-06, 7.20001 ), Vector2( 1.78814e-05, 30 ) ] }
+tracks/14/type = "value"
+tracks/14/path = NodePath("Root/Torso/RUpperArm:transform/rot")
+tracks/14/interp = 1
+tracks/14/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.5, 1 ), "transitions":FloatArray( 1, 1, 1, 1 ), "values":[ -120.579, -124.363, -128.35, -120.579 ] }
+tracks/15/type = "value"
+tracks/15/path = NodePath("Root/Torso/RUpperArm:transform/pos")
+tracks/15/interp = 1
+tracks/15/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.5, 1 ), "transitions":FloatArray( 1, 1, 1, 1 ), "values":[ Vector2( 183.9, -571.943 ), Vector2( 183.9, -571.943 ), Vector2( 183.9, -571.943 ), Vector2( 183.9, -571.943 ) ] }
+tracks/16/type = "value"
+tracks/16/path = NodePath("Root/Torso/RUpperArm/RLowerArm:transform/rot")
+tracks/16/interp = 1
+tracks/16/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.5, 1 ), "transitions":FloatArray( 1, 1, 1, 1 ), "values":[ 62.1656, 45.7154, 39.3873, 62.1656 ] }
+tracks/17/type = "value"
+tracks/17/path = NodePath("Root/Torso/RUpperArm/RLowerArm:transform/pos")
+tracks/17/interp = 1
+tracks/17/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.5, 1 ), "transitions":FloatArray( 1, 1, 1, 1 ), "values":[ Vector2( 532.066, 27.2646 ), Vector2( 532.066, 27.2646 ), Vector2( 532.066, 27.2646 ), Vector2( 532.066, 27.2646 ) ] }
+tracks/18/type = "value"
+tracks/18/path = NodePath("Root/Torso/RUpperArm/RLowerArm/RHand:transform/rot")
+tracks/18/interp = 1
+tracks/18/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.5, 1 ), "transitions":FloatArray( 1, 1, 1, 1 ), "values":[ 102.691, 59.1551, 46.5032, 102.691 ] }
+tracks/19/type = "value"
+tracks/19/path = NodePath("Root/Torso/RUpperArm/RLowerArm/RHand:transform/pos")
+tracks/19/interp = 1
+tracks/19/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.5, 1 ), "transitions":FloatArray( 1, 1, 1, 1 ), "values":[ Vector2( 511.766, 30.1343 ), Vector2( 511.766, 30.1344 ), Vector2( 511.766, 30.1344 ), Vector2( 511.766, 30.1343 ) ] }
+tracks/20/type = "value"
+tracks/20/path = NodePath("Root/LUpperLeg:transform/rot")
+tracks/20/interp = 1
+tracks/20/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.5, 0.8, 1 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "values":[ 4.25794, 25.7822, 14.8151, 8.682, 4.25794 ] }
+tracks/21/type = "value"
+tracks/21/path = NodePath("Root/LUpperLeg:transform/pos")
+tracks/21/interp = 1
+tracks/21/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.5, 0.8, 1 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "values":[ Vector2( -139.494, 612.509 ), Vector2( -139.494, 612.509 ), Vector2( -139.494, 612.509 ), Vector2( -139.494, 612.509 ), Vector2( -139.494, 612.509 ) ] }
+tracks/22/type = "value"
+tracks/22/path = NodePath("Root/LUpperLeg/LLowerLeg:transform/rot")
+tracks/22/interp = 1
+tracks/22/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.5, 0.8, 1 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "values":[ -21.2932, -53.9818, -3.93281, -15.9759, -21.2932 ] }
+tracks/23/type = "value"
+tracks/23/path = NodePath("Root/LUpperLeg/LLowerLeg:transform/pos")
+tracks/23/interp = 1
+tracks/23/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.5, 0.8, 1 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "values":[ Vector2( 12.5167, 890.561 ), Vector2( 12.5167, 890.561 ), Vector2( 12.5167, 890.561 ), Vector2( 12.5167, 890.561 ), Vector2( 12.5167, 890.561 ) ] }
+tracks/24/type = "value"
+tracks/24/path = NodePath("Root/LUpperLeg/LLowerLeg/LFoot:transform/rot")
+tracks/24/interp = 1
+tracks/24/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.5, 0.8, 1 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "values":[ 12.5758, -13.15, 6.2574, 5.75384, 12.5758 ] }
+tracks/25/type = "value"
+tracks/25/path = NodePath("Root/LUpperLeg/LLowerLeg/LFoot:transform/pos")
+tracks/25/interp = 1
+tracks/25/keys = { "cont":true, "times":FloatArray( 0, 0.2, 0.5, 0.8, 1 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "values":[ Vector2( 3.7482, 921.517 ), Vector2( 3.74805, 921.518 ), Vector2( 3.74831, 921.518 ), Vector2( 3.74815, 921.52 ), Vector2( 3.7482, 921.517 ) ] }
+
+[node name="PepperSprite" type="Node2D"]
+
+[node name="Sprite" type="Sprite" parent="."]
+
+visibility/visible = false
+visibility/behind_parent = true
+transform/pos = Vector2( -254.205, 1307.67 )
+transform/scale = Vector2( 33.7414, 1 )
+z/z = -200
+texture = ExtResource( 1 )
+flip_h = true
+
+[node name="Root" type="Node2D" parent="."]
+
+transform/pos = Vector2( 72, 385.985 )
+transform/rot = -55.2475
+transform/scale = Vector2( 0.5, 0.5 )
+
+[node name="RUpperLeg" type="Sprite" parent="Root"]
+
+visibility/behind_parent = true
+transform/pos = Vector2( 62.721, 607.965 )
+transform/rot = 109.157
+transform/scale = Vector2( 1.00001, 1.00001 )
+z/z = -1
+texture = ExtResource( 2 )
+offset = Vector2( 20.0907, 634.983 )
+flip_h = true
+__meta__ = { "_edit_bone_":true, "_edit_ik_":true }
+
+[node name="RLowerLegPatch" type="Sprite" parent="Root/RUpperLeg"]
+
+transform/pos = Vector2( 10.5475, 888.321 )
+transform/scale = Vector2( 1.00001, 1.00001 )
+texture = ExtResource( 3 )
+flip_h = true
+
+[node name="RLowerLeg" type="Sprite" parent="Root/RUpperLeg"]
+
+visibility/behind_parent = true
+transform/pos = Vector2( 12.5167, 890.561 )
+transform/rot = -84.8552
+transform/scale = Vector2( 1.00001, 1.00001 )
+texture = ExtResource( 4 )
+offset = Vector2( 10.1829, 492.22 )
+flip_h = true
+__meta__ = { "_edit_bone_":true }
+
+[node name="RFoot" type="Sprite" parent="Root/RUpperLeg/RLowerLeg"]
+
+visibility/behind_parent = true
+transform/pos = Vector2( 3.74707, 921.517 )
+transform/rot = 32.1154
+transform/scale = Vector2( 1.00001, 1.00001 )
+texture = ExtResource( 5 )
+offset = Vector2( 69.5657, 3.56104 )
+flip_h = true
+__meta__ = { "_edit_bone_":true }
+
+[node name="Position2D" type="Position2D" parent="Root/RUpperLeg/RLowerLeg/RFoot"]
+
+transform/pos = Vector2( 154.513, 51.4429 )
+transform/scale = Vector2( 1.00001, 1.00001 )
+__meta__ = { "_edit_bone_":true }
+
+[node name="Torso" type="Sprite" parent="Root"]
+
+transform/pos = Vector2( 42.7659, 374.552 )
+transform/rot = 25.9269
+transform/scale = Vector2( 1.00001, 1.00001 )
+texture = ExtResource( 6 )
+offset = Vector2( -46.5608, -370.757 )
+flip_h = true
+
+[node name="Neck" type="Sprite" parent="Root/Torso"]
+
+visibility/behind_parent = true
+transform/pos = Vector2( -6.40143, -783.005 )
+transform/scale = Vector2( 1.00001, 1.00001 )
+texture = ExtResource( 7 )
+flip_h = true
+__meta__ = { "_edit_bone_":true }
+
+[node name="NeckBase" type="Sprite" parent="Root/Torso/Neck"]
+
+transform/pos = Vector2( -5.04898, -17.2093 )
+transform/scale = Vector2( 1.00001, 1.00001 )
+texture = ExtResource( 8 )
+offset = Vector2( 2.56287, -139.002 )
+flip_h = true
+__meta__ = { "_edit_bone_":true }
+
+[node name="HeadShape" type="Sprite" parent="Root/Torso/Neck/NeckBase"]
+
+transform/pos = Vector2( -4.96213, -178.333 )
+transform/rot = 16.6908
+transform/scale = Vector2( 1.00001, 1.00001 )
+texture = ExtResource( 9 )
+offset = Vector2( 9.60004, -347.307 )
+flip_h = true
+region = true
+region_rect = Rect2( 112, 40, 790, 854 )
+__meta__ = { "_edit_bone_":true, "_editor_collapsed":true }
+
+[node name="Nose" type="Sprite" parent="Root/Torso/Neck/NeckBase/HeadShape"]
+
+transform/pos = Vector2( 264.132, -143.631 )
+transform/scale = Vector2( 1.00001, 1.00001 )
+texture = ExtResource( 9 )
+flip_h = true
+region = true
+region_rect = Rect2( 2457, 89, 97, 91 )
+
+[node name="EyeBase" type="Sprite" parent="Root/Torso/Neck/NeckBase/HeadShape"]
+
+visibility/behind_parent = true
+transform/pos = Vector2( 173.161, -267.314 )
+transform/scale = Vector2( 1.00001, 1.00001 )
+texture = ExtResource( 9 )
+flip_h = true
+region = true
+region_rect = Rect2( 2000, 991, 380, 240 )
+__meta__ = { "_editor_collapsed":true }
+
+[node name="EyeColorR" type="Sprite" parent="Root/Torso/Neck/NeckBase/HeadShape/EyeBase"]
+
+transform/pos = Vector2( -54.9132, -12.8598 )
+transform/scale = Vector2( 0.656239, 1.00001 )
+texture = ExtResource( 9 )
+region = true
+region_rect = Rect2( 760, 945, 116, 113 )
+
+[node name="EyeWhiteR" type="Sprite" parent="Root/Torso/Neck/NeckBase/HeadShape/EyeBase"]
+
+transform/pos = Vector2( -67.1494, -29.4584 )
+transform/scale = Vector2( 0.902121, 1.00001 )
+texture = ExtResource( 9 )
+region = true
+region_rect = Rect2( 990, 970, 50, 50 )
+
+[node name="EyeColorL" type="Sprite" parent="Root/Torso/Neck/NeckBase/HeadShape/EyeBase"]
+
+transform/pos = Vector2( 137.464, -12.0653 )
+transform/scale = Vector2( 0.406383, 1.00001 )
+texture = ExtResource( 9 )
+region = true
+region_rect = Rect2( 760, 945, 116, 113 )
+
+[node name="EyeWhiteL" type="Sprite" parent="Root/Torso/Neck/NeckBase/HeadShape/EyeBase"]
+
+transform/pos = Vector2( 135.683, -28.6537 )
+transform/scale = Vector2( 0.902121, 1.00001 )
+texture = ExtResource( 9 )
+region = true
+region_rect = Rect2( 990, 970, 50, 50 )
+
+[node name="Mouth" type="Sprite" parent="Root/Torso/Neck/NeckBase/HeadShape"]
+
+transform/pos = Vector2( 242.969, -44.0455 )
+transform/rot = 5.59309
+transform/scale = Vector2( 1.00001, 1.00001 )
+texture = ExtResource( 10 )
+flip_h = true
+region = true
+region_rect = Rect2( 30, 500, 180, 50 )
+
+[node name="HairBack" type="Sprite" parent="Root/Torso/Neck/NeckBase/HeadShape"]
+
+transform/pos = Vector2( -67.9328, 134.534 )
+transform/scale = Vector2( 1.00001, 1.00001 )
+z/z = -1
+texture = ExtResource( 9 )
+flip_h = true
+region = true
+region_rect = Rect2( 10, 1140, 950, 1020 )
+
+[node name="EyeBrows" type="Sprite" parent="Root/Torso/Neck/NeckBase/HeadShape"]
+
+transform/pos = Vector2( 211.546, -444.307 )
+transform/scale = Vector2( 0.957916, 1.00001 )
+texture = ExtResource( 9 )
+flip_h = true
+region = true
+region_rect = Rect2( 2080, 1270, 330, 80 )
+
+[node name="Hair" type="Sprite" parent="Root/Torso/Neck/NeckBase/HeadShape"]
+
+transform/pos = Vector2( -87.3115, -573.729 )
+transform/rot = 89.7086
+transform/scale = Vector2( 1.00001, 1.00001 )
+z/z = 1
+texture = ExtResource( 9 )
+offset = Vector2( -458.472, -0.203923 )
+flip_v = true
+region = true
+region_rect = Rect2( 1440, 2210, 1030, 220 )
+
+[node name="Hair2" type="Sprite" parent="Root/Torso/Neck/NeckBase/HeadShape"]
+
+visibility/behind_parent = true
+transform/pos = Vector2( 280.571, 172.372 )
+transform/rot = -85.431
+transform/scale = Vector2( 1.00001, 1.00001 )
+texture = ExtResource( 9 )
+flip_v = true
+region = true
+region_rect = Rect2( 1990, 2430, 490, 190 )
+
+[node name="HatTop" type="Sprite" parent="Root/Torso/Neck/NeckBase/HeadShape"]
+
+transform/pos = Vector2( -871.871, -331.831 )
+transform/rot = 7.01325
+transform/scale = Vector2( 1.00001, 1.00001 )
+z/z = 3
+texture = ExtResource( 11 )
+offset = Vector2( 855.836, -485.766 )
+flip_h = true
+__meta__ = { "_editor_collapsed":true }
+
+[node name="HatBack" type="Sprite" parent="Root/Torso/Neck/NeckBase/HeadShape/HatTop"]
+
+transform/pos = Vector2( -1.6875, 21.3046 )
+transform/rot = 1.92938
+transform/scale = Vector2( 0.971866, 1.00001 )
+z/z = -10
+texture = ExtResource( 12 )
+offset = Vector2( 857.679, 17.7404 )
+flip_h = true
+
+[node name="Position2D" type="Position2D" parent="Root/Torso/Neck/NeckBase/HeadShape"]
+
+transform/pos = Vector2( 75.2178, -449.835 )
+transform/scale = Vector2( 1.00001, 1.00001 )
+__meta__ = { "_edit_bone_":true }
+
+[node name="RUpperArm" type="Sprite" parent="Root/Torso"]
+
+transform/pos = Vector2( 183.9, -571.943 )
+transform/rot = -111.188
+transform/scale = Vector2( 1.00001, 1.00001 )
+z/z = -4
+texture = ExtResource( 13 )
+offset = Vector2( 246.488, 24.2224 )
+__meta__ = { "_edit_bone_":true, "_edit_ik_":true }
+
+[node name="RLowerArm" type="Sprite" parent="Root/Torso/RUpperArm"]
+
+transform/pos = Vector2( 532.066, 27.2646 )
+transform/rot = 67.7315
+transform/scale = Vector2( 1.00001, 1.00001 )
+texture = ExtResource( 14 )
+offset = Vector2( 256.616, 5.73919 )
+__meta__ = { "_edit_bone_":true }
+
+[node name="RHand" type="Sprite" parent="Root/Torso/RUpperArm/RLowerArm"]
+
+transform/pos = Vector2( 511.766, 30.1343 )
+transform/rot = 92.1337
+texture = ExtResource( 15 )
+offset = Vector2( 30.6471, 200.686 )
+flip_h = true
+vframes = 3
+hframes = 4
+frame = 10
+region_rect = Rect2( 730, 420, 230, 360 )
+__meta__ = { "_edit_bone_":true }
+
+[node name="RArmEnd" type="Position2D" parent="Root/Torso/RUpperArm/RLowerArm/RHand"]
+
+transform/pos = Vector2( 7.30371, 326.714 )
+transform/scale = Vector2( 1.00001, 1.00001 )
+__meta__ = { "_edit_bone_":true }
+
+[node name="LUpperArm" type="Sprite" parent="Root/Torso"]
+
+transform/pos = Vector2( -204.745, -639.611 )
+transform/rot = -102.517
+transform/scale = Vector2( 1.00001, 1.00001 )
+texture = ExtResource( 13 )
+offset = Vector2( 246.488, 24.2224 )
+__meta__ = { "_edit_bone_":true, "_edit_ik_":true }
+
+[node name="LLowerArm" type="Sprite" parent="Root/Torso/LUpperArm"]
+
+transform/pos = Vector2( 532.066, 27.2646 )
+transform/rot = 60.7797
+transform/scale = Vector2( 1.00001, 1.00001 )
+texture = ExtResource( 14 )
+offset = Vector2( 256.616, 5.73919 )
+__meta__ = { "_edit_bone_":true }
+
+[node name="LHand" type="Sprite" parent="Root/Torso/LUpperArm/LLowerArm"]
+
+transform/pos = Vector2( 529.39, 16.4451 )
+transform/rot = 84.6989
+texture = ExtResource( 15 )
+offset = Vector2( 38.3552, 160.384 )
+flip_h = true
+vframes = 3
+hframes = 4
+frame = 10
+region_rect = Rect2( 680, 40, 250, 320 )
+__meta__ = { "_edit_bone_":true }
+
+[node name="LArmEnd" type="Position2D" parent="Root/Torso/LUpperArm/LLowerArm/LHand"]
+
+transform/pos = Vector2( 58.4996, 323.813 )
+transform/scale = Vector2( 1.00001, 1.00001 )
+__meta__ = { "_edit_bone_":true }
+
+[node name="LUpperLeg" type="Sprite" parent="Root"]
+
+transform/pos = Vector2( -139.494, 612.509 )
+transform/rot = 78.4531
+transform/scale = Vector2( 1.00001, 1.00001 )
+z/z = -1
+texture = ExtResource( 2 )
+offset = Vector2( 20.0907, 634.983 )
+flip_h = true
+__meta__ = { "_edit_bone_":true, "_edit_ik_":true }
+
+[node name="LLowerLegPatch" type="Sprite" parent="Root/LUpperLeg"]
+
+transform/pos = Vector2( 10.5475, 888.321 )
+transform/scale = Vector2( 1.00001, 1.00001 )
+texture = ExtResource( 3 )
+flip_h = true
+
+[node name="LLowerLeg" type="Sprite" parent="Root/LUpperLeg"]
+
+visibility/behind_parent = true
+transform/pos = Vector2( 12.5167, 890.561 )
+transform/rot = -69.0849
+transform/scale = Vector2( 1.00001, 1.00001 )
+texture = ExtResource( 4 )
+offset = Vector2( 10.1829, 492.22 )
+flip_h = true
+__meta__ = { "_edit_bone_":true }
+
+[node name="LFoot" type="Sprite" parent="Root/LUpperLeg/LLowerLeg"]
+
+visibility/behind_parent = true
+transform/pos = Vector2( 3.7478, 921.517 )
+transform/rot = 48.5172
+transform/scale = Vector2( 1.00001, 1.00001 )
+texture = ExtResource( 5 )
+offset = Vector2( 69.5657, 3.56104 )
+flip_h = true
+__meta__ = { "_edit_bone_":true }
+
+[node name="Position2D" type="Position2D" parent="Root/LUpperLeg/LLowerLeg/LFoot"]
+
+transform/pos = Vector2( 157.938, 51.4429 )
+transform/scale = Vector2( 1.00001, 1.00001 )
+__meta__ = { "_edit_bone_":true }
+
+[node name="Skirt" type="Sprite" parent="Root"]
+
+visibility/behind_parent = true
+transform/pos = Vector2( 27.4548, 423.617 )
+transform/rot = 63.5951
+texture = ExtResource( 16 )
+offset = Vector2( -26.3609, 325.811 )
+flip_h = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.25
+root/root = NodePath("..")
+anims/fall = SubResource( 10 )
+anims/idle = SubResource( 9 )
+anims/jump = SubResource( 3 )
+anims/land = SubResource( 4 )
+anims/run = SubResource( 5 )
+anims/test = SubResource( 6 )
+anims/walk = SubResource( 7 )
+anims/walk(copy)(copy) = SubResource( 8 )
+next/fall = ""
+next/idle = ""
+next/land = "idle"
+next/run = ""
+next/walk = ""
+next/walk(copy)(copy) = ""
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = ""
+
+

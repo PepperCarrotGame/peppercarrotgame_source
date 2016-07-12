@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <resource_file type="PackedScene" subresource_count="3" version="2.0" version_name="Godot Engine v2.0.stable.official">
-	<ext_resource path="res://Scenes/World/tools/tool_player_start.tscn" type="PackedScene" index="0"></ext_resource>
+	<ext_resource path="res://Scenes/Player/player.tscn" type="PackedScene" index="0"></ext_resource>
 	<resource type="RectangleShape2D" path="local://1">
 		<real name="custom_solver_bias"> 0 </real>
 		<vector2 name="extents"> 309.273, 84.0586 </vector2>
@@ -34,7 +34,7 @@
 				<string> "shape" </string>
 				<string> "trigger" </string>
 				<string> "_update_shape_index" </string>
-				<string> "Player_start" </string>
+				<string> "Player" </string>
 			</string_array>
 			<string> "node_count" </string>
 			<int> 4 </int>
@@ -47,7 +47,7 @@
 			<array  len="11" shared="false">
 				<bool> False </bool>
 				<resource  resource_type="Shape2D" path="local://1">  </resource>
-				<matrix32> 1, 0, 0, 1, 381.826, 395.331 </matrix32>
+				<matrix32> 1, -0, 0, 1, 381.826, 395.331 </matrix32>
 				<int> 1 </int>
 				<vector2> 0, 0 </vector2>
 				<real> 0 </real>
@@ -55,7 +55,7 @@
 				<vector2> 381.826, 395.331 </vector2>
 				<int> 0 </int>
 				<resource  external="0">  </resource>
-				<vector2> 149.783, 211.17 </vector2>
+				<vector2> 373.342, 244.564 </vector2>
 			</array>
 			<string> "version" </string>
 			<int> 2 </int>

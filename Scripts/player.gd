@@ -13,7 +13,7 @@ extends KinematicBody2D
 
 # Member variables
 const GRAVITY = 1980.0 # Pixels/second
-
+var last_animation = "idle"
 # Angle in degrees towards either side that the player can consider "floor"
 const FLOOR_ANGLE_TOLERANCE = 40
 const WALK_FORCE = 600
@@ -38,13 +38,29 @@ var is_falling = true
 var velocity = Vector2()
 var on_air_time = 100
 var jumping = false
-
+var animation = "idle"
 var prev_jump_pressed = false
+
+var prev_falling = false
+
+var sprite
+
+var is_landing = false
 
 func _ready():
 	game_manager.set_player(self)
 	set_fixed_process(true)
+	print("spawn")
+	sprite = get_node("PepperSprite")
+	var player = get_node("PepperSprite/AnimationPlayer")
+	player.connect("finished",self,"_animation_finished")
+	print("a")
 	pass
+
+func _animation_finished():
+	print("a")
+	is_landing = false
+	
 
 func _fixed_process(delta):
 	# Create forces
@@ -54,20 +70,29 @@ func _fixed_process(delta):
 	var walk_right = Input.is_action_pressed("right")
 	var jump = Input.is_action_pressed("jump")
 	var stop = true
+	
+	
 	if (walk_left):
-		if (velocity.x <= WALK_MIN_SPEED and velocity.x > -WALK_MAX_SPEED):
+		if (velocity.x <= WALK_MIN_SPEED and velocity.x > -WALK_MAX_SPEED and not is_landing):
 			if(is_falling):
 				force.x -= AIR_CONTROL_FORCE
 			else:
 				force.x -= WALK_FORCE
+				animation = "walk"
+			sprite.set_scale(Vector2(-0.075,0.075))
 			stop = false
 	elif (walk_right):
-		if (velocity.x >= -WALK_MIN_SPEED and velocity.x < WALK_MAX_SPEED):
+		if (velocity.x >= -WALK_MIN_SPEED and velocity.x < WALK_MAX_SPEED and not is_landing):
 			if(is_falling):
 				force.x += AIR_CONTROL_FORCE
 			else:
 				force.x += WALK_FORCE
+				animation = "walk"
+
 			stop = false
+			sprite.set_scale(Vector2(0.075,0.075))
+	else:
+		animation = "idle"
 	
 	if (stop):
 		var vsign = sign(velocity.x)
@@ -80,8 +105,13 @@ func _fixed_process(delta):
 			vlen = 0
 		
 		velocity.x = vlen*vsign
-	if(!jumping and velocity.y > 0):
+	if!jumping and velocity.y > 0:
 		force.y += POST_APEX_FALL_SPEED
+	if jumping:
+		animation = "jump"
+	if is_falling and velocity.y<0:
+		animation = "fall"
+
 	# Integrate forces to velocity
 	velocity += force*delta
 	
@@ -144,4 +174,18 @@ func _fixed_process(delta):
 		jumping = true
 	
 	on_air_time += delta
-	prev_jump_pressed = jump	
+	prev_jump_pressed = jump
+	var player = get_node("PepperSprite/AnimationPlayer")
+	if player.get_current_animation() != "land" and last_animation == "land":
+		is_landing = false
+	if prev_falling == true and is_falling == false:
+		is_landing = true
+	prev_falling = is_falling
+	if is_landing == true:
+		animation = "land"
+	# Animations
+
+	if not player.get_current_animation() == animation:
+		player.play(animation)
+		last_animation = animation
+		print("asd" + animation)

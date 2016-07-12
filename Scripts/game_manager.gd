@@ -31,6 +31,7 @@ var DEBUG = null
 
 func _ready():
 	DEBUG = OS.is_debug_build()
+	current_scene = get_tree().get_current_scene()
 	# This avoids the singleton from loading the menu scene on load when loading in debug mode, but it allows
 	# loading the menu scene if the scene currently being loaded is the base scene (which should be the default)
 	if(DEBUG and get_tree().get_current_scene().get_filename() == "res://Scenes/base_scene.xscn"):
@@ -53,7 +54,7 @@ func change_scene_door(path, door_number):
 	spawn_player(door_number)
 
 func spawn_player(door_number=-1):
-	var doors = get_tree().get_nodes_in_group("doors")
+	"""var doors = get_tree().get_nodes_in_group("doors")
 	if door_number != -1:
 		for door in doors:
 			if door.door_number == door_number:
@@ -68,7 +69,8 @@ func spawn_player(door_number=-1):
 		var player_instance = PLAYER_SCENE.instance()
 		get_tree().get_current_scene().add_child(player_instance)
 		player_instance.set_pos(player_spawn[0].get_pos())
-		print("Player spawned")
+		print("Player spawned")"""
+	pass
 func change_scene(path, cached = false):
 	# Make sure there's no scene code running to avoid crashes
 	call_deferred("change_scene_impl", path, cached)
@@ -103,7 +105,7 @@ func change_scene_impl(path, cached = false):
 	
 	print("Loaded scene: ", path)
 	print("Caching last scene: ", cached)
-	spawn_player(0)
+	#spawn_player(0)
 
 
 func change_to_cached_scene_impl():
