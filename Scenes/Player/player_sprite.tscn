@@ -1181,7 +1181,7 @@ z/z = -1
 texture = ExtResource( 2 )
 offset = Vector2( 20.0907, 634.983 )
 flip_h = true
-__meta__ = { "_edit_bone_":true, "_edit_ik_":true }
+__meta__ = { "_edit_bone_":true, "_edit_ik_":true, "_editor_collapsed":true }
 
 [node name="RLowerLegPatch" type="Sprite" parent="Root/RUpperLeg"]
 
