@@ -1,0 +1,30 @@
+{
+  "level": 0,
+  "stats" :{
+    "vitality": {
+      "level_growth": 10,
+      "stat_multiplier": 200,
+      "raw_value": 400000
+    },
+    "power": {
+      "level_growth": 2,
+      "stat_multiplier": 420,
+      "raw_value": 300000
+    },
+    "intelligence": {
+      "level_growth": 6,
+      "stat_multiplier": 450,
+      "raw_value": 380000
+    },
+    "pet_bond": {
+      "level_growth": 7,
+      "stat_multiplier": 250,
+      "raw_value": 500000
+    },
+    "speed": {
+      "level_growth": 7,
+      "stat_multiplier": 75,
+      "raw_value": 500000
+    }
+  }
+}

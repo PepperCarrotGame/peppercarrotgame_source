@@ -13,7 +13,7 @@ height = 106.874
 
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 1, -0, 0, 1, -5.25581, -9.92764 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, -5.25581, -9.92764 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -32,12 +32,75 @@ _update_shape_index = 0
 transform/pos = Vector2( -5, -30 )
 transform/scale = Vector2( 0.075, 0.075 )
 
+[node name="Root" parent="PepperSprite"]
+
+transform/pos = Vector2( 72, 385.985 )
+
+[node name="RUpperLeg" parent="PepperSprite/Root"]
+
+transform/rot = 109.157
+
+[node name="RLowerLeg" parent="PepperSprite/Root/RUpperLeg"]
+
+transform/rot = -84.8552
+
+[node name="RFoot" parent="PepperSprite/Root/RUpperLeg/RLowerLeg"]
+
+transform/pos = Vector2( 3.74707, 921.517 )
+transform/rot = 32.1154
+
+[node name="HeadShape" parent="PepperSprite/Root/Torso/Neck/NeckBase"]
+
+transform/rot = 16.6908
+
+[node name="RUpperArm" parent="PepperSprite/Root/Torso"]
+
+transform/rot = -121.404
+
+[node name="RLowerArm" parent="PepperSprite/Root/Torso/RUpperArm"]
+
+transform/rot = 49.6073
+
+[node name="RHand" parent="PepperSprite/Root/Torso/RUpperArm/RLowerArm"]
+
+transform/rot = 83.0154
+
+[node name="LUpperArm" parent="PepperSprite/Root/Torso"]
+
+transform/rot = -100.739
+
+[node name="LLowerArm" parent="PepperSprite/Root/Torso/LUpperArm"]
+
+transform/rot = 24.266
+
+[node name="LHand" parent="PepperSprite/Root/Torso/LUpperArm/LLowerArm"]
+
+transform/pos = Vector2( 529.391, 16.445 )
+transform/rot = 68.0092
+
+[node name="LUpperLeg" parent="PepperSprite/Root"]
+
+transform/rot = 78.4531
+
+[node name="LLowerLeg" parent="PepperSprite/Root/LUpperLeg"]
+
+transform/rot = -69.0849
+
+[node name="LFoot" parent="PepperSprite/Root/LUpperLeg/LLowerLeg"]
+
+transform/pos = Vector2( 3.7478, 921.517 )
+transform/rot = 48.5172
+
+[node name="Skirt" parent="PepperSprite/Root"]
+
+transform/rot = 63.5951
+
 [node name="Camera2D" type="Camera2D" parent="."]
 
 anchor_mode = 1
 rotating = false
 current = true
-zoom = Vector2( 0.75, 0.75 )
+zoom = Vector2( 0.6, 0.6 )
 limit/left = -10000000
 limit/top = -10000000
 limit/right = 10000000
@@ -51,4 +114,7 @@ drag_margin/top = 0.2
 drag_margin/right = 0.2
 drag_margin/bottom = 0.2
 
+[connection signal="finished" from="PepperSprite/AnimationPlayer" to="." method="_animation_finished"]
 
+
+[editable path="PepperSprite"]

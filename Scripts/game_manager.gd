@@ -13,12 +13,11 @@ const INPUT_ACTIONS = ["ui_accept", "jump", "up", "down", "left", "right"]
 
 var player = null
 
-var battle_info = load("res://Scripts/battle_info.gd")
-var character_defaults = load("res://Scripts/character_defaults.gd")
 # Display
 var width = 1280 # Display width
 var height = 720 # Display height
 var fullscreen = false # Whether we run in fullscreen or not
+
 
 # Audio
 var music = true # Should the music play
@@ -27,26 +26,21 @@ var sfx = true # Should sound effects play
 var sfx_volume = 1 # Volume of sound effects, between 0 and 1
 
 
+var battle_info = load("res://Scripts/battle_info.gd")
+
 const settings_filename = "user://config.cfg"
 var PLAYER_SCENE = preload("res://Scenes/Player/player.tscn")
 var DEBUG = null
 
 func _ready():
-	var pepper_data = character_defaults.get_character_defaults("pepper")
-#	print(str(pepper_data.stats["intelligence"].get_public_value()))
-	pepper_data.level_up()
-	for stat_key in pepper_data.stats:
-		var stat = pepper_data.stats[stat_key]
-		print(stat.name)
-		print("FinalValue: " + str(stat.get_public_value()))
-		print("RawValue: " + str(stat.raw_value))
+	battle_info.CharacterInfo.load_from_file("pepper")
 	DEBUG = OS.is_debug_build()
 	current_scene = get_tree().get_current_scene()
 	# This avoids the singleton from loading the menu scene on load when loading in debug mode, but it allows
 	# loading the menu scene if the scene currently being loaded is the base scene (which should be the default)
-	if(DEBUG and get_tree().get_current_scene().get_filename() == "res://Scenes/base_scene.xscn"):
+	if DEBUG and get_tree().get_current_scene().get_filename() == "res://Scenes/base_scene.xscn":
 		change_scene("res://Scenes/main_menu.xscn")
-	if(DEBUG):
+	elif DEBUG:
 		change_scene(get_tree().get_current_scene().get_filename())
 		
 	# Load parameters from the config file, overriding the default ones
