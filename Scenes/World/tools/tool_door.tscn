@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=1]
 
 [ext_resource path="res://Scripts/Tools/door_tool.gd" type="Script" id=1]
-[ext_resource path="res://Images/UI/Door_triangle.png" type="Texture" id=2]
-[ext_resource path="res://Images/Tools/tools_door.tex" type="Texture" id=3]
+[ext_resource path="res://Assets/Images/UI/Door_triangle.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Images/Tools/tools_door.tex" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 

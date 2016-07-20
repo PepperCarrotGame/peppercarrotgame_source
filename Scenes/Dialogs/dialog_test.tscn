@@ -1,12 +1,12 @@
 [gd_scene load_steps=8 format=1]
 
 [ext_resource path="res://Fonts/OpenSans.fnt" type="Font" id=1]
-[ext_resource path="res://Images/chara_pepper.tex" type="Texture" id=2]
-[ext_resource path="res://Images/dialog_bubble.tex" type="Texture" id=3]
+[ext_resource path="res://Assets/Images/chara_pepper.tex" type="Texture" id=2]
+[ext_resource path="res://Assets/Images/dialog_bubble.tex" type="Texture" id=3]
 [ext_resource path="res://Scripts/Dialogs/dialog_test.gd" type="Script" id=4]
 [ext_resource path="res://Scripts/Dialogs/start_dialog.gd" type="Script" id=5]
 [ext_resource path="res://Scenes/Dialogs/dialog_bubble.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Images/chara_thyme.tex" type="Texture" id=7]
+[ext_resource path="res://Assets/Images/chara_thyme.tex" type="Texture" id=7]
 
 [node name="Root" type="Control"]
 

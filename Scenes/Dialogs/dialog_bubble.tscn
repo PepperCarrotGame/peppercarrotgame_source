@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=1]
 
 [ext_resource path="res://Scenes/Dialogs/dialog_bubble.gd" type="Script" id=1]
-[ext_resource path="res://Images/dialog_bubble.tex" type="Texture" id=2]
+[ext_resource path="res://Assets/Images/dialog_bubble.tex" type="Texture" id=2]
 [ext_resource path="res://Fonts/OpenSans.fnt" type="Font" id=3]
 
 [node name="Bubble" type="Node2D"]
