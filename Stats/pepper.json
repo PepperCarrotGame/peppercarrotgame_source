@@ -1,5 +1,8 @@
 {
-  "level": 0,
+  "level": 1,
+  "character_name": "#PG_Character_Pepper",
+  "internal_name": "pepper",
+  "player_controlled": true,
   "stats" :{
     "vitality": {
       "level_growth": 10,
@@ -25,6 +28,14 @@
       "level_growth": 7,
       "stat_multiplier": 75,
       "raw_value": 500000
+    }
+  },
+  "attacks": {
+    "big_bang": {
+      "name": "#PG_Attack_Pepper_BigBang",
+      "internal_name": "big_bang",
+      "animation_name": "Attack_BigBang",
+      "attack_modifier": 10
     }
   }
 }

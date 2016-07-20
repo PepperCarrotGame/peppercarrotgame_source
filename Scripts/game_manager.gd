@@ -33,7 +33,7 @@ var PLAYER_SCENE = preload("res://Scenes/Player/player.tscn")
 var DEBUG = null
 
 func _ready():
-	battle_info.CharacterInfo.load_from_file("pepper")
+	
 	DEBUG = OS.is_debug_build()
 	current_scene = get_tree().get_current_scene()
 	# This avoids the singleton from loading the menu scene on load when loading in debug mode, but it allows
@@ -214,3 +214,9 @@ func save_screen_size():
 	"""
 	# TODO: FIX THIS
 	pass
+	
+class PlayerTeam:
+	var characters = {}
+	var selected_characters = {"1": null, "2": null}
+	func load_defaults():
+		characters.append(battle_info.CharacterInfo.load_from_file("pepper"))

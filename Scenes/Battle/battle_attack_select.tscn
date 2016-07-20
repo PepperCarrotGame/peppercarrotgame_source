@@ -1,0 +1,15 @@
+[gd_scene format=1]
+
+[node name="VBoxContainer" type="VBoxContainer"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 428.0
+margin/bottom = 40.0
+alignment = 0
+
+

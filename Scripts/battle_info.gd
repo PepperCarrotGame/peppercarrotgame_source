@@ -22,7 +22,11 @@ class Stat:
 
 class CharacterInfo:
 	var stats = {}
-	var level = 1
+	var attacks = {}
+	var level
+	var name
+	var internal_name
+	var player_controlled = false
 	var HP = 0
 	var MP = 0
 	func _init(_vitality, _power, _intelligence, _pet_bond, _speed):
@@ -32,7 +36,6 @@ class CharacterInfo:
 		stats["pet_bond"] = _pet_bond
 		stats["speed"] = _speed
 	func level_up():
-
 		# Makes all stats level up
 		for stat_name in stats:
 			var stat = stats[stat_name]
@@ -54,8 +57,30 @@ class CharacterInfo:
 			file_contents = file_contents + file.get_line()
 		print(file_contents)
 		final_dict.parse_json(file_contents)
-		final_dict = final_dict["stats"]
+		
+		# Base info parsing
+		level = final_dict["level"]
+		name = final_dict["name"]
+		internal_name = final_dict["internal_name"]
+		player_controlled = final_dict["player_controlled"]
+		# Stats parsing
+		stats_dict = final_dict["stats"]
 		var stats = {}
-		for key in final_dict:
-			var stat = final_dict[key]
+		for key in stats_dict:
+			var stat = stats_dict[key]
 			stats[key] = Stat.new(key, stat["stat_multiplier"], stat["level_growth"],stat["raw_value"])
+		var attacks_dict = final_dict["attacks"]
+		for key in attacks_dict:
+			var attack = attacks_dict[key]
+			attacks[key] = Attack.new(attack["name"], attack["internal_name"], attack["attack_modifier"], attack["animation_name"])
+
+class Attack:
+	var name
+	var internal_name
+	var attack_modifier
+	var animation_name
+	func _init(_name, _internal_name, _attack_modifier, _animation_name):
+		name = _name
+		internal_name = _internal_name
+		attack_modifier = _attack_modifier
+		animation_name = _animation_name
