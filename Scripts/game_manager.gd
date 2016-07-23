@@ -26,14 +26,27 @@ var sfx = true # Should sound effects play
 var sfx_volume = 1 # Volume of sound effects, between 0 and 1
 
 
-var battle_info = load("res://Scripts/battle_info.gd")
+var character_info = load("res://Scripts/character_info.gd")
 
 const settings_filename = "user://config.cfg"
 var PLAYER_SCENE = preload("res://Scenes/Player/player.tscn")
 var DEBUG = null
 
+var player_data
+
+class PlayerData:
+	var characters = {}
+	var selected_characters = {"first": null, "second": null}
+	func load_defaults():
+		var character_info = load("res://Scripts/character_info.gd")
+		characters["pepper"] = character_info.CharacterInfo.new()
+		characters["pepper"].load_from_file("pepper")
+		selected_characters["first"] = "pepper"
+
 func _ready():
-	
+	player_data = PlayerData.new()
+	player_data.load_defaults()
+	print(player_data.characters["pepper"].attacks["big_bang"].name)
 	DEBUG = OS.is_debug_build()
 	current_scene = get_tree().get_current_scene()
 	# This avoids the singleton from loading the menu scene on load when loading in debug mode, but it allows
@@ -215,8 +228,3 @@ func save_screen_size():
 	# TODO: FIX THIS
 	pass
 	
-class PlayerTeam:
-	var characters = {}
-	var selected_characters = {"1": null, "2": null}
-	func load_defaults():
-		characters.append(battle_info.CharacterInfo.load_from_file("pepper"))
