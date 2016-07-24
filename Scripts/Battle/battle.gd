@@ -86,10 +86,12 @@ func _process(delta):
 			non_playable_side_alive = true
 	if not non_playable_side_alive:
 		# L, L ,L!
-		battle_victory() 
+		battle_victory()
+		return
 	elif not playable_side_alive:
 		# T W N S M N E!
 		battle_loss()
+		return
 	
 	# STATE UPDATE
 	for key in characters:
@@ -115,8 +117,9 @@ func _process(delta):
 func battle_victory():
 	#TODO: THIS
 	var debug_label = get_node("DebugLabel")
-	set_process(false)
 	debug_label.set_text("Pepper wins!")
+	set_process(false)
+
 	pass
 
 # | |.
@@ -126,8 +129,8 @@ func battle_victory():
 func battle_loss():
 	# TODO: THIS TOO
 	var debug_label = get_node("DebugLabel")
-	set_process(false)
 	debug_label.set_text("Pepper did not win.")
+	set_process(false)
 	pass
 
 class BattleEntity:

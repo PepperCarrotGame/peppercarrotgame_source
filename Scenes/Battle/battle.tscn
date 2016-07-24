@@ -12,8 +12,8 @@ script/script = ExtResource( 1 )
 
 focus/ignore_mouse = true
 focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
+size_flags/horizontal = 3
+size_flags/vertical = 3
 margin/left = 0.0
 margin/top = 0.0
 margin/right = 40.0
@@ -52,9 +52,27 @@ number = 0
 
 [node name="AttackSelector" parent="." instance=ExtResource( 3 )]
 
+anchor/right = 1
+anchor/bottom = 1
+rect/min_size = Vector2( 10, 10 )
 margin/left = 381.0
 margin/top = 202.0
-margin/right = 809.0
-margin/bottom = 242.0
+margin/right = -852.0
+margin/bottom = -291.0
+
+[node name="Button" type="Button" parent="AttackSelector"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 535.0
+margin/bottom = 20.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+flat = false
 
 
