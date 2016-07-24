@@ -1,9 +1,52 @@
-[gd_scene load_steps=2 format=1]
+[gd_scene load_steps=3 format=1]
 
-[ext_resource path="res://Scripts/Battle/battlestate.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Battle/battle.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/Battle/tools/battle_position.tscn" type="PackedScene" id=2]
 
 [node name="BattleScene" type="Node2D"]
 
 script/script = ExtResource( 1 )
+
+[node name="DebugLabel" type="Label" parent="."]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 40.0
+margin/bottom = 14.0
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="BattlePosition" parent="." instance=ExtResource( 2 )]
+
+transform/pos = Vector2( 1371.28, 732.001 )
+type = "Enemy"
+number = 2
+
+[node name="BattlePosition4" parent="." instance=ExtResource( 2 )]
+
+transform/pos = Vector2( 1776.67, 676.226 )
+type = "Enemy"
+number = 1
+
+[node name="BattlePosition1" parent="." instance=ExtResource( 2 )]
+
+transform/pos = Vector2( 1482.83, 536.109 )
+type = "Enemy"
+number = 0
+
+[node name="BattlePosition2" parent="." instance=ExtResource( 2 )]
+
+transform/pos = Vector2( 300.677, 710.236 )
+number = 1
+
+[node name="BattlePosition3" parent="." instance=ExtResource( 2 )]
+
+transform/pos = Vector2( 315.641, 468.09 )
+number = 0
 
 

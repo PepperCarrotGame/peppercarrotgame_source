@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=1]
+
+[ext_resource path="res://Scripts/Tools/battle_position.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/World/tools/tool.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/Images/Tools/battle_position.png" type="Texture" id=3]
+
+[node name="BattlePosition" type="Node2D"]
+
+script/script = ExtResource( 1 )
+type = null
+number = null
+
+[node name="Sprite" parent="." instance=ExtResource( 2 )]
+
+transform/scale = Vector2( 0.15, 0.15 )
+texture = ExtResource( 3 )
+
+

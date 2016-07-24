@@ -10,4 +10,5 @@ func _ready():
 	if get_tree().is_editor_hint():
 		get_node(".").set_hidden(false)
 	else:
+
 		get_node(".").set_hidden(true)

@@ -10,10 +10,10 @@ class Stat:
 	var level_growth = 0.0
 	const CONSTANT_V = 1638400.0
 	func _init(name,stat_multiplier, level_growth, raw_value):
-		name = name
-		stat_multiplier = stat_multiplier
-		level_growth = level_growth
-		raw_value = raw_value
+		self.name = name
+		self.stat_multiplier = stat_multiplier
+		self.level_growth = level_growth
+		self.raw_value = raw_value
 	func level_up(old_level):
 		raw_value = raw_value + (raw_value/(level_growth+old_level))
 	func get_public_value():
@@ -58,13 +58,14 @@ class CharacterInfo:
 		var final_dict = {}
 		var file = File.new()
 		file.open(path, File.READ)
+		
 		if !file.file_exists(path):
 			return
 		
 		while(!file.eof_reached()):
 			file_contents = file_contents + file.get_line()
 		final_dict.parse_json(file_contents)
-		
+
 		# Base info parsing
 		level = final_dict["level"]
 		name = final_dict["name"]
@@ -75,9 +76,11 @@ class CharacterInfo:
 		var stats_dict = final_dict["stats"]
 		for key in stats_dict:
 			var stat = stats_dict[key]
+
 			stats[key] = Stat.new(key, stat["stat_multiplier"], stat["level_growth"],stat["raw_value"])
 		var attacks_dict = final_dict["attacks"]
 		for key in attacks_dict:
 			var attack = attacks_dict[key]
 			attacks[key] = Attack.new(attack["name"], attack["internal_name"], attack["attack_modifier"], attack["animation_name"])
-
+		HP = stats["vitality"].get_public_value()
+		MP = stats["intelligence"].get_public_value()

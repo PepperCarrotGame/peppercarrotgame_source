@@ -38,6 +38,7 @@ class PlayerData:
 	var characters = {}
 	var selected_characters = {"first": null, "second": null}
 	func load_defaults():
+		# Loads the defaults for the player data, gathered at the start of savefile creation.
 		var character_info = load("res://Scripts/character_info.gd")
 		characters["pepper"] = character_info.CharacterInfo.new()
 		characters["pepper"].load_from_file("pepper")
@@ -46,9 +47,12 @@ class PlayerData:
 func _ready():
 	player_data = PlayerData.new()
 	player_data.load_defaults()
-	print(player_data.characters["pepper"].attacks["big_bang"].name)
+	print(player_data.characters["pepper"].stats["speed"].stat_multiplier)
+
+	
 	DEBUG = OS.is_debug_build()
 	current_scene = get_tree().get_current_scene()
+
 	# This avoids the singleton from loading the menu scene on load when loading in debug mode, but it allows
 	# loading the menu scene if the scene currently being loaded is the base scene (which should be the default)
 	if DEBUG and get_tree().get_current_scene().get_filename() == "res://Scenes/base_scene.xscn":
@@ -65,6 +69,9 @@ func _ready():
 	
 	# Save window size if changed by the user
 	get_tree().connect("screen_resized", self, "save_screen_size")
+	
+	var battle_manager = get_node("/root/battle_manager")
+	battle_manager.start_battle()
 	
 func change_scene_door(path, door_number):
 	change_scene(path, false)
@@ -88,9 +95,9 @@ func spawn_player(door_number=-1):
 		player_instance.set_pos(player_spawn[0].get_pos())
 		print("Player spawned")"""
 	pass
-func change_scene(path, cached = false):
+func change_scene(path, cached = false, callback_object=null ,callback = null):
 	# Make sure there's no scene code running to avoid crashes
-	call_deferred("change_scene_impl", path, cached)
+	call_deferred("change_scene_impl", path, cached, callback_object, callback)
 	
 func change_to_cached_scene():
 	# Make sure there's no scene code running to avoid crashes
@@ -104,7 +111,7 @@ func get_player():
 	return player;
 
 # Actual implementation of change_scene
-func change_scene_impl(path, cached = false):
+func change_scene_impl(path, cached = false, callback_object=null, callback = null):
 	var tree_root = get_tree().get_root()
 	# This is for caching scenes only
 	if(cached == true and current_scene):
@@ -122,6 +129,9 @@ func change_scene_impl(path, cached = false):
 	
 	print("Loaded scene: ", path)
 	print("Caching last scene: ", cached)
+	
+	if callback:
+		callback_object.call(callback, current_scene)
 	#spawn_player(0)
 
 
