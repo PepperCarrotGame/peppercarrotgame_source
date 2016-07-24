@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=1]
+[gd_scene load_steps=6 format=1]
 
 [ext_resource path="res://Scripts/Battle/battle.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Battle/tools/battle_position.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Battle/battle_attack_select.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Characters/wolf_sprite.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Characters/pepper_sprite.tscn" type="PackedScene" id=5]
 
 [node name="BattleScene" type="Node2D"]
 
@@ -24,55 +26,76 @@ max_lines_visible = -1
 
 [node name="BattlePosition" parent="." instance=ExtResource( 2 )]
 
-transform/pos = Vector2( 771.265, 494.24 )
+transform/pos = Vector2( 652.174, 489.329 )
 type = "Enemy"
 number = 2
 
 [node name="BattlePosition4" parent="." instance=ExtResource( 2 )]
 
-transform/pos = Vector2( 1176.65, 438.465 )
-type = "Enemy"
-number = 1
-
-[node name="BattlePosition1" parent="." instance=ExtResource( 2 )]
-
-transform/pos = Vector2( 882.815, 298.348 )
+transform/pos = Vector2( 918.695, 489.494 )
 type = "Enemy"
 number = 0
 
+[node name="BattlePosition1" parent="." instance=ExtResource( 2 )]
+
+transform/pos = Vector2( 778.457, 275.021 )
+type = "Enemy"
+number = 1
+
 [node name="BattlePosition2" parent="." instance=ExtResource( 2 )]
 
-transform/pos = Vector2( 161.37, 512.756 )
-number = 1
+transform/pos = Vector2( 359.036, 401.032 )
+number = 0
 
 [node name="BattlePosition3" parent="." instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 176.334, 270.61 )
-number = 0
+number = 1
 
-[node name="AttackSelector" parent="." instance=ExtResource( 3 )]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+layer = 1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+
+[node name="AttackSelector" parent="CanvasLayer" instance=ExtResource( 3 )]
 
 anchor/right = 1
 anchor/bottom = 1
 rect/min_size = Vector2( 10, 10 )
-margin/left = 381.0
-margin/top = 202.0
-margin/right = -852.0
-margin/bottom = -291.0
+margin/left = 323.0
+margin/top = 107.0
+margin/right = 650.0
+margin/bottom = 318.0
 
-[node name="Button" type="Button" parent="AttackSelector"]
+[node name="Node2D" parent="." instance=ExtResource( 4 )]
 
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 0.0
-margin/right = 535.0
-margin/bottom = 20.0
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-flat = false
+visibility/visible = false
+transform/pos = Vector2( 824.538, 390.797 )
+
+[node name="PepperSprite" parent="." instance=ExtResource( 5 )]
+
+visibility/visible = false
+transform/pos = Vector2( 235.671, 332.675 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+anchor_mode = 0
+rotating = false
+current = true
+zoom = Vector2( 1, 1 )
+limit/left = -10000000
+limit/top = -10000000
+limit/right = 10000000
+limit/bottom = 10000000
+drag_margin/h_enabled = true
+drag_margin/v_enabled = true
+smoothing/enable = false
+smoothing/speed = 5.0
+drag_margin/left = 0.2
+drag_margin/top = 0.2
+drag_margin/right = 0.2
+drag_margin/bottom = 0.2
 
 

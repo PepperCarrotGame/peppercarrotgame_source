@@ -43,6 +43,7 @@ class CharacterInfo:
 	var level
 	var name
 	var internal_name
+	var sprite_location
 	var player_controlled = false
 	var HP = 0
 	var MP = 0
@@ -76,7 +77,7 @@ class CharacterInfo:
 		name = final_dict["name"]
 		internal_name = final_dict["internal_name"]
 		player_controlled = final_dict["player_controlled"]
-		
+		sprite_location = final_dict["sprite_location"]
 		# Stats parsing
 		var stats_dict = final_dict["stats"]
 		for key in stats_dict:

@@ -13,6 +13,8 @@ func _ready():
 	# Initialization here
 	if not get_tree().is_editor_hint():
 		add_to_group("battle_position")
+		if not type:
+			type = "Player"
 	pass
 
 

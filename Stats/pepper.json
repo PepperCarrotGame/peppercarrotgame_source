@@ -3,6 +3,7 @@
   "name": "#PG_Character_Pepper",
   "internal_name": "pepper",
   "player_controlled": true,
+  "sprite_location": "res://Scenes/Characters/pepper_sprite.tscn",
   "stats" :{
     "vitality": {
       "level_growth": 7,

@@ -18,7 +18,7 @@ func _ready():
 	pass
 	
 func get_attack(attacker):
-	get_node("AttackSelector")._get_attack(attacker)
+	get_node("CanvasLayer/AttackSelector")._get_attack(attacker)
 	
 	
 # It's time to dududuudududdduduel
@@ -59,19 +59,26 @@ func _start_battle(enemies):
 		characters[enemy.character_info.internal_name + str(enemy_number)] = enemy
 		enemy_number = enemy_number+1
 		
-	var battle_positions =  get_tree().get_nodes_in_group("battle_position")
+	
 	enemy_number = 0
 	# Give character states and set sprite world position
 	for key in characters:
+		var battle_positions =  get_tree().get_nodes_in_group("battle_position")
 		var character = characters[key]
+		print("Looping for character: " + character.character_info.name)
 		character.state = BattleWaitState.new(character, BattleWaitState, BattleExecuteState)
 		character.battle = self
 		for position in battle_positions:
+			print(str(position.type) + str(position.number))
 			if position.number == character.position:
+				
 				if (position.type == "Player" and character.player_controlled) or (position.type == "Enemy" and not character.player_controlled):
-					# TOD: Spawn sprite
-					#position.add_child(character)
-					pass
+					var sprite = load(character.character_info.sprite_location)
+					print(character.character_info.sprite_location)
+					var sprite_instance = sprite.instance()
+					if not character.player_controlled:
+						sprite_instance.set_scale(Vector2(-1,1))
+					position.add_child(sprite_instance)
 	set_process(true)
 	
 func _process(delta):

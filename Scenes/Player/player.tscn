@@ -3,8 +3,6 @@
 [ext_resource path="res://Scripts/player.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Characters/pepper_sprite.tscn" type="PackedScene" id=2]
 
-
-
 [sub_resource type="CapsuleShape2D" id=1]
 
 custom_solver_bias = 0.0
@@ -36,66 +34,46 @@ transform/scale = Vector2( 0.075, 0.075 )
 
 [node name="Root" parent="PepperSprite"]
 
-transform/pos = Vector2( 72, 385.985 )
+transform/pos = Vector2( 72, 551.985 )
+transform/rot = -55.2475
 
 [node name="RUpperLeg" parent="PepperSprite/Root"]
 
-transform/rot = 109.157
+transform/rot = 113.964
 
 [node name="RLowerLeg" parent="PepperSprite/Root/RUpperLeg"]
 
-transform/rot = -84.8552
+transform/rot = -117.807
 
 [node name="RFoot" parent="PepperSprite/Root/RUpperLeg/RLowerLeg"]
 
-transform/pos = Vector2( 3.74707, 921.517 )
-transform/rot = 32.1154
+transform/pos = Vector2( 3.74683, 921.516 )
+transform/rot = 53.963
+
+[node name="Torso" parent="PepperSprite/Root"]
+
+transform/rot = 25.9269
 
 [node name="HeadShape" parent="PepperSprite/Root/Torso/Neck/NeckBase"]
 
-transform/rot = 16.6908
-
-[node name="RUpperArm" parent="PepperSprite/Root/Torso"]
-
-transform/rot = -121.404
-
-[node name="RLowerArm" parent="PepperSprite/Root/Torso/RUpperArm"]
-
-transform/rot = 49.6073
-
-[node name="RHand" parent="PepperSprite/Root/Torso/RUpperArm/RLowerArm"]
-
-transform/rot = 83.0154
-
-[node name="LUpperArm" parent="PepperSprite/Root/Torso"]
-
-transform/rot = -100.739
-
-[node name="LLowerArm" parent="PepperSprite/Root/Torso/LUpperArm"]
-
-transform/rot = 24.266
-
-[node name="LHand" parent="PepperSprite/Root/Torso/LUpperArm/LLowerArm"]
-
-transform/pos = Vector2( 529.391, 16.445 )
-transform/rot = 68.0092
+transform/rot = -7.22072
 
 [node name="LUpperLeg" parent="PepperSprite/Root"]
 
-transform/rot = 78.4531
+transform/rot = 78.4853
 
 [node name="LLowerLeg" parent="PepperSprite/Root/LUpperLeg"]
 
-transform/rot = -69.0849
+transform/rot = -98.5949
 
 [node name="LFoot" parent="PepperSprite/Root/LUpperLeg/LLowerLeg"]
 
-transform/pos = Vector2( 3.7478, 921.517 )
-transform/rot = 48.5172
+transform/pos = Vector2( 3.74756, 921.518 )
+transform/rot = 50.5879
 
 [node name="Skirt" parent="PepperSprite/Root"]
 
-transform/rot = 63.5951
+transform/rot = 88.0796
 
 [node name="Camera2D" type="Camera2D" parent="."]
 

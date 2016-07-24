@@ -3,6 +3,7 @@
   "name": "#PG_Character_Wolf",
   "internal_name": "wolf",
   "player_controlled": false,
+  "sprite_location": "res://Scenes/Characters/wolf_sprite.tscn",
   "stats" :{
     "vitality": {
       "level_growth": 10,
