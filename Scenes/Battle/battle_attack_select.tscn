@@ -1,4 +1,6 @@
-[gd_scene format=1]
+[gd_scene load_steps=2 format=1]
+
+[ext_resource path="res://Scripts/Battle/battle_attack_select.gd" type="Script" id=1]
 
 [node name="VBoxContainer" type="VBoxContainer"]
 
@@ -9,7 +11,8 @@ size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 0.0
 margin/right = 428.0
-margin/bottom = 40.0
+margin/bottom = 44.0
 alignment = 0
+script/script = ExtResource( 1 )
 
 

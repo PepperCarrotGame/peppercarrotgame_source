@@ -5,12 +5,12 @@
   "player_controlled": true,
   "stats" :{
     "vitality": {
-      "level_growth": 10,
-      "stat_multiplier": 200,
-      "raw_value": 400000
+      "level_growth": 7,
+      "stat_multiplier": 400,
+      "raw_value": 500000
     },
     "power": {
-      "level_growth": 2,
+      "level_growth": 3,
       "stat_multiplier": 420,
       "raw_value": 300000
     },
@@ -35,7 +35,7 @@
       "name": "#PG_Attack_Pepper_BigBang",
       "internal_name": "big_bang",
       "animation_name": "Attack_BigBang",
-      "attack_modifier": 10,
+      "attack_modifier": 2,
       "execute_speed": 75
     }
   }

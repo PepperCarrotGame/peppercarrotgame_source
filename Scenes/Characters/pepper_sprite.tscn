@@ -1442,6 +1442,7 @@ flip_h = true
 
 [node name="Root" type="Node2D" parent="."]
 
+editor/display_folded = true
 transform/pos = Vector2( 72, 551.985 )
 transform/rot = -55.2475
 transform/scale = Vector2( 0.5, 0.5 )

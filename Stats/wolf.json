@@ -2,40 +2,30 @@
   "level": 1,
   "name": "#PG_Character_Wolf",
   "internal_name": "wolf",
-  "player_controlled": true,
+  "player_controlled": false,
   "stats" :{
     "vitality": {
       "level_growth": 10,
       "stat_multiplier": 200,
-      "raw_value": 400000
+      "raw_value": 200000
     },
     "power": {
-      "level_growth": 2,
-      "stat_multiplier": 420,
-      "raw_value": 300000
-    },
-    "intelligence": {
-      "level_growth": 6,
-      "stat_multiplier": 450,
-      "raw_value": 380000
-    },
-    "pet_bond": {
-      "level_growth": 7,
-      "stat_multiplier": 250,
-      "raw_value": 500000
+      "level_growth": 9,
+      "stat_multiplier": 500,
+      "raw_value": 150000
     },
     "speed": {
-      "level_growth": 9,
-      "stat_multiplier": 100,
-      "raw_value": 500000
+      "level_growth": 7,
+      "stat_multiplier": 75,
+      "raw_value": 700000
     }
   },
   "attacks": {
-    "wolf_bite": {
+    "bite": {
       "name": "#PG_Attack_Wolf_Bite",
-      "internal_name": "wolf_bite",
+      "internal_name": "bite",
       "animation_name": "Attack_Bite",
-      "attack_modifier": 5,
+      "attack_modifier": 1,
       "execute_speed": 100
     }
   }

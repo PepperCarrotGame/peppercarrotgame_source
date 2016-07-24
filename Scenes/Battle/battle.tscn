@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=1]
+[gd_scene load_steps=4 format=1]
 
 [ext_resource path="res://Scripts/Battle/battle.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Battle/tools/battle_position.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/Battle/battle_attack_select.tscn" type="PackedScene" id=3]
 
 [node name="BattleScene" type="Node2D"]
 
@@ -23,30 +24,37 @@ max_lines_visible = -1
 
 [node name="BattlePosition" parent="." instance=ExtResource( 2 )]
 
-transform/pos = Vector2( 1371.28, 732.001 )
+transform/pos = Vector2( 771.265, 494.24 )
 type = "Enemy"
 number = 2
 
 [node name="BattlePosition4" parent="." instance=ExtResource( 2 )]
 
-transform/pos = Vector2( 1776.67, 676.226 )
+transform/pos = Vector2( 1176.65, 438.465 )
 type = "Enemy"
 number = 1
 
 [node name="BattlePosition1" parent="." instance=ExtResource( 2 )]
 
-transform/pos = Vector2( 1482.83, 536.109 )
+transform/pos = Vector2( 882.815, 298.348 )
 type = "Enemy"
 number = 0
 
 [node name="BattlePosition2" parent="." instance=ExtResource( 2 )]
 
-transform/pos = Vector2( 300.677, 710.236 )
+transform/pos = Vector2( 161.37, 512.756 )
 number = 1
 
 [node name="BattlePosition3" parent="." instance=ExtResource( 2 )]
 
-transform/pos = Vector2( 315.641, 468.09 )
+transform/pos = Vector2( 176.334, 270.61 )
 number = 0
+
+[node name="AttackSelector" parent="." instance=ExtResource( 3 )]
+
+margin/left = 381.0
+margin/top = 202.0
+margin/right = 809.0
+margin/bottom = 242.0
 
 

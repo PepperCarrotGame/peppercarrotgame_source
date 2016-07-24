@@ -12,11 +12,13 @@ extends Node
 # player has to act, if an attack is done and the player is attacked
 # while waiting then they will go back to the waitin period
 
-
 var characters = {}
 
 func _ready():
 	pass
+	
+func get_attack(attacker):
+	get_node("AttackSelector")._get_attack(attacker)
 	
 	
 # It's time to dududuudududdduduel
@@ -104,12 +106,17 @@ func _process(delta):
 			debug_text = debug_text + "Character " + character.character_info.name + "\n"
 			if character.state extends BattleWaitState:
 				debug_text = debug_text + "State: WaitingState, Waiting delta: " + str(character.state.wait_delta) + "\n"
+			else:
+				debug_text = debug_text + "State: ExecuteState, Execute delta: " + str(character.state.execute_delta) + "\n"
 			debug_text = debug_text + "HP: " + str(character.character_info.HP) + " MP: " + str(character.character_info.MP) + "\n"
 		debug_label.set_text(debug_text)
 		
 
 func battle_victory():
 	#TODO: THIS
+	var debug_label = get_node("DebugLabel")
+	set_process(false)
+	debug_label.set_text("Pepper wins!")
 	pass
 
 # | |.
@@ -118,6 +125,9 @@ func battle_victory():
 
 func battle_loss():
 	# TODO: THIS TOO
+	var debug_label = get_node("DebugLabel")
+	set_process(false)
+	debug_label.set_text("Pepper did not win.")
 	pass
 
 class BattleEntity:
@@ -143,11 +153,15 @@ class BattleEntity:
 	func get_attack():
 		var result_dict = {"attack": null, "enemy": null}
 		if player_controlled:
-			# Present the user with choice
+			battle.get_attack(self)
+			# TODO: Present the user with choice
 			pass
 		else:
 			# AI selection
+			result_dict["attack"] = character_info.attacks["bite"]
+			result_dict["enemy"] = battle.characters["pepper"]
 			pass
+		return result_dict
 
 class BattleState:
 	var battle_entity
@@ -187,10 +201,17 @@ class BattleExecuteState:
 	var attack
 	var enemy
 	func OnEnter():
-		var attack_result_dict = (battle_entity.get_attack())
-		self.attack = attack_result_dict["attack"]
-		self.enemy = attack_result_dict["enemy"]
-
+		if battle_entity.player_controlled:
+			battle_entity.battle.set_process(false)
+			battle_entity.get_attack()
+		else:
+			attack = battle_entity.character_info.attacks["bite"]
+			enemy = battle_entity.battle.characters["pepper"]
+		
+	func attack_callback(attack, enemy):
+		self.attack = attack
+		self.enemy = enemy
+		battle_entity.battle.set_process(true)
 	func _init(battle_entity, wait_state, execute_state).(battle_entity, wait_state, execute_state):
 		pass
 
@@ -201,6 +222,6 @@ class BattleExecuteState:
 			var new_state = wait_state.new(battle_entity, wait_state, execute_state)
 			battle_entity.change_state(new_state)
 			# TODO
-			battle_entity.sprite.play(attack.animation_name)
-		var increment = (battle_entity.character_info.stats["speed"]/100)*attack.execute_speed
+			#battle_entity.sprite.play(attack.animation_name)
+		var increment = ((battle_entity.character_info.stats["speed"].get_public_value()/50)*attack.execute_speed)*delta
 		execute_delta = execute_delta + increment

@@ -25,13 +25,18 @@ class Attack:
 	var attack_modifier
 	var animation_name
 	var execute_speed
-	func _init(name, internal_name, attack_modifier, animation_name):
-		name = name
-		internal_name = internal_name
-		attack_modifier = attack_modifier
-		animation_name = animation_name
-		execute_speed = execute_speed
-
+	func _init(name, internal_name, attack_modifier, animation_name, execute_speed):
+		self.name = name
+		self.internal_name = internal_name
+		self.attack_modifier = attack_modifier
+		self.animation_name = animation_name
+		self.execute_speed = execute_speed
+	func do_attack(attacker,receiver):
+		#Attack formula=[(Power + Speed) / 2] * AttackModifier
+		var speed = attacker.character_info.stats["speed"].get_public_value()
+		var power = attacker.character_info.stats["power"].get_public_value()
+		
+		receiver.character_info.HP = receiver.character_info.HP - ((power+speed)/2)*attack_modifier
 class CharacterInfo:
 	var stats = {}
 	var attacks = {}
@@ -81,6 +86,7 @@ class CharacterInfo:
 		var attacks_dict = final_dict["attacks"]
 		for key in attacks_dict:
 			var attack = attacks_dict[key]
-			attacks[key] = Attack.new(attack["name"], attack["internal_name"], attack["attack_modifier"], attack["animation_name"])
+			attacks[key] = Attack.new(attack["name"], attack["internal_name"], attack["attack_modifier"], attack["animation_name"], attack["execute_speed"])
 		HP = stats["vitality"].get_public_value()
-		MP = stats["intelligence"].get_public_value()
+		if player_controlled:
+			MP = stats["intelligence"].get_public_value()
