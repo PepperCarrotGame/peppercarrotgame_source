@@ -7,13 +7,13 @@
 
 custom_solver_bias = 0.0
 radius = 22.7513
-height = 106.874
+height = 229.16
 
 [node name="Player" type="KinematicBody2D"]
 
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, -5.25581, -9.92764 )
+shapes/0/transform = Matrix32( 1.39668, 0, 0, 1, -4.4337, 20.9567 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -22,7 +22,8 @@ script/script = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
-transform/pos = Vector2( -5.25581, -9.92764 )
+transform/pos = Vector2( -4.4337, 20.9567 )
+transform/scale = Vector2( 1.39668, 1 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
@@ -31,45 +32,6 @@ _update_shape_index = 0
 
 transform/pos = Vector2( -5, -30 )
 transform/scale = Vector2( 0.075, 0.075 )
-
-[node name="Root" parent="PepperSprite"]
-
-transform/pos = Vector2( 72, 551.985 )
-transform/rot = -55.2475
-
-[node name="RUpperLeg" parent="PepperSprite/Root"]
-
-transform/rot = 113.964
-
-[node name="RLowerLeg" parent="PepperSprite/Root/RUpperLeg"]
-
-transform/rot = -117.807
-
-[node name="RFoot" parent="PepperSprite/Root/RUpperLeg/RLowerLeg"]
-
-transform/pos = Vector2( 3.74683, 921.516 )
-transform/rot = 53.963
-
-[node name="Torso" parent="PepperSprite/Root"]
-
-transform/rot = 25.9269
-
-[node name="HeadShape" parent="PepperSprite/Root/Torso/Neck/NeckBase"]
-
-transform/rot = -7.22072
-
-[node name="LUpperLeg" parent="PepperSprite/Root"]
-
-transform/rot = 78.4853
-
-[node name="LLowerLeg" parent="PepperSprite/Root/LUpperLeg"]
-
-transform/rot = -98.5949
-
-[node name="LFoot" parent="PepperSprite/Root/LUpperLeg/LLowerLeg"]
-
-transform/pos = Vector2( 3.74756, 921.518 )
-transform/rot = 50.5879
 
 [node name="Skirt" parent="PepperSprite/Root"]
 
@@ -80,7 +42,7 @@ transform/rot = 88.0796
 anchor_mode = 1
 rotating = false
 current = true
-zoom = Vector2( 0.6, 0.6 )
+zoom = Vector2( 1, 1 )
 limit/left = -10000000
 limit/top = -10000000
 limit/right = 10000000
@@ -88,7 +50,7 @@ limit/bottom = 10000000
 drag_margin/h_enabled = true
 drag_margin/v_enabled = true
 smoothing/enable = true
-smoothing/speed = 5.0
+smoothing/speed = 2.0
 drag_margin/left = 0.2
 drag_margin/top = 0.2
 drag_margin/right = 0.2

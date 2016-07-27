@@ -12,7 +12,7 @@ extends KinematicBody2D
 # as long as it starts from a non-colliding spot too.
 
 # Member variables
-const GRAVITY = 1980.0 # Pixels/second
+const GRAVITY = 3980.0 # Pixels/second
 var last_animation = "idle"
 # Angle in degrees towards either side that the player can consider "floor"
 const FLOOR_ANGLE_TOLERANCE = 40
@@ -22,8 +22,8 @@ const WALK_MIN_SPEED = 10
 const WALK_MAX_SPEED = 200
 const STOP_FORCE = 1800
 const AIR_STOP_FORCE = 0
-const JUMP_SPEED = 600
-const AIR_CONTROL_FORCE = 1000 # Provides extra control over air force
+const JUMP_SPEED = 1400
+const AIR_CONTROL_FORCE = 30000 # Provides extra control over air force
 
 # Make the game feel less floaty by adding more force when falling down
 const POST_APEX_FALL_SPEED = 980
@@ -51,9 +51,7 @@ var is_landing = false
 func _ready():
 	game_manager.set_player(self)
 	set_fixed_process(true)
-	print("spawn")
 	sprite = get_node("PepperSprite")
-	print("a")
 	pass
 
 func _fixed_process(delta):
@@ -177,7 +175,6 @@ func _fixed_process(delta):
 	var player = get_node("PepperSprite/AnimationPlayer")
 	if prev_falling == true and is_falling == false:
 		is_landing = true
-		print("land")
 	prev_falling = is_falling
 	if is_landing:
 		animation = "land"
@@ -186,11 +183,9 @@ func _fixed_process(delta):
 	if not player.get_current_animation() == animation:
 		player.play(animation)
 		last_animation = animation
-		print("asd" + animation)
 
 func finish_landing():
 	is_landing = false
 
 func _animation_finished():
-	print("finished")
 	pass # replace with function body
