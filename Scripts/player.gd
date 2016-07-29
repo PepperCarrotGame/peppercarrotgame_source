@@ -1,4 +1,8 @@
-
+# ==== Pepper & Carrot Game ====
+#
+# Purpose: Player movement code
+#
+# ==============================
 extends KinematicBody2D
 
 const GRAVITY = 98.0 # Pixels/second
@@ -10,7 +14,7 @@ const SLIDE_STOP_MIN_TRAVEL = 1.0 # One pixel
 const STOP_FORCE = 3000.0
 const WALK_MAX_SPEED = 600.0
 const MAX_AIRBORNE_SPEED = 600.0
-const WALK_FORCE = 400.0
+const WALK_FORCE = 50.0
 
 # Not an actual jetpack, just a mario jetpack
 const JUMP_JETPACK_FORCE = 100.0
@@ -53,6 +57,7 @@ func change_state(new_state):
 		state.OnEnter()
 
 func add_movement(movement):
+	print(movement)
 	new_velocity += movement
 
 func change_animation(new_animation):
@@ -61,16 +66,18 @@ func change_animation(new_animation):
 		get_node("Sprite/PepperSprite/AnimationPlayer").play(new_animation)
 
 func _fixed_process(delta):
+	new_velocity = Vector2(0,GRAVITY)
 	state.Update(delta)
 	velocity += new_velocity
 	var motion = velocity * delta
 	motion = move(motion)
+	var n = get_collision_normal()
 	if (is_colliding()):
 		colliding = true
 		if state.has_method("collide"):
 			state.collide()
 
-		if ( get_travel().length() < SLIDE_STOP_MIN_TRAVEL and abs(velocity.x) < SLIDE_STOP_VELOCITY and get_collider_velocity() == Vector2()):
+		if (new_velocity.x == 0 and get_travel().length() < SLIDE_STOP_MIN_TRAVEL and abs(velocity.x) < SLIDE_STOP_VELOCITY and get_collider_velocity() == Vector2()):
 			# Since this formula will always slide the character around, 
 			# a special case must be considered to to stop it from moving 
 			# if standing on an inclined floor. Conditions are:
@@ -82,13 +89,13 @@ func _fixed_process(delta):
 			revert_motion()
 			velocity.y = 0.0
 		else:
-			var n = get_collision_normal()
+
 			motion = n.slide(motion)
 			velocity = n.slide(velocity)
 			move(motion)
 	else:
 		colliding = false
-	new_velocity = Vector2(0,0)
+	
 	
 	
 	
@@ -109,7 +116,6 @@ class PlayerState:
 	func _init(player):
 		self.player = player
 	func Update(delta):
-		player.add_movement(Vector2(0, player.GRAVITY))
 		var walk_left = Input.is_action_pressed("left")
 		var walk_right = Input.is_action_pressed("right")
 		var jump = Input.is_action_pressed("jump")
@@ -172,18 +178,24 @@ class PlayerWalkState:
 		var walk_right = Input.is_action_pressed("right")
 		var jump = Input.is_action_pressed("jump")
 		if walk_left:
-			if player.velocity.x > -player.WALK_MAX_SPEED:
+			if player.velocity.x >= -player.WALK_MAX_SPEED:
 					player.add_movement(Vector2(-player.WALK_FORCE,0))
-			else:
-				player.velocity.x = -player.WALK_MAX_SPEED
+
 		elif walk_right:
-			if player.velocity.x < player.WALK_MAX_SPEED:
-					player.add_movement(Vector2(player.WALK_FORCE,0))
+			if not player.velocity.x >= player.WALK_MAX_SPEED:
+				player.add_movement(Vector2(player.WALK_FORCE,0))
 			else:
-				player.velocity.x = player.WALK_MAX_SPEED
+				player.velocity.y = 0
 		else:
 			player.change_state(player.PlayerStandState.new(player))
-
+		if abs(player.velocity.x) > player.WALK_MAX_SPEED:
+			# This makes sure 100% that the player never goes past the expected maximum speed
+			# This is because when sliding down ramps the player just kept getting more speed
+			# And we don't want that do we?
+			var abv = abs(player.velocity.x)
+			var vsign = sign(player.velocity.x)
+			var difference = player.WALK_MAX_SPEED-abv
+			player.add_movement(Vector2((vsign)*difference, 0))
 class PlayerLandState:
 	extends PlayerGroundState
 	func _init(player).(player):
@@ -203,8 +215,6 @@ class PlayerLandState:
 		if jump:
 			player.velocity.x = player.velocity.x*4
 	func animation_finished(name):
-		print("F2")
-		print(name)
 		if name == "land":
 			player.change_state(player.PlayerStandState.new(player))
 			
@@ -257,6 +267,5 @@ class PlayerJumpState:
 					can_jetpack = false
 		player.change_animation("p_jump")
 	func animation_finished(name):
-		print(name)
 		if name == "p_jump":
 			player.change_state(player.PlayerFallState.new(player))
