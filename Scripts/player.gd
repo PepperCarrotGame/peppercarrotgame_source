@@ -16,9 +16,11 @@ const WALK_MAX_SPEED = 600.0
 const MAX_AIRBORNE_SPEED = 600.0
 const WALK_FORCE = 50.0
 
-# Not an actual jetpack, just a mario jetpack
+# Not an actual jetpack, just mario jump extensions.
 const JUMP_JETPACK_FORCE = 100.0
 const MAX_JETPACK_TIME = 0.1
+
+# Maximum time you can be in the air and still be able to jump.
 const JUMP_MAX_AIRBORNE_TIME = 0.2 # 12 frames...
 var on_air_time = 0
 # member variables here, example:
@@ -28,7 +30,7 @@ const AIR_CONTROL_FORCE = 300 # Provides extra control over air force
 
 const AIR_MAX_SPEED = 100
 var sprite_root
-
+var is_actually_colliding = false
 var state
 
 var velocity = Vector2()
@@ -43,11 +45,10 @@ func _ready():
 	animation_player.connect("finished",self,"animation_finished")
 	
 func animation_finished():
-	print("F")
 	if state.has_method("animation_finished"):
 		var name = get_node("Sprite/PepperSprite/AnimationPlayer").get_current_animation()
 		state.animation_finished(name)
-var colliding = false
+
 
 func change_state(new_state):
 	if state and state.has_method("OnExit"):
@@ -57,7 +58,6 @@ func change_state(new_state):
 		state.OnEnter()
 
 func add_movement(movement):
-	print(movement)
 	new_velocity += movement
 
 func change_animation(new_animation):
@@ -73,7 +73,7 @@ func _fixed_process(delta):
 	motion = move(motion)
 	var n = get_collision_normal()
 	if (is_colliding()):
-		colliding = true
+		is_actually_colliding = true
 		if state.has_method("collide"):
 			state.collide()
 
@@ -94,11 +94,7 @@ func _fixed_process(delta):
 			velocity = n.slide(velocity)
 			move(motion)
 	else:
-		colliding = false
-	
-	
-	
-	
+		is_actually_colliding = false
 	#DEBUG
 	var game_manager = get_node("/root/game_manager")
 	var animation_pos = get_node("Sprite/PepperSprite/AnimationPlayer").get_current_animation_pos()
@@ -107,6 +103,10 @@ func _fixed_process(delta):
 		var text = "State: %s\nVelocity: %s Animation: %s Animation pos: %s" % [str(state.name), str(velocity), animation, str(animation_pos)]
 		get_node("PlayerDebug/DebugLabel").set_text(text)
 
+
+# ==============================
+# Player state base class, controls jumping and turning around too.
+# ==============================
 class PlayerState:
 	var can_interrupt = true
 	var can_turn_around = true
@@ -129,6 +129,9 @@ class PlayerState:
 			player.change_state(player.PlayerJumpState.new(player))
 			return
 
+# ==============================
+# Standard state for all ground based states, handles leaving the ground
+# ==============================
 class PlayerGroundState:
 	extends PlayerState
 	func _init(player).(player):
@@ -136,12 +139,16 @@ class PlayerGroundState:
 		pass
 	func Update(delta):
 		.Update(delta)
-		var jump = Input.is_action_pressed("jump")
 
-		if not player.colliding:
+		if not player.is_actually_colliding:
+			# Make sure the player can still jump for a while before officially leaving the ground.
 			player.on_air_time += delta
 			if player.on_air_time > player.JUMP_MAX_AIRBORNE_TIME:
 				player.change_state(player.PlayerFallState.new(player))
+
+# ==============================
+# Player standing state, makes sure the player stops when not running and handles starting to run.
+# ==============================
 class PlayerStandState:
 	extends PlayerGroundState
 	
@@ -156,7 +163,7 @@ class PlayerStandState:
 		player.change_animation("idle")
 		var walk_left = Input.is_action_pressed("left")
 		var walk_right = Input.is_action_pressed("right")
-		
+		# Stopping shit
 		var vsign = sign(player.velocity.x)
 		var vlen = abs(player.velocity.x)
 		vlen -= player.STOP_FORCE*delta
@@ -167,6 +174,10 @@ class PlayerStandState:
 		if walk_left or walk_right:
 			player.change_state(player.PlayerWalkState.new(player))
 
+
+# ==============================
+# Player walking, makes sure the player never goes over the maximum walking speed.
+# ==============================
 class PlayerWalkState:
 	extends PlayerGroundState
 	func _init(player).(player):
@@ -184,10 +195,9 @@ class PlayerWalkState:
 		elif walk_right:
 			if not player.velocity.x >= player.WALK_MAX_SPEED:
 				player.add_movement(Vector2(player.WALK_FORCE,0))
-			else:
-				player.velocity.y = 0
 		else:
 			player.change_state(player.PlayerStandState.new(player))
+
 		if abs(player.velocity.x) > player.WALK_MAX_SPEED:
 			# This makes sure 100% that the player never goes past the expected maximum speed
 			# This is because when sliding down ramps the player just kept getting more speed
@@ -196,6 +206,10 @@ class PlayerWalkState:
 			var vsign = sign(player.velocity.x)
 			var difference = player.WALK_MAX_SPEED-abv
 			player.add_movement(Vector2((vsign)*difference, 0))
+
+# ==============================
+# Unused state
+# ==============================
 class PlayerLandState:
 	extends PlayerGroundState
 	func _init(player).(player):
@@ -218,6 +232,9 @@ class PlayerLandState:
 		if name == "land":
 			player.change_state(player.PlayerStandState.new(player))
 			
+# ==============================
+# Handles aerial control shenanigans and handles landing
+# ==============================
 class PlayerFallState:
 	extends PlayerState
 
@@ -233,12 +250,16 @@ class PlayerFallState:
 			player.velocity.x = player.MAX_AIRBORNE_SPEED*vsign
 		var walk_left = Input.is_action_pressed("left")
 		var walk_right = Input.is_action_pressed("right")
+		# This code ensures we don't add more velocity if the speed is bigger than it should be
+		# However if the player gets speed in any other way this won't limit it
+		# This will bite me in the ass won't it?
 		if walk_left:
 			if (player.velocity.x > -player.AIR_MAX_SPEED):
 				player.add_movement(Vector2(-player.AIR_CONTROL_FORCE,0))
 		elif walk_right:
 			if (player.velocity.x < player.AIR_MAX_SPEED):
 				player.add_movement(Vector2(player.AIR_CONTROL_FORCE,0))
+
 	func collide():
 		# Ran against something, is it the floor? Get normal
 		var n = player.get_collision_normal()
@@ -247,13 +268,16 @@ class PlayerFallState:
 			# If angle to the "up" vectors is < angle tolerance
 			# char is on floor
 			player.change_state(player.PlayerStandState.new(player))
+			
+# ==============================
+# Handles jump animation and jetpack.
+# ==============================
 class PlayerJumpState:
 	extends PlayerFallState
 	var can_jetpack = true
 	var jetpack_delta = 0
 	func _init(player).(player):
 		name = "PlayerJumpState"
-		pass
 	func Update(delta):
 		.Update(delta)
 		var jump = Input.is_action_pressed("jump")

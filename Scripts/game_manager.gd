@@ -70,8 +70,8 @@ func _ready():
 	# Save window size if changed by the user
 	get_tree().connect("screen_resized", self, "save_screen_size")
 	
-	#var battle_manager = get_node("/root/battle_manager")
-	#battle_manager.start_battle()
+	var battle_manager = get_node("/root/battle_manager")
+	battle_manager.start_battle()
 	
 func change_scene_door(path, door_number):
 	change_scene(path, false)

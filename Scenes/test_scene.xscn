@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <resource_file type="PackedScene" subresource_count="8" version="2.1" version_name="Godot Engine v2.1.rc1.official">
-	<ext_resource path="res://Assets/Images/World/Test/house_outside.png" type="Texture" index="1"></ext_resource>
 	<ext_resource path="res://Scenes/Player/player.tscn" type="PackedScene" index="3"></ext_resource>
-	<ext_resource path="res://Scripts/Tools/tool_interior.gd" type="Script" index="0"></ext_resource>
+	<ext_resource path="res://Assets/Images/World/Test/house_outside.png" type="Texture" index="1"></ext_resource>
 	<ext_resource path="res://Assets/Images/World/Test/house_inside.png" type="Texture" index="2"></ext_resource>
+	<ext_resource path="res://Scripts/Tools/tool_interior.gd" type="Script" index="0"></ext_resource>
 	<resource type="RectangleShape2D" path="local://1">
 		<real name="custom_solver_bias"> 0 </real>
 		<vector2 name="extents"> 1620.61, 84.0586 </vector2>
