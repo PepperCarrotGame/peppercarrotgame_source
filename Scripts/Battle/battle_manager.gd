@@ -4,6 +4,7 @@ var character_info = load("res://Scripts/character_info.gd")
 var battle_script = load("res://Scripts/Battle/battle.gd")
 	
 # Actual implementation of change_scene
+# 
 func start_battle():
 	
 

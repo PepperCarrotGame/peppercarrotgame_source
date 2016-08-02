@@ -32,7 +32,11 @@ const settings_filename = "user://config.cfg"
 var PLAYER_SCENE = preload("res://Scenes/Player/player.tscn")
 var DEBUG = null
 
+var game_states = preload("res://Scripts/game_states.gd")
+var state_machine
 var player_data
+var ui_layer
+
 
 class PlayerData:
 	var characters = {}
@@ -45,12 +49,17 @@ class PlayerData:
 		selected_characters["first"] = "pepper"
 
 func _ready():
+	set_pause_mode(PAUSE_MODE_PROCESS)
+
+	ui_layer = CanvasLayer.new()
+	add_child(ui_layer)
+	# Load default player data in startup
 	player_data = PlayerData.new()
 	player_data.load_defaults()
 	print(player_data.characters["pepper"].stats["speed"].stat_multiplier)
 
-	
 	DEBUG = OS.is_debug_build()
+
 	current_scene = get_tree().get_current_scene()
 
 	# This avoids the singleton from loading the menu scene on load when loading in debug mode, but it allows
@@ -70,15 +79,22 @@ func _ready():
 	# Save window size if changed by the user
 	get_tree().connect("screen_resized", self, "save_screen_size")
 	
-	var battle_manager = get_node("/root/battle_manager")
-	battle_manager.start_battle()
-	
+	#var battle_manager = get_node("/root/battle_manager")
+	#battle_manager.start_battle()
+	# Load player state
+
+	set_process(true)
+	var machine = load("res://Scripts/state_machine.gd")
+	state_machine = machine.new()
+	add_child(state_machine)
+	state_machine.add_state(game_states.InGameState)
+	state_machine.change_state("ingame")
 func change_scene_door(path, door_number):
 	change_scene(path, false)
 	spawn_player(door_number)
 
 func spawn_player(door_number=-1):
-	"""var doors = get_tree().get_nodes_in_group("doors")
+	var doors = get_tree().get_nodes_in_group("doors")
 	if door_number != -1:
 		for door in doors:
 			if door.door_number == door_number:
@@ -93,8 +109,7 @@ func spawn_player(door_number=-1):
 		var player_instance = PLAYER_SCENE.instance()
 		get_tree().get_current_scene().add_child(player_instance)
 		player_instance.set_pos(player_spawn[0].get_pos())
-		print("Player spawned")"""
-	pass
+		print("Player spawned")
 func change_scene(path, cached = false, callback_object=null ,callback = null):
 	# Make sure there's no scene code running to avoid crashes
 	call_deferred("change_scene_impl", path, cached, callback_object, callback)

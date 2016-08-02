@@ -1,6 +1,6 @@
 # ==== Pepper & Carrot Game ====
 #
-# Purpose: Generic state machine
+# Purpose: Unified state machine
 #
 # ==============================
 extends Node
@@ -8,37 +8,34 @@ extends Node
 var states = {}
 var current_state = null
 
-func add_state(name, state):
-	if(is_valid_state(state)):
-		states[name] = state
-	
+func add_state(state):
+	states[state.name] = state
+
 func _ready():
-	is_processing(true)
+	set_process(true)
 
-# Checks if state contains the required methods
-static func is_valid_state(state):
-	if(state.has_method("on_enter") and state.has_method("update") and state.has_method("on_exit")):
-		return true
-	else:
-		return false
+func change_state(name, params=null):
+	var new_state = states[name].new(self)
+	if current_state:
+		if current_state.has_method("OnExit"):
+			current_state.OnExit()
+		current_state.free()
 
-func change_state(name, params):
-	new_state = states[name]
-	if(new_state and is_valid_state(new_state)):
-		if(is_valid_state(current_state)):
-			# Remove old state
-			current_state.on_exit()
-			
-			# Set new state as current and fire events
-			current_state = new_state
-			current_state.on_enter()
-		else:
-			# This should never happen
-			print("Current state is invalid")
-	else:
-			# This can happen, but if it does we are dumb
-			print("New state is invalid")
-			
-func _process(delta):
-	if(is_valid_state(current_state)):
-		current_state.update(delta)
+	current_state = new_state
+	add_child(current_state)
+	if current_state.has_method("OnEnter"):
+		current_state.OnEnter()
+
+class State:
+	extends Node
+	var state_machine
+	func _init(state_machine):
+		self.state_machine = state_machine
+	func OnEnter():
+		pass
+	func OnExit():
+		pass
+	func Update():
+		pass
+	func Input():
+		pass
