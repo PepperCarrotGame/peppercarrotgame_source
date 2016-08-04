@@ -56,7 +56,6 @@ func _ready():
 	# Load default player data in startup
 	player_data = PlayerData.new()
 	player_data.load_defaults()
-	print(player_data.characters["pepper"].stats["speed"].stat_multiplier)
 
 	DEBUG = OS.is_debug_build()
 

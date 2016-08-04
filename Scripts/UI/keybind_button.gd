@@ -29,7 +29,7 @@ func set_action(action_name):
 		if(input_event != null):
 			action = action_name
 			# TODO: make this pretty
-			set_text(OS.get_scancode_string(input_event.scancode) + " " +tr("input_" + action))
+			set_text(OS.get_scancode_string(input_event.scancode) + " " +tr("#input_" + action))
 			
 func bind_signal(name, target, callback):
 	connect(name, target, callback)
