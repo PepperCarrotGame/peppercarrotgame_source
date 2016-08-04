@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<resource_file type="PackedScene" subresource_count="3" version="2.1" version_name="Godot Engine v2.1.rc1.official">
-	<ext_resource path="res://Fonts/OpenSans.fnt" type="BitmapFont" index="1"></ext_resource>
+<resource_file type="PackedScene" subresource_count="3" version="2.1" version_name="Godot Engine v2.1.rc2.official">
 	<ext_resource path="res://Scripts/main_menu.gd" type="Script" index="0"></ext_resource>
+	<ext_resource path="res://Fonts/OpenSans.fnt" type="BitmapFont" index="1"></ext_resource>
 	<main_resource>
 		<dictionary name="_bundled" shared="false">
 			<string> "conn_count" </string>
-			<int> 3 </int>
+			<int> 4 </int>
 			<string> "conns" </string>
-			<int_array  len="18"> 				5, 0, 37, 36, 2, 0, 6, 0, 37, 38, 2, 0, 7, 0, 37, 39, 2, 0 </int_array>
+			<int_array  len="24"> 				4, 0, 37, 36, 2, 0, 5, 0, 37, 38, 2, 0, 6, 0, 37, 39, 2, 0, 7, 0, 37, 40, 2, 0 </int_array>
 			<string> "editable_instances" </string>
 			<array  len="0" shared="false">
 			</array>
 			<string> "names" </string>
-			<string_array  len="40">
+			<string_array  len="41">
 				<string> "Node2D" </string>
 				<string> "script/script" </string>
 				<string> "__meta__" </string>
@@ -49,8 +49,9 @@
 				<string> "disable_debug_button" </string>
 				<string> "options_button" </string>
 				<string> "exit_button" </string>
-				<string> "_on_disable_debug_button_pressed" </string>
+				<string> "_on_play_button_pressed" </string>
 				<string> "pressed" </string>
+				<string> "_on_disable_debug_button_pressed" </string>
 				<string> "_on_options_button_pressed" </string>
 				<string> "_on_exit_button_pressed" </string>
 			</string_array>
@@ -88,16 +89,16 @@
 				<real> 510 </real>
 				<real> 281 </real>
 				<real> 20 </real>
-				<resource name=""></resource>				<string> "Play" </string>
+				<resource name=""></resource>				<string> "#PG_MainMenu_NewGame" </string>
 				<real> 24 </real>
 				<real> 44 </real>
-				<string> "Disable Debug" </string>
+				<string> "#PG_MainMenu_DisableDebug" </string>
 				<real> 48 </real>
 				<real> 68 </real>
-				<string> "Options" </string>
+				<string> "#PG_MainMenu_Options" </string>
 				<real> 72 </real>
 				<real> 92 </real>
-				<string> "Exit" </string>
+				<string> "#PG_MainMenu_Exit" </string>
 			</array>
 			<string> "version" </string>
 			<int> 2 </int>

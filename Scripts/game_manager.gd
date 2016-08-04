@@ -50,7 +50,7 @@ class PlayerData:
 
 func _ready():
 	set_pause_mode(PAUSE_MODE_PROCESS)
-
+	print(tr("#PG_MainMenu_NewGame"))
 	ui_layer = CanvasLayer.new()
 	add_child(ui_layer)
 	# Load default player data in startup

@@ -49,6 +49,9 @@ func animation_finished():
 		var name = get_node("Sprite/PepperSprite/AnimationPlayer").get_current_animation()
 		state.animation_finished(name)
 
+func set_animation_speed(speed):
+	var animation_player = get_node("Sprite/PepperSprite/AnimationPlayer")
+	animation_player.set_speed(speed)
 
 func change_state(new_state):
 	if state and state.has_method("OnExit"):
@@ -111,13 +114,26 @@ class PlayerState:
 	var can_interrupt = true
 	var can_turn_around = true
 	var can_jump = true
+	var walk_left
+	var walk_right
+	var walk_value 
 	var name = "PlayerState"
 	var player
+	const JOYSTICK_MIN = 0.1
 	func _init(player):
 		self.player = player
 	func Update(delta):
-		var walk_left = Input.is_action_pressed("left")
-		var walk_right = Input.is_action_pressed("right")
+		self.walk_left = Input.is_action_pressed("left")
+		self.walk_right = Input.is_action_pressed("right")
+		var axis = Input.get_joy_axis(0, JOY_AXIS_0)
+		self.walk_value = 1
+		
+		if abs(axis) > JOYSTICK_MIN:
+			if axis > 0:
+				self.walk_right = true
+			else:
+				self.walk_left = true
+			self.walk_value = abs(axis)
 		var jump = Input.is_action_pressed("jump")
 		if can_turn_around:
 			if walk_left:
@@ -161,8 +177,6 @@ class PlayerStandState:
 	func Update(delta):
 		.Update(delta)
 		player.change_animation("idle")
-		var walk_left = Input.is_action_pressed("left")
-		var walk_right = Input.is_action_pressed("right")
 		# Stopping shit
 		var vsign = sign(player.velocity.x)
 		var vlen = abs(player.velocity.x)
@@ -185,28 +199,29 @@ class PlayerWalkState:
 	func Update(delta):
 		.Update(delta)
 		player.change_animation("walk")
-		var walk_left = Input.is_action_pressed("left")
-		var walk_right = Input.is_action_pressed("right")
 		var jump = Input.is_action_pressed("jump")
+		var defacto_max_walk_speed = player.WALK_MAX_SPEED*walk_value
 		if walk_left:
-			if player.velocity.x >= -player.WALK_MAX_SPEED:
-					player.add_movement(Vector2(-player.WALK_FORCE,0))
+			if player.velocity.x >= -defacto_max_walk_speed:
+					player.add_movement(Vector2(-player.WALK_FORCE*walk_value,0))
 
 		elif walk_right:
-			if not player.velocity.x >= player.WALK_MAX_SPEED:
-				player.add_movement(Vector2(player.WALK_FORCE,0))
+			if not player.velocity.x >= defacto_max_walk_speed:
+				player.add_movement(Vector2(player.WALK_FORCE*walk_value,0))
 		else:
 			player.change_state(player.PlayerStandState.new(player))
 
-		if abs(player.velocity.x) > player.WALK_MAX_SPEED:
+		if abs(player.velocity.x) > defacto_max_walk_speed:
 			# This makes sure 100% that the player never goes past the expected maximum speed
 			# This is because when sliding down ramps the player just kept getting more speed
 			# And we don't want that do we?
 			var abv = abs(player.velocity.x)
 			var vsign = sign(player.velocity.x)
-			var difference = player.WALK_MAX_SPEED-abv
+			var difference = defacto_max_walk_speed-abv
 			player.add_movement(Vector2((vsign)*difference, 0))
-
+		player.set_animation_speed(walk_value*3)
+	func OnExit():
+		player.set_animation_speed(1)
 # ==============================
 # Unused state
 # ==============================
@@ -248,8 +263,6 @@ class PlayerFallState:
 		var vsign = sign(player.velocity.x)
 		if abs(player.velocity.x) > player.MAX_AIRBORNE_SPEED:
 			player.velocity.x = player.MAX_AIRBORNE_SPEED*vsign
-		var walk_left = Input.is_action_pressed("left")
-		var walk_right = Input.is_action_pressed("right")
 		# This code ensures we don't add more velocity if the speed is bigger than it should be
 		# However if the player gets speed in any other way this won't limit it
 		# This will bite me in the ass won't it?

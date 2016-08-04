@@ -10,7 +10,8 @@ func _ready():
 	pass
 
 
-
+func get_controller_focus():
+	get_node("VBoxContainer/ResumeButton").grab_focus()
 
 func _on_ResumeButton_pressed():
 	print("t")

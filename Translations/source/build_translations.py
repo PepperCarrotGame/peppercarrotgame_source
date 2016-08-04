@@ -14,11 +14,11 @@ files = os.listdir(BUILD_FOLDER)
 # Extract the languages
 needs_languages = True
 
-csv_file_w = open("translations_out.csv", "w", newline="")
+csv_file_w = open("translation.csv", "w", newline="")
 csv_writer = csv.writer(csv_file_w)
 
 for file_name in files:
-    if file_name.endswith(".csv"):
+    if file_name.endswith(".csv") and file_name != "translation.csv":
         f = open(file_name)
         csv_file = csv.reader(f)
         csv_list = list(csv_file)

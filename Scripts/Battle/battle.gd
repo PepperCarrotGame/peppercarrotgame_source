@@ -112,7 +112,7 @@ func _process(delta):
 		debug_text = debug_text + "Characters in the field: " + str(characters.size()) + "\n"
 		for key in characters:
 			var character = characters[key]
-			debug_text = debug_text + "Character " + character.character_info.name + "\n"
+			debug_text = debug_text + "Character " + tr(character.character_info.name) + "\n"
 			if character.state extends BattleWaitState:
 				debug_text = debug_text + "State: WaitingState, Waiting delta: " + str(character.state.wait_delta) + "\n"
 			else:

@@ -1,6 +1,6 @@
 {
   "level": 1,
-  "name": "#PG_Character_Pepper",
+  "name": "#PG_Character_Coriander",
   "internal_name": "pepper",
   "player_controlled": true,
   "sprite_location": "res://Scenes/Characters/pepper_sprite.tscn",

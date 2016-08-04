@@ -42,5 +42,6 @@ class InGameState:
 			else:
 				get_tree().set_pause(true)
 				pause_menu.set_hidden(false)
+				pause_menu.get_controller_focus()
 				print("Paused")
 			get_tree().set_input_as_handled()

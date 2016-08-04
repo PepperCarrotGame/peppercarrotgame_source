@@ -6,3 +6,7 @@
 #input_left,Left,Izquierda,
 #input_right,Right,Derecha,
 #input_jump,Jump,Saltar,
+#PG_MainMenu_NewGame,New game,Nueva partida,
+#PG_MainMenu_Options,Options,Opciones,
+#PG_MainMenu_Exit,Exit,Salir,
+#PG_MainMenu_DisableDebug,Disable Debug,Desactivar Debug,
