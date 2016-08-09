@@ -13,6 +13,7 @@ export(bool) var thinking = false
 export(bool) var right_character = false 
 export(String, MULTILINE) var animated_text = "Put animated text here."
 export(NodePath) var next_dialog
+export(NodePath) var action
 
 var counter = 0
 var finished = false
@@ -90,6 +91,11 @@ func close_dialog():
 	set_process(false)
 	if (next_dialog):
 		var node = get_node(next_dialog)
+		if (node.has_method("start")):
+			node.start()
+	
+	if (action):
+		var node = get_node(action)
 		if (node.has_method("start")):
 			node.start()
 	
