@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<resource_file type="PackedScene" subresource_count="1" version="2.1" version_name="Godot Engine v2.1.rc2.official">
+<resource_file type="PackedScene" subresource_count="1" version="2.1" version_name="Godot Engine v2.1.stable.official">
 	<main_resource>
 		<dictionary name="_bundled" shared="false">
 			<string> "conn_count" </string>
