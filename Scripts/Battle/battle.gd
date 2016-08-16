@@ -1,4 +1,4 @@
-# ==== Pepper & Carrot Game ====
+	# ==== Pepper & Carrot Game ====
 #
 # Purpose: Handles battles
 #
