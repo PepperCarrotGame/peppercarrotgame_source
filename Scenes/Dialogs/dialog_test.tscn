@@ -1,39 +1,40 @@
-[gd_scene load_steps=8 format=1]
+[gd_scene load_steps=9 format=1]
 
-[ext_resource path="res://Fonts/OpenSans.fnt" type="Font" id=1]
+[ext_resource path="res://Fonts/OpenSans.fnt" type="BitmapFont" id=1]
 [ext_resource path="res://Assets/Images/chara_pepper.tex" type="Texture" id=2]
 [ext_resource path="res://Assets/Images/dialog_bubble.tex" type="Texture" id=3]
 [ext_resource path="res://Scripts/Dialogs/dialog_test.gd" type="Script" id=4]
 [ext_resource path="res://Scripts/Dialogs/start_dialog.gd" type="Script" id=5]
-[ext_resource path="res://Scenes/Dialogs/dialog_bubble.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Assets/Images/chara_thyme.tex" type="Texture" id=7]
+[ext_resource path="res://Scripts/Dialogs/move_Pepper.gd" type="Script" id=6]
+[ext_resource path="res://Scenes/Dialogs/dialog_bubble.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Assets/Images/chara_thyme.tex" type="Texture" id=8]
 
 [node name="Root" type="Control"]
 
-margin/left = 6.0
-margin/top = 484.0
-margin/right = 749.0
-margin/bottom = 585.0
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
+margin/left = 6.0
+margin/top = 484.0
+margin/right = 749.0
+margin/bottom = 585.0
 
 [node name="tests" type="Node2D" parent="."]
 
+editor/display_folded = true
 visibility/visible = false
-__meta__ = { "_editor_collapsed":true }
 
 [node name="Character Name" type="Label" parent="tests"]
 
-margin/left = 10.0
-margin/top = 12.0
-margin/right = 734.0
-margin/bottom = 31.0
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
+margin/left = 10.0
+margin/top = 12.0
+margin/right = 734.0
+margin/bottom = 31.0
 custom_fonts/font = ExtResource( 1 )
 text = "Character name"
 percent_visible = 1.0
@@ -73,8 +74,8 @@ region_rect = Rect2( 0, 0, 40, 126 )
 
 [node name="Spike" type="Node2D" parent="tests"]
 
+editor/display_folded = true
 transform/pos = Vector2( 248, -151 )
-__meta__ = { "_editor_collapsed":true }
 
 [node name="talking" type="Sprite" parent="tests/Spike"]
 
@@ -94,14 +95,14 @@ region_rect = Rect2( 182, 45, 70, 50 )
 
 [node name="Text" type="Label" parent="tests"]
 
-margin/left = 145.0
-margin/top = -259.0
-margin/right = 346.0
-margin/bottom = -159.0
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
+margin/left = 145.0
+margin/top = -259.0
+margin/right = 346.0
+margin/bottom = -159.0
 custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Hello world, this is an animated text for testing.\nDo you like it\?\nI hope so."
@@ -117,40 +118,54 @@ right_character = true
 
 [node name="Start_dialog" type="Control" parent="."]
 
-margin/right = 40.0
-margin/bottom = 40.0
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 40.0
+margin/bottom = 40.0
 script/script = ExtResource( 5 )
 first_dialog = NodePath("../Pepper/Bubble")
 
 [node name="Pepper" type="Sprite" parent="."]
 
-transform/pos = Vector2( 133.205, -193.427 )
+transform/pos = Vector2( 186.453, -103.177 )
 texture = ExtResource( 2 )
+script/script = ExtResource( 6 )
+duration = 3
+speed = 100
 
-[node name="Bubble" parent="Pepper" instance=ExtResource( 6 )]
+[node name="Bubble" parent="Pepper" instance=ExtResource( 7 )]
 
 transform/pos = Vector2( 84.21, -15.5124 )
 animated_text = "Hello, my name is Pepper, nice to meet you."
 next_dialog = NodePath("../../Thyme/Bubble")
 
-[node name="Bubble1" parent="Pepper" instance=ExtResource( 6 )]
+[node name="Bubble1" parent="Pepper" instance=ExtResource( 7 )]
 
 visibility/visible = false
 transform/pos = Vector2( 84.21, -15.5124 )
 thinking = true
 animated_text = "Ohh no, I forgot to buy the ingredients for the potion."
+next_dialog = NodePath("../Bubble2")
+action = NodePath("..")
+
+[node name="Bubble2" parent="Pepper" instance=ExtResource( 7 )]
+
+visibility/visible = false
+transform/pos = Vector2( 84.21, -15.5124 )
+animated_text = "I must go now !!!"
 next_dialog = NodePath("")
+action = NodePath("")
 
 [node name="Thyme" type="Sprite" parent="."]
 
 transform/pos = Vector2( 813.533, -61.5717 )
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 
-[node name="Bubble" parent="Thyme" instance=ExtResource( 6 )]
+[node name="Bubble" parent="Thyme" instance=ExtResource( 7 )]
 
 visibility/visible = false
 transform/pos = Vector2( -261.494, -27.7007 )
