@@ -1,0 +1,84 @@
+[gd_scene load_steps=6 format=1]
+
+[ext_resource path="res://Scripts/Dialogs/start_dialog.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Images/chara_pepper.tex" type="Texture" id=2]
+[ext_resource path="res://Scenes/Dialogs/dialog_options_bubble.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Assets/Images/chara_thyme.tex" type="Texture" id=4]
+[ext_resource path="res://Scenes/Dialogs/dialog_bubble.tscn" type="PackedScene" id=5]
+
+[node name="Root" type="Control"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 6.0
+margin/top = 484.0
+margin/right = 749.0
+margin/bottom = 585.0
+
+[node name="Start_dialog" type="Control" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 40.0
+margin/bottom = 40.0
+script/script = ExtResource( 1 )
+first_dialog = NodePath("../Thyme/Question")
+
+[node name="Pepper" type="Sprite" parent="."]
+
+transform/pos = Vector2( 186.453, -103.177 )
+texture = ExtResource( 2 )
+
+[node name="option_bubble" parent="Pepper" instance=ExtResource( 3 )]
+
+visibility/visible = false
+transform/pos = Vector2( 102.028, -13.6038 )
+options = 3
+option1_text = "Option 1"
+option1_action = NodePath("../../Thyme/Answer1")
+option2_text = "Option 2."
+option2_action = NodePath("../../Thyme/Answer2")
+option3_text = "Option 3."
+option3_action = NodePath("../../Thyme/Answer3")
+option4_text = "Disabled"
+
+[node name="Thyme" type="Sprite" parent="."]
+
+transform/pos = Vector2( 813.533, -61.5717 )
+texture = ExtResource( 4 )
+
+[node name="Question" parent="Thyme" instance=ExtResource( 5 )]
+
+transform/pos = Vector2( -261.494, -27.7007 )
+right_character = true
+animated_text = "This is a test. Choose an option."
+next_dialog = NodePath("../../Pepper/option_bubble")
+
+[node name="Answer1" parent="Thyme" instance=ExtResource( 5 )]
+
+visibility/visible = false
+transform/pos = Vector2( -261.494, -27.7007 )
+right_character = true
+animated_text = "You have choose the first option."
+
+[node name="Answer2" parent="Thyme" instance=ExtResource( 5 )]
+
+visibility/visible = false
+transform/pos = Vector2( -261.494, -27.7007 )
+right_character = true
+animated_text = "You have choose the second option."
+
+[node name="Answer3" parent="Thyme" instance=ExtResource( 5 )]
+
+visibility/visible = false
+transform/pos = Vector2( -261.494, -27.7007 )
+right_character = true
+animated_text = "You have choose the third option."
+
+
