@@ -37,6 +37,25 @@ var state_machine
 var player_data
 var ui_layer
 
+class CharacterSave:
+	var level
+	var internal_name
+	var stats
+	func _init(character):
+    	self.level = character.level
+    	self.internal_name = character.internal_name
+    	self.stats = character.stats
+	func to_dict():
+		var stats_dict = {}
+		for stat_name in stats:
+			var stat = stats[stat_name] 
+			stats_dict[stat_name] = stat.to_dict()
+		var save_dict ={
+			level = self.level,
+			internal_name = self.internal_name,
+			stats = stats_dict
+		}
+		return save_dict
 
 class PlayerData:
 	var characters = {}
@@ -47,10 +66,19 @@ class PlayerData:
 		characters["pepper"] = character_info.CharacterInfo.new()
 		characters["pepper"].load_from_file("pepper")
 		selected_characters["first"] = "pepper"
-
+	func to_dict():
+		var characters_dict = {}
+		for character_name in characters:
+			characters_dict[character_name] = CharacterSave.new(characters[character_name]).to_dict()
+		var save_dict = {
+			characters = characters_dict,
+			selected_characters = selected_characters
+		}
+		return save_dict
 func _ready():
+
+	
 	set_pause_mode(PAUSE_MODE_PROCESS)
-	print(tr("#PG_MainMenu_NewGame"))
 	ui_layer = CanvasLayer.new()
 	add_child(ui_layer)
 	# Load default player data in startup
@@ -88,6 +116,9 @@ func _ready():
 	add_child(state_machine)
 	state_machine.add_state(game_states.InGameState)
 	state_machine.change_state("ingame")
+	
+	#var save_manager = get_node("/root/save_manager")
+	#save_manager.save_game("test")
 func change_scene_door(path, door_number):
 	change_scene(path, false)
 	spawn_player(door_number)

@@ -8,7 +8,7 @@ class Stat:
 	var stat_multiplier = 0.0
 	var raw_value = 0.0
 	var level_growth = 0.0
-	const CONSTANT_V = 1638400.0
+	const CONSTANT_V = 1638400.0 # ???
 	func _init(name,stat_multiplier, level_growth, raw_value):
 		self.name = name
 		self.stat_multiplier = stat_multiplier
@@ -19,6 +19,14 @@ class Stat:
 	func get_public_value():
 		# Returns the stat value for the user
 		return ceil((raw_value*stat_multiplier)/CONSTANT_V)
+	func to_dict():
+		var dict = {
+			name = self.name,
+			stat_multiplier = self.stat_multiplier,
+			raw_value = self.raw_value,
+			level_growth = self.level_growth
+		}
+		return dict
 class Attack:
 	var name
 	var internal_name
@@ -57,7 +65,8 @@ class CharacterInfo:
 			HP = stats["vitality"].get_public_value()
 			MP = stats["intelligence"].get_public_value()
 			level = level+1
-
+	func to_dict():
+		pass
 	func load_from_file(character_name):
 		var path = "res://Stats/" + character_name + ".json"
 		var file_contents = ""

@@ -28,15 +28,7 @@ func _start_battle(enemies):
 	# Gets the player's characters in the correct order
 	var player_characters = game_manager.player_data.characters
 	var player_data = game_manager.player_data
-	
-	"""	var sprite
-	var character_info
-	var player_controlled
-	var state
-	var position"""
-	
-	
-	
+
 	# First Character
 	var first_character = player_characters[player_data.selected_characters["first"]]
 	var first_character_battle = BattleEntity.new()
