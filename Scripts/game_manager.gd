@@ -29,6 +29,7 @@ var sfx_volume = 1 # Volume of sound effects, between 0 and 1
 var character_info = load("res://Scripts/character_info.gd")
 
 const settings_filename = "user://config.cfg"
+
 var PLAYER_SCENE = preload("res://Scenes/Player/player.tscn")
 var DEBUG = null
 
@@ -37,6 +38,7 @@ var state_machine
 var player_data
 var ui_layer
 
+# Class of a character saved to file
 class CharacterSave:
 	var level
 	var internal_name
@@ -56,7 +58,18 @@ class CharacterSave:
 			stats = stats_dict
 		}
 		return save_dict
-
+	static func get_full_character_from_dict(dict):
+		var character_info = load("res://Scripts/character_info.gd")
+		var charinfo = character_info.CharacterInfo.new()
+		charinfo.load_from_file(dict["internal_name"])
+		charinfo.stats = {}
+		var stats_dict = dict["stats"]
+		for key in stats_dict:
+			var stat = stats_dict[key]
+			var final_stat = character_info.Stat.from_dict(stat)
+			charinfo.stats[key] = final_stat
+		return charinfo
+# Contains run-time information about the player
 class PlayerData:
 	var characters = {}
 	var selected_characters = {"first": null, "second": null}
@@ -75,6 +88,15 @@ class PlayerData:
 			selected_characters = selected_characters
 		}
 		return save_dict
+	static func get_full_player_data_from_dict(dict):
+		# Grabs a CharacterSave based dictionary and returns a full character.
+		var playerinfo  = new()
+		var characters = dict["characters"]
+		for key in characters:
+			var character = characters[key]
+			characters[key] = CharacterSave.get_full_character_from_dict(character)
+		playerinfo.selected_characters = dict["selected_characters"]
+		return playerinfo
 func _ready():
 
 	
@@ -117,8 +139,9 @@ func _ready():
 	state_machine.add_state(game_states.InGameState)
 	state_machine.change_state("ingame")
 	
-	#var save_manager = get_node("/root/save_manager")
+	var save_manager = get_node("/root/save_manager")
 	#save_manager.save_game("test")
+	#save_manager.load_game("test")
 func change_scene_door(path, door_number):
 	change_scene(path, false)
 	spawn_player(door_number)

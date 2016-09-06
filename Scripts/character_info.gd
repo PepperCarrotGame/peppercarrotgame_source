@@ -27,6 +27,9 @@ class Stat:
 			level_growth = self.level_growth
 		}
 		return dict
+	static func from_dict(dict):
+		var stat = new(dict["name"],dict["stat_multiplier"], dict["level_growth"], dict["raw_value"])
+		return stat
 class Attack:
 	var name
 	var internal_name
@@ -81,6 +84,8 @@ class CharacterInfo:
 			file_contents = file_contents + file.get_line()
 		final_dict.parse_json(file_contents)
 
+		from_dict(final_dict)
+	func from_dict(final_dict):
 		# Base info parsing
 		level = final_dict["level"]
 		name = final_dict["name"]
