@@ -142,6 +142,7 @@ func _ready():
 	var save_manager = get_node("/root/save_manager")
 	#save_manager.save_game("test")
 	#save_manager.load_game("test")
+
 func change_scene_door(path, door_number):
 	change_scene(path, false)
 	spawn_player(door_number)
@@ -156,16 +157,19 @@ func spawn_player(door_number=-1):
 				player_instance.set_pos(door.get_pos())
 				print("Player spawned on door: " + str(door_number))
 				return
-	
+	print("go for spawn")
 	var player_spawn = get_tree().get_nodes_in_group("player_start")
 	if player_spawn.size() > 0:
 		var player_instance = PLAYER_SCENE.instance()
-		get_tree().get_current_scene().add_child(player_instance)
+		game_manager.current_scene.add_child(player_instance)
 		player_instance.set_pos(player_spawn[0].get_pos())
 		print("Player spawned")
-func change_scene(path, cached = false, callback_object=null ,callback = null):
+	else:
+		print("found no spawn")
+
+func change_scene(path, cached = false, callback_object=null ,callback = null, no_free = false):
 	# Make sure there's no scene code running to avoid crashes
-	call_deferred("change_scene_impl", path, cached, callback_object, callback)
+	call_deferred("change_scene_impl", path, cached, callback_object, callback, no_free)
 	
 func change_to_cached_scene():
 	# Make sure there's no scene code running to avoid crashes
@@ -179,7 +183,7 @@ func get_player():
 	return player;
 
 # Actual implementation of change_scene
-func change_scene_impl(path, cached = false, callback_object=null, callback = null):
+func change_scene_impl(path, cached = false, callback_object=null, callback = null, no_free = false):
 	var tree_root = get_tree().get_root()
 	# This is for caching scenes only
 	if(cached == true and current_scene):
@@ -187,10 +191,12 @@ func change_scene_impl(path, cached = false, callback_object=null, callback = nu
 		var packed_scene = PackedScene.new()
 		packed_scene.pack(current_scene)
 		stored_scene = packed_scene
-		current_scene.free()
+		if not no_free:
+			current_scene.free()
 		
 	elif(current_scene):
-		current_scene.free()
+		if not no_free:
+			current_scene.free()
 	var scene = ResourceLoader.load(path)
 	current_scene = scene.instance()
 	tree_root.add_child(current_scene)
@@ -200,7 +206,9 @@ func change_scene_impl(path, cached = false, callback_object=null, callback = nu
 	
 	if callback:
 		callback_object.call(callback, current_scene)
-	#spawn_player(0)
+	print("Cs" + str(get_tree().get_current_scene()))
+	
+	spawn_player(-1)
 
 
 func change_to_cached_scene_impl():

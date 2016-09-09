@@ -43,7 +43,12 @@ func _ready():
 	sprite_root = get_node("Sprite")
 	var animation_player = get_node("Sprite/PepperSprite/AnimationPlayer")
 	animation_player.connect("finished",self,"animation_finished")
-	
+	var game_manager = get_node("/root/game_manager")
+	game_manager.set_player(self)
+
+func get_camera():
+	return get_node("Camera2D")
+
 func animation_finished():
 	if state.has_method("animation_finished"):
 		var name = get_node("Sprite/PepperSprite/AnimationPlayer").get_current_animation()
@@ -68,6 +73,19 @@ func change_animation(new_animation):
 	if new_animation != animation:
 		get_node("Sprite/PepperSprite/AnimationPlayer").play(new_animation)
 
+func interpolate_camera_offset(to_location, main_menu):
+	call_deferred("free_main_menu",main_menu)
+	var tween = Tween.new()
+	var camera = get_node("Camera2D")
+	print("interp")
+	add_child(tween)
+	tween.interpolate_method(camera, "set_offset", camera.get_offset(), to_location, 1, Tween.TRANS_CUBIC, Tween.EASE_OUT)
+	tween.interpolate_callback(self, 1, "finish_interpolate_camera_offset",tween)
+	tween.start()
+func free_main_menu(menu):
+	menu.free()
+func finish_interpolate_camera_offset(tween):
+	tween.free()
 func _fixed_process(delta):
 	new_velocity = Vector2(0,GRAVITY)
 	state.Update(delta)
@@ -105,8 +123,19 @@ func _fixed_process(delta):
 	if game_manager.DEBUG:
 		var text = "State: %s\nVelocity: %s Animation: %s Animation pos: %s" % [str(state.name), str(velocity), animation, str(animation_pos)]
 		get_node("PlayerDebug/DebugLabel").set_text(text)
-
-
+var input_disabled = false
+func disable_input(input_state):
+	input_disabled = input_state
+func custom_is_action_pressed(action):
+	if not input_disabled:
+		return Input.is_action_pressed(action)
+	else:
+		return false
+func custom_joy_axis(controller, axis):
+	if not input_disabled:
+		return Input.get_joy_axis(controller, axis)
+	else:
+		return 0
 # ==============================
 # Player state base class, controls jumping and turning around too.
 # ==============================
@@ -123,9 +152,9 @@ class PlayerState:
 	func _init(player):
 		self.player = player
 	func Update(delta):
-		self.walk_left = Input.is_action_pressed("left")
-		self.walk_right = Input.is_action_pressed("right")
-		var axis = Input.get_joy_axis(0, JOY_AXIS_0)
+		self.walk_left = player.custom_is_action_pressed("left")
+		self.walk_right = player.custom_is_action_pressed("right")
+		var axis = player.custom_joy_axis(0, JOY_AXIS_0)
 		self.walk_value = 1
 		
 		if abs(axis) > JOYSTICK_MIN:
@@ -134,7 +163,7 @@ class PlayerState:
 			else:
 				self.walk_left = true
 			self.walk_value = abs(axis)
-		var jump = Input.is_action_pressed("jump")
+		var jump = player.custom_is_action_pressed("jump")
 		if can_turn_around:
 			if walk_left:
 				player.sprite_root.set_scale(Vector2(-1,1))
@@ -199,7 +228,7 @@ class PlayerWalkState:
 	func Update(delta):
 		.Update(delta)
 		player.change_animation("walk")
-		var jump = Input.is_action_pressed("jump")
+		var jump = player.custom_is_action_pressed("jump")
 		var defacto_max_walk_speed = player.WALK_MAX_SPEED*walk_value
 		if walk_left:
 			if player.velocity.x >= -defacto_max_walk_speed:
@@ -234,7 +263,7 @@ class PlayerLandState:
 		player.change_animation("land")
 	func Update(delta):
 		.Update(delta)
-		var jump = Input.is_action_pressed("jump")
+		var jump = player.custom_is_action_pressed("jump")
 		var vsign = sign(player.velocity.x)
 		var vlen = abs(player.velocity.x)
 		vlen -= player.STOP_FORCE*delta
@@ -293,7 +322,7 @@ class PlayerJumpState:
 		name = "PlayerJumpState"
 	func Update(delta):
 		.Update(delta)
-		var jump = Input.is_action_pressed("jump")
+		var jump = player.custom_is_action_pressed("jump")
 		if not jump:
 			can_jetpack = false
 		else:

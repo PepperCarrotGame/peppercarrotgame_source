@@ -50,6 +50,7 @@ max_lines_visible = -1
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
+process/pause_mode = 2
 anchor_mode = 1
 rotating = false
 current = true

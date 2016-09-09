@@ -5,6 +5,8 @@ extends Node
 # var a=2
 # var b="textvar"
 
+var last_scene_loaded_from_save
+
 func _ready():
 	# Called every time the node is added to the scene.
 	# Initialization here
@@ -14,13 +16,17 @@ func save_game(filename):
 	save.open("user://" + filename + ".fsav", File.WRITE)
 	var game_manager = get_node("/root/game_manager")
 	var save_dict = {
-		player_data = game_manager.player_data.to_dict()
+		player_data = game_manager.player_data.to_dict(),
+		current_scene = game_manager.current_scene
 	}
 	save.store_line(save_dict.to_json())
 	save.close()
-# Loads a game's info, without loading a map.
+
 func load_game(filename):
-	load_game_no_map(filename)
+	load_game_no_map()
+	var game_manager = get_node("/root/game_manager")
+	game_manager.change_scene(last_scene_loaded_from_save)
+# Loads a game's info, without loading a map.
 func load_game_no_map(filename):
 	var file = File.new()
 	file.open("user://" + filename + ".fsav", File.READ)
@@ -36,4 +42,5 @@ func load_game_no_map(filename):
 	var game_manager = get_node("/root/game_manager")
 	var final_player_data = game_manager.PlayerData.get_full_player_data_from_dict(player_data_dict)
 	game_manager.player_data = final_player_data
+	last_scene_loaded_from_save = final_dict["current_scene"]
 	print("strong")
