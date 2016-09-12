@@ -1,0 +1,22 @@
+{
+  "can_repeat_companions": false,
+  "max_companions": 2,
+  "is_numer_of_companions_random": true,
+  "main_enemy":
+  {
+    "type": "wolf",
+    "adapts_to_player_party_level": true
+  },
+  "companion_pool":
+  [
+    {
+      "type": "spider",
+      "adapts_to_player_party_level": false,
+      "level": 10
+    },
+    {
+      "type": "flying_pig",
+      "adapts_to_player_party_level": true
+    }
+  ]
+}

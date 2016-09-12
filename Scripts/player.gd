@@ -16,17 +16,15 @@ const WALK_MAX_SPEED = 600.0
 const MAX_AIRBORNE_SPEED = 600.0
 const WALK_FORCE = 50.0
 
-# Not an actual jetpack, just mario jump extensions.
+# Not an actual jetpack, just mario styled variable jump height.
 const JUMP_JETPACK_FORCE = 100.0
 const MAX_JETPACK_TIME = 0.1
 
-# Maximum time you can be in the air and still be able to jump.
+# Maximum time you can be in the air and still be able to jump, save the frames and kill the animals.
 const JUMP_MAX_AIRBORNE_TIME = 0.2 # 12 frames...
 var on_air_time = 0
-# member variables here, example:
-# var a=2
-# var b="textvar"
-const AIR_CONTROL_FORCE = 300 # Provides extra control over air force
+
+const AIR_CONTROL_FORCE = 300 # This force is applied when drifting in the air
 
 const AIR_MAX_SPEED = 100
 var sprite_root
@@ -36,8 +34,6 @@ var state
 var velocity = Vector2()
 var new_velocity = Vector2()
 func _ready():
-	# Called every time the node is added to the scene.
-	# Initialization here
 	set_fixed_process(true)
 	state = PlayerStandState.new(self)
 	sprite_root = get_node("Sprite")
@@ -73,8 +69,9 @@ func change_animation(new_animation):
 	if new_animation != animation:
 		get_node("Sprite/PepperSprite/AnimationPlayer").play(new_animation)
 
+# Used when transitioning from the main menu.
 func interpolate_camera_offset(to_location, main_menu):
-	call_deferred("free_main_menu",main_menu)
+	#call_deferred("free_main_menu",main_menu)
 	var tween = Tween.new()
 	var camera = get_node("Camera2D")
 	print("interp")
@@ -82,23 +79,24 @@ func interpolate_camera_offset(to_location, main_menu):
 	tween.interpolate_method(camera, "set_offset", camera.get_offset(), to_location, 1, Tween.TRANS_CUBIC, Tween.EASE_OUT)
 	tween.interpolate_callback(self, 1, "finish_interpolate_camera_offset",tween)
 	tween.start()
-func free_main_menu(menu):
-	menu.free()
+
+# Deletes the tween object from memory.
 func finish_interpolate_camera_offset(tween):
 	tween.free()
 func _fixed_process(delta):
+	
 	new_velocity = Vector2(0,GRAVITY)
 	state.Update(delta)
 	velocity += new_velocity
 	var motion = velocity * delta
 	motion = move(motion)
 	var n = get_collision_normal()
-	if (is_colliding()):
+	if is_colliding():
 		is_actually_colliding = true
 		if state.has_method("collide"):
 			state.collide()
 
-		if (new_velocity.x == 0 and get_travel().length() < SLIDE_STOP_MIN_TRAVEL and abs(velocity.x) < SLIDE_STOP_VELOCITY and get_collider_velocity() == Vector2()):
+		if new_velocity.x == 0 and get_travel().length() < SLIDE_STOP_MIN_TRAVEL and abs(velocity.x) < SLIDE_STOP_VELOCITY and get_collider_velocity() == Vector2():
 			# Since this formula will always slide the character around, 
 			# a special case must be considered to to stop it from moving 
 			# if standing on an inclined floor. Conditions are:
@@ -115,6 +113,7 @@ func _fixed_process(delta):
 			velocity = n.slide(velocity)
 			move(motion)
 	else:
+		# HACK: Godot is kinda dumb sometimes.
 		is_actually_colliding = false
 	#DEBUG
 	var game_manager = get_node("/root/game_manager")
@@ -145,7 +144,7 @@ class PlayerState:
 	var can_jump = true
 	var walk_left
 	var walk_right
-	var walk_value 
+	var walk_input_value 
 	var name = "PlayerState"
 	var player
 	const JOYSTICK_MIN = 0.1
@@ -155,14 +154,14 @@ class PlayerState:
 		self.walk_left = player.custom_is_action_pressed("left")
 		self.walk_right = player.custom_is_action_pressed("right")
 		var axis = player.custom_joy_axis(0, JOY_AXIS_0)
-		self.walk_value = 1
+		self.walk_input_value = 1
 		
 		if abs(axis) > JOYSTICK_MIN:
 			if axis > 0:
 				self.walk_right = true
 			else:
 				self.walk_left = true
-			self.walk_value = abs(axis)
+			self.walk_input_value = abs(axis)
 		var jump = player.custom_is_action_pressed("jump")
 		if can_turn_around:
 			if walk_left:
@@ -210,7 +209,7 @@ class PlayerStandState:
 		var vsign = sign(player.velocity.x)
 		var vlen = abs(player.velocity.x)
 		vlen -= player.STOP_FORCE*delta
-		if (vlen < 0):
+		if vlen < 0:
 			vlen = 0
 		player.velocity.x= vlen*vsign
 		
@@ -229,14 +228,16 @@ class PlayerWalkState:
 		.Update(delta)
 		player.change_animation("walk")
 		var jump = player.custom_is_action_pressed("jump")
-		var defacto_max_walk_speed = player.WALK_MAX_SPEED*walk_value
+		
+		# Actual max speed
+		var defacto_max_walk_speed = player.WALK_MAX_SPEED*walk_input_value
 		if walk_left:
 			if player.velocity.x >= -defacto_max_walk_speed:
-					player.add_movement(Vector2(-player.WALK_FORCE*walk_value,0))
+					player.add_movement(Vector2(-player.WALK_FORCE*walk_input_value,0))
 
 		elif walk_right:
 			if not player.velocity.x >= defacto_max_walk_speed:
-				player.add_movement(Vector2(player.WALK_FORCE*walk_value,0))
+				player.add_movement(Vector2(player.WALK_FORCE*walk_input_value,0))
 		else:
 			player.change_state(player.PlayerStandState.new(player))
 
@@ -248,7 +249,7 @@ class PlayerWalkState:
 			var vsign = sign(player.velocity.x)
 			var difference = defacto_max_walk_speed-abv
 			player.add_movement(Vector2((vsign)*difference, 0))
-		player.set_animation_speed(walk_value*3)
+		player.set_animation_speed(walk_input_value*3)
 	func OnExit():
 		player.set_animation_speed(1)
 # ==============================
@@ -267,7 +268,7 @@ class PlayerLandState:
 		var vsign = sign(player.velocity.x)
 		var vlen = abs(player.velocity.x)
 		vlen -= player.STOP_FORCE*delta
-		if (vlen < 0):
+		if vlen < 0:
 			vlen = 0
 		player.velocity.x= vlen*vsign
 		if jump:
@@ -290,23 +291,24 @@ class PlayerFallState:
 	func Update(delta):
 		.Update(delta)
 		var vsign = sign(player.velocity.x)
+		# Try to slow the character down if he's too fast.
 		if abs(player.velocity.x) > player.MAX_AIRBORNE_SPEED:
 			player.velocity.x = player.MAX_AIRBORNE_SPEED*vsign
 		# This code ensures we don't add more velocity if the speed is bigger than it should be
 		# However if the player gets speed in any other way this won't limit it
-		# This will bite me in the ass won't it?
+		# This is a HACK, but it should work... right?
 		if walk_left:
-			if (player.velocity.x > -player.AIR_MAX_SPEED):
+			if player.velocity.x > -player.AIR_MAX_SPEED:
 				player.add_movement(Vector2(-player.AIR_CONTROL_FORCE,0))
 		elif walk_right:
-			if (player.velocity.x < player.AIR_MAX_SPEED):
+			if player.velocity.x < player.AIR_MAX_SPEED:
 				player.add_movement(Vector2(player.AIR_CONTROL_FORCE,0))
 
 	func collide():
 		# Ran against something, is it the floor? Get normal
 		var n = player.get_collision_normal()
 		
-		if (rad2deg(acos(n.dot(Vector2(0, -1)))) < player.FLOOR_ANGLE_TOLERANCE):
+		if rad2deg(acos(n.dot(Vector2(0, -1)))) < player.FLOOR_ANGLE_TOLERANCE:
 			# If angle to the "up" vectors is < angle tolerance
 			# char is on floor
 			player.change_state(player.PlayerStandState.new(player))

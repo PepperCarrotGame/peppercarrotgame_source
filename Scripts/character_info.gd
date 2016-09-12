@@ -75,10 +75,11 @@ class CharacterInfo:
 		var file_contents = ""
 		var final_dict = {}
 		var file = File.new()
-		file.open(path, File.READ)
-		
 		if !file.file_exists(path):
 			return
+		file.open(path, File.READ)
+		
+
 		
 		while(!file.eof_reached()):
 			file_contents = file_contents + file.get_line()

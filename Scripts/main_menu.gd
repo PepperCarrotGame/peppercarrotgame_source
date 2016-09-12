@@ -59,3 +59,4 @@ func _on_continue_button_pressed():
 	player.disable_input(false)
 	var tree_root = get_tree().get_root()
 	player.interpolate_camera_offset(Vector2(0,0), self)
+	call_deferred("free")

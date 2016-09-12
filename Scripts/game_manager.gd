@@ -27,7 +27,7 @@ var sfx_volume = 1 # Volume of sound effects, between 0 and 1
 
 
 var character_info = load("res://Scripts/character_info.gd")
-
+var battle_set = load("res://Scripts/Battle/battle_set.gd")
 const settings_filename = "user://config.cfg"
 
 var PLAYER_SCENE = preload("res://Scenes/Player/player.tscn")
@@ -98,8 +98,6 @@ class PlayerData:
 		playerinfo.selected_characters = dict["selected_characters"]
 		return playerinfo
 func _ready():
-
-	
 	set_pause_mode(PAUSE_MODE_PROCESS)
 	ui_layer = CanvasLayer.new()
 	add_child(ui_layer)

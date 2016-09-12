@@ -1,16 +1,12 @@
-
+# ==== Pepper & Carrot tactical RPG ====
+#
+# Purpose: Manages saving the game and loading it
+#
+# ==============================
 extends Node
-
-# member variables here, example:
-# var a=2
-# var b="textvar"
 
 var last_scene_loaded_from_save
 
-func _ready():
-	# Called every time the node is added to the scene.
-	# Initialization here
-	pass
 func save_game(filename):
 	var save = File.new()
 	save.open("user://" + filename + ".fsav", File.WRITE)
