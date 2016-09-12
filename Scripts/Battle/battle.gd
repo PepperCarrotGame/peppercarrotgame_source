@@ -6,11 +6,13 @@
 
 extends Node
 
+var character_info = preload("res://Scripts/character_info.gd")
+
 ### TODO: FIX THIS
 # Battle system goes like this:
 # There's a waiting period, after that waiting period is over the
 # player has to act, if an attack is done and the player is attacked
-# while waiting then they will go back to the waitin period
+# while waiting then they will go back to the waiting period
 
 var characters = {}
 
@@ -19,11 +21,22 @@ func _ready():
 	
 func get_attack(attacker):
 	get_node("CanvasLayer/AttackSelector")._get_attack(attacker)
-	
-	
+
 # It's time to dududuudududdduduel
 # Enemies should be an array
-func _start_battle(enemies):
+func start_battle(battle_set):
+	var base_enemy = battle_set.main_enemy
+	var enemy_pool = battle_set.companion_pool
+	var enemies = []
+	if battle_set.random_companions and len(battle_set.companion_pool) > 0:
+		for i in range(battle_set.max_companions):
+			# Get random enemy
+			var enemy = battle_set.companion_pool[rand_range(0,len(battle_set.companion_pool)-1)]
+			var entity = BattleEntity.from_battle_set_enemy(enemy, i)
+			enemies.append(entity)
+			
+		
+	
 	var game_manager = get_node("/root/game_manager")
 	# Gets the player's characters in the correct order
 	var player_characters = game_manager.player_data.characters
@@ -164,6 +177,16 @@ class BattleEntity:
 			result_dict["enemy"] = battle.characters["pepper"]
 			pass
 		return result_dict
+	static func from_battle_set_enemy(enemy_set, position):
+		var character_info = load("res://Scripts/character_info.gd")
+		var charinfo = character_info.CharacterInfo.new()
+		charinfo.load_from_file(enemy_set.type)
+		
+		var battle_entity = new()
+		battle_entity.character_info = charinfo
+		battle_entity.player_controlled = false
+		battle_entity.position = position
+		return battle_entity
 
 class BattleState:
 	var battle_entity

@@ -9,6 +9,8 @@ var can_repeat_companions = false
 var max_companions = 0
 var is_number_of_companions_random
 var companion_pool = []
+var main_enemy
+var random_companions = false
 class battle_set_enemy:
 	var type
 	var adapts_to_player_party_level = false
@@ -37,10 +39,17 @@ static func from_file(file_path):
 	var battle_set = new()
 	battle_set.can_repeat_companions = final_dict["can_repeat_companions"]
 	battle_set.max_companions = final_dict["max_companions"]
-	battle_set.is_number_of_companions_random = final_dict["is_numer_of_companions_random"]
+	battle_set.is_number_of_companions_random = final_dict["is_number_of_companions_random"]
+	battle_set.random_companions = final_dict["random_companions"]
+	var main_enemy = final_dict["main_enemy"]
+	var level = 1
+	if not main_enemy.has("adapts_to_player_party_level"):
+		level = main_enemy["level"]
+	battle_set.main_enemy = battle_set_enemy.new(main_enemy["type"], main_enemy["adapts_to_player_party_level"],level)
+
 	for companion in final_dict["companion_pool"]:
 		var level = 1
 		if not companion.has("adapts_to_player_party_level"):
 			level = companion["level"]
-		battle_set.companion_pool.append(battle_set_enemy.new(companion["type"],companion["adapts_to_player_party_level"],level))	
+		battle_set.companion_pool.append(battle_set_enemy.new(companion["type"],companion["adapts_to_player_party_level"],level))
 	return battle_set

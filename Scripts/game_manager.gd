@@ -155,7 +155,6 @@ func spawn_player(door_number=-1):
 				player_instance.set_pos(door.get_pos())
 				print("Player spawned on door: " + str(door_number))
 				return
-	print("go for spawn")
 	var player_spawn = get_tree().get_nodes_in_group("player_start")
 	if player_spawn.size() > 0:
 		var player_instance = PLAYER_SCENE.instance()
@@ -174,7 +173,6 @@ func change_to_cached_scene():
 	call_deferred("change_to_cached_scene_impl")
 
 func set_player(new_player):
-	print(new_player)
 	player=new_player
 
 func get_player():
@@ -204,7 +202,6 @@ func change_scene_impl(path, cached = false, callback_object=null, callback = nu
 	
 	if callback:
 		callback_object.call(callback, current_scene)
-	print("Cs" + str(get_tree().get_current_scene()))
 	
 	spawn_player(-1)
 

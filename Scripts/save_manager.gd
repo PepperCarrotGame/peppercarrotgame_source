@@ -39,4 +39,3 @@ func load_game_no_map(filename):
 	var final_player_data = game_manager.PlayerData.get_full_player_data_from_dict(player_data_dict)
 	game_manager.player_data = final_player_data
 	last_scene_loaded_from_save = final_dict["current_scene"]
-	print("strong")

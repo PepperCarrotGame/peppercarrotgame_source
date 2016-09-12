@@ -1,7 +1,8 @@
 {
+  "random_companions": false,
   "can_repeat_companions": false,
   "max_companions": 2,
-  "is_numer_of_companions_random": true,
+  "is_number_of_companions_random": true,
   "main_enemy":
   {
     "type": "wolf",

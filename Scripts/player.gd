@@ -13,7 +13,7 @@ const SLIDE_STOP_VELOCITY = 1.0 # One pixel per second
 const SLIDE_STOP_MIN_TRAVEL = 1.0 # One pixel
 const STOP_FORCE = 3000.0
 const WALK_MAX_SPEED = 600.0
-const MAX_AIRBORNE_SPEED = 600.0
+const MAX_AIRBORNE_SPEED = 800.0
 const WALK_FORCE = 50.0
 
 # Not an actual jetpack, just mario styled variable jump height.
@@ -24,7 +24,7 @@ const MAX_JETPACK_TIME = 0.1
 const JUMP_MAX_AIRBORNE_TIME = 0.2 # 12 frames...
 var on_air_time = 0
 
-const AIR_CONTROL_FORCE = 300 # This force is applied when drifting in the air
+const AIR_CONTROL_FORCE = 600 # This force is applied when drifting in the air
 
 const AIR_MAX_SPEED = 100
 var sprite_root
@@ -71,10 +71,8 @@ func change_animation(new_animation):
 
 # Used when transitioning from the main menu.
 func interpolate_camera_offset(to_location, main_menu):
-	#call_deferred("free_main_menu",main_menu)
 	var tween = Tween.new()
 	var camera = get_node("Camera2D")
-	print("interp")
 	add_child(tween)
 	tween.interpolate_method(camera, "set_offset", camera.get_offset(), to_location, 1, Tween.TRANS_CUBIC, Tween.EASE_OUT)
 	tween.interpolate_callback(self, 1, "finish_interpolate_camera_offset",tween)
