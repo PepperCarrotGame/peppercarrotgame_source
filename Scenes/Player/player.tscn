@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=1]
+[gd_scene load_steps=5 format=1]
 
 [ext_resource path="res://Scripts/player.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Characters/pepper_sprite.tscn" type="PackedScene" id=2]
@@ -8,6 +8,9 @@
 custom_solver_bias = 0.0
 radius = 35.7814
 height = 185.489
+
+[sub_resource type="SampleLibrary" id=2]
+
 
 [node name="Player" type="KinematicBody2D"]
 
@@ -72,4 +75,70 @@ drag_margin/bottom = 0.2
 
 [node name="PepperSprite" parent="Sprite" instance=ExtResource( 2 )]
 
+[node name="Root" parent="Sprite/PepperSprite"]
 
+transform/pos = Vector2( 0, 68.4304 )
+transform/rot = -14.685
+
+[node name="RUpperLeg" parent="Sprite/PepperSprite/Root"]
+
+transform/rot = 55.4373
+
+[node name="RLowerLeg" parent="Sprite/PepperSprite/Root/RUpperLeg"]
+
+transform/pos = Vector2( 12.5166, 890.56 )
+transform/rot = -70.9174
+
+[node name="RFoot" parent="Sprite/PepperSprite/Root/RUpperLeg/RLowerLeg"]
+
+transform/pos = Vector2( 3.74939, 921.513 )
+transform/rot = -3.99821
+
+[node name="RUpperArm" parent="Sprite/PepperSprite/Root/Torso"]
+
+transform/rot = 10.6024
+
+[node name="RLowerArm" parent="Sprite/PepperSprite/Root/Torso/RUpperArm"]
+
+transform/rot = 61.11
+
+[node name="LUpperArm" parent="Sprite/PepperSprite/Root/Torso"]
+
+transform/rot = -14.8513
+
+[node name="LLowerArm" parent="Sprite/PepperSprite/Root/Torso/LUpperArm"]
+
+transform/rot = 105.583
+
+[node name="LUpperLeg" parent="Sprite/PepperSprite/Root"]
+
+transform/rot = 10.6371
+
+[node name="LLowerLeg" parent="Sprite/PepperSprite/Root/LUpperLeg"]
+
+transform/rot = -6.65236
+
+[node name="LFoot" parent="Sprite/PepperSprite/Root/LUpperLeg/LLowerLeg"]
+
+transform/pos = Vector2( 3.75, 921.517 )
+transform/rot = -55.5252
+
+[node name="SamplePlayer" type="SamplePlayer" parent="."]
+
+config/polyphony = 3
+config/samples = SubResource( 2 )
+default/volume_db = 0.0
+default/pitch_scale = 1.0
+default/pan = 0.0
+default/depth = 0.0
+default/height = 0.0
+default/filter/type = 0
+default/filter/cutoff = 5000.0
+default/filter/resonance = 1.0
+default/filter/gain = 1.0
+default/reverb_room = 2
+default/reverb_send = 0.0
+default/chorus_send = 0.0
+
+
+[editable path="Sprite/PepperSprite"]

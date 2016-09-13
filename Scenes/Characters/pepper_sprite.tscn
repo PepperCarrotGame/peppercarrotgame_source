@@ -174,7 +174,7 @@ tracks/29/interp = 1
 tracks/29/imported = false
 tracks/29/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ -14.685 ] }
 tracks/30/type = "method"
-tracks/30/path = NodePath("..")
+tracks/30/path = NodePath("../..")
 tracks/30/interp = 1
 tracks/30/imported = false
 tracks/30/keys = { "times":FloatArray(  ), "transitions":FloatArray(  ), "values":[  ] }
@@ -1295,6 +1295,11 @@ tracks/31/path = NodePath("Root/Skirt:transform/rot")
 tracks/31/interp = 1
 tracks/31/imported = false
 tracks/31/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ 5.88178 ] }
+tracks/32/type = "method"
+tracks/32/path = NodePath("../..")
+tracks/32/interp = 1
+tracks/32/imported = false
+tracks/32/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ { "args":[ "paco" ], "method":"play_sample" } ] }
 
 [sub_resource type="Animation" id=8]
 
@@ -1451,7 +1456,7 @@ flip_h = true
 [node name="Root" type="Node2D" parent="."]
 
 editor/display_folded = true
-transform/pos = Vector2( 1.09275e-05, 18.3334 )
+transform/pos = Vector2( 1.78814e-05, 30 )
 transform/rot = -1.72121
 
 [node name="RUpperLeg" type="Sprite" parent="Root"]
@@ -1459,7 +1464,7 @@ transform/rot = -1.72121
 editor/display_folded = true
 visibility/behind_parent = true
 transform/pos = Vector2( 62.721, 607.965 )
-transform/rot = 7.92418
+transform/rot = 12.1483
 transform/scale = Vector2( 1.00001, 1.00001 )
 z/z = -1
 texture = ExtResource( 2 )
@@ -1478,7 +1483,7 @@ flip_h = true
 
 visibility/behind_parent = true
 transform/pos = Vector2( 12.5167, 890.561 )
-transform/rot = -13.729
+transform/rot = -20.183
 transform/scale = Vector2( 1.00001, 1.00001 )
 texture = ExtResource( 4 )
 offset = Vector2( 10.1829, 492.22 )
@@ -1488,8 +1493,8 @@ __meta__ = { "_edit_bone_":true }
 [node name="RFoot" type="Sprite" parent="Root/RUpperLeg/RLowerLeg"]
 
 visibility/behind_parent = true
-transform/pos = Vector2( 3.74765, 921.517 )
-transform/rot = 7.07636
+transform/pos = Vector2( 3.7475, 921.515 )
+transform/rot = 10.4275
 transform/scale = Vector2( 1.00001, 1.00001 )
 texture = ExtResource( 5 )
 offset = Vector2( 69.5657, 3.56104 )
@@ -1532,6 +1537,7 @@ __meta__ = { "_edit_bone_":true }
 
 editor/display_folded = true
 transform/pos = Vector2( -4.96213, -178.333 )
+transform/rot = 0.216253
 transform/scale = Vector2( 1.00001, 1.00001 )
 texture = ExtResource( 9 )
 offset = Vector2( 9.60004, -347.307 )
@@ -1674,7 +1680,7 @@ __meta__ = { "_edit_bone_":true }
 [node name="RUpperArm" type="Sprite" parent="Root/Torso"]
 
 transform/pos = Vector2( 183.9, -571.943 )
-transform/rot = -122.085
+transform/rot = -120.579
 transform/scale = Vector2( 1.00001, 1.00001 )
 z/z = -4
 texture = ExtResource( 13 )
@@ -1684,7 +1690,7 @@ __meta__ = { "_edit_bone_":true, "_edit_ik_":true }
 [node name="RLowerArm" type="Sprite" parent="Root/Torso/RUpperArm"]
 
 transform/pos = Vector2( 532.066, 27.2646 )
-transform/rot = 48.399
+transform/rot = 62.1656
 transform/scale = Vector2( 1.00001, 1.00001 )
 texture = ExtResource( 14 )
 offset = Vector2( 256.616, 5.73919 )
@@ -1693,7 +1699,7 @@ __meta__ = { "_edit_bone_":true }
 [node name="RHand" type="Sprite" parent="Root/Torso/RUpperArm/RLowerArm"]
 
 transform/pos = Vector2( 511.766, 30.1343 )
-transform/rot = 82.4075
+transform/rot = 102.691
 texture = ExtResource( 15 )
 offset = Vector2( 30.6471, 200.686 )
 flip_h = true
@@ -1712,7 +1718,7 @@ __meta__ = { "_edit_bone_":true }
 [node name="LUpperArm" type="Sprite" parent="Root/Torso"]
 
 transform/pos = Vector2( -204.745, -639.611 )
-transform/rot = -100.62
+transform/rot = -95.005
 transform/scale = Vector2( 1.00001, 1.00001 )
 texture = ExtResource( 13 )
 offset = Vector2( 246.488, 24.2224 )
@@ -1721,7 +1727,7 @@ __meta__ = { "_edit_bone_":true, "_edit_ik_":true }
 [node name="LLowerArm" type="Sprite" parent="Root/Torso/LUpperArm"]
 
 transform/pos = Vector2( 532.066, 27.2646 )
-transform/rot = 21.8318
+transform/rot = 5.01472
 transform/scale = Vector2( 1.00001, 1.00001 )
 texture = ExtResource( 14 )
 offset = Vector2( 256.616, 5.73919 )
@@ -1729,8 +1735,8 @@ __meta__ = { "_edit_bone_":true }
 
 [node name="LHand" type="Sprite" parent="Root/Torso/LUpperArm/LLowerArm"]
 
-transform/pos = Vector2( 529.391, 16.445 )
-transform/rot = 66.8966
+transform/pos = Vector2( 529.391, 16.4452 )
+transform/rot = 64.4354
 texture = ExtResource( 15 )
 offset = Vector2( 38.3552, 160.384 )
 flip_h = true
@@ -1749,7 +1755,7 @@ __meta__ = { "_edit_bone_":true }
 [node name="LUpperLeg" type="Sprite" parent="Root"]
 
 transform/pos = Vector2( -139.494, 612.509 )
-transform/rot = -2.03021
+transform/rot = 4.25794
 transform/scale = Vector2( 1.00001, 1.00001 )
 z/z = -1
 texture = ExtResource( 2 )
@@ -1768,7 +1774,7 @@ flip_h = true
 
 visibility/behind_parent = true
 transform/pos = Vector2( 12.5167, 890.561 )
-transform/rot = -5.00855
+transform/rot = -21.2932
 transform/scale = Vector2( 1.00001, 1.00001 )
 texture = ExtResource( 4 )
 offset = Vector2( 10.1829, 492.22 )
@@ -1778,8 +1784,8 @@ __meta__ = { "_edit_bone_":true }
 [node name="LFoot" type="Sprite" parent="Root/LUpperLeg/LLowerLeg"]
 
 visibility/behind_parent = true
-transform/pos = Vector2( 3.7482, 921.519 )
-transform/rot = 9.70206
+transform/pos = Vector2( 3.7482, 921.517 )
+transform/rot = 12.5758
 transform/scale = Vector2( 1.00001, 1.00001 )
 texture = ExtResource( 5 )
 offset = Vector2( 69.5657, 3.56104 )
@@ -1796,6 +1802,7 @@ __meta__ = { "_edit_bone_":true }
 
 visibility/behind_parent = true
 transform/pos = Vector2( 27.4548, 423.617 )
+transform/rot = 5.88178
 texture = ExtResource( 16 )
 offset = Vector2( -26.3609, 325.811 )
 flip_h = true

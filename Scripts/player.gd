@@ -42,6 +42,9 @@ func _ready():
 	var game_manager = get_node("/root/game_manager")
 	game_manager.set_player(self)
 
+func play_sample(sample):
+	get_node("SamplePlayer").play(sample)
+
 func get_camera():
 	return get_node("Camera2D")
 
