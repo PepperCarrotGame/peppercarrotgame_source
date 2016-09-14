@@ -16,7 +16,7 @@ class battle_set_enemy:
 	var adapts_to_player_party_level = false
 	var level = 0
 	func _init(type, adapts_to_player_party_level, level):
-		self.type = adapts_to_player_party_level
+		self.type = type
 		self.adapts_to_player_party_level = adapts_to_player_party_level
 		self.level = level
 

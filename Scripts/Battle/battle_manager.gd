@@ -8,18 +8,10 @@ func start_battle(battle_set):
 	#main_enemy.character_info = base_enemy
 	
 	var game_manager = get_node("/root/game_manager")
-	game_manager.change_scene("res://Scenes/Battle/battle.tscn", false, self, "start_battle_callback")
+	game_manager.change_scene("res://Scenes/Battle/battle.tscn")
+	call_deferred("start_battle_callback", battle_set)
 	
-func start_battle_callback(current_scene):
-	var charinfo = character_info.CharacterInfo.new()
-	charinfo.load_from_file("wolf")
-
-	var entity = battle_script.BattleEntity.new()
-	entity.character_info = charinfo
-	entity.player_controlled = false
-	entity.position = 0
-	
-	
-	
-	current_scene.start_battle()
-	pass
+func start_battle_callback(battle_set):
+	print("callback")
+	var game_manager = get_node("/root/game_manager")
+	game_manager.current_scene.start_battle(battle_set)

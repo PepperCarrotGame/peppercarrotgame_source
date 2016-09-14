@@ -69,6 +69,7 @@ class CharacterSave:
 			var final_stat = character_info.Stat.from_dict(stat)
 			charinfo.stats[key] = final_stat
 		return charinfo
+
 # Contains run-time information about the player
 class PlayerData:
 	var characters = {}
@@ -108,14 +109,20 @@ func _ready():
 	DEBUG = OS.is_debug_build()
 
 	current_scene = get_tree().get_current_scene()
-
+	"""
+	var save_manager = get_node("/root/save_manager")
+	var battle_manager = get_node("/root/battle_manager")
+	var BattleSet = load("res://Scripts/Battle/battle_set.gd")
+	var battle_set = BattleSet.from_file("res://Stats/BattleSets/demo/demo_battleset.json")
+	"""
+	print("battle_set")
+	battle_manager.start_battle(battle_set)
 	# This avoids the singleton from loading the menu scene on load when loading in debug mode, but it allows
 	# loading the menu scene if the scene currently being loaded is the base scene (which should be the default)
 	if DEBUG and get_tree().get_current_scene().get_filename() == "res://Scenes/base_scene.xscn":
 		change_scene("res://Scenes/main_menu.xscn")
 	elif DEBUG:
 		change_scene(get_tree().get_current_scene().get_filename())
-		
 	# Load parameters from the config file, overriding the default ones
 	load_config()
 	
@@ -137,7 +144,7 @@ func _ready():
 	state_machine.add_state(game_states.InGameState)
 	state_machine.change_state("ingame")
 	
-	var save_manager = get_node("/root/save_manager")
+
 	#save_manager.save_game("test")
 	#save_manager.load_game("test")
 
@@ -164,7 +171,7 @@ func spawn_player(door_number=-1):
 	else:
 		print("found no spawn")
 
-func change_scene(path, cached = false, callback_object=null ,callback = null, no_free = false):
+func change_scene(path, cached = false, callback_object=null ,callback = null, no_free = true):
 	# Make sure there's no scene code running to avoid crashes
 	call_deferred("change_scene_impl", path, cached, callback_object, callback, no_free)
 	
@@ -179,7 +186,7 @@ func get_player():
 	return player;
 
 # Actual implementation of change_scene
-func change_scene_impl(path, cached = false, callback_object=null, callback = null, no_free = false):
+func change_scene_impl(path, cached = false, callback_object=null, callback = null, no_free = true):
 	var tree_root = get_tree().get_root()
 	# This is for caching scenes only
 	if(cached == true and current_scene):

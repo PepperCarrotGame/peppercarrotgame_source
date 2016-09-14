@@ -26,17 +26,31 @@ func get_attack(attacker):
 # Enemies should be an array
 func start_battle(battle_set):
 	var base_enemy = battle_set.main_enemy
+	print("pool" + str(battle_set.companion_pool[0].type))
 	var enemy_pool = battle_set.companion_pool
+
+	
 	var enemies = []
-	if battle_set.random_companions and len(battle_set.companion_pool) > 0:
-		for i in range(battle_set.max_companions):
-			# Get random enemy
-			var enemy = battle_set.companion_pool[rand_range(0,len(battle_set.companion_pool)-1)]
-			var entity = BattleEntity.from_battle_set_enemy(enemy, i)
-			enemies.append(entity)
+	# Add main enemy
+	var entity = BattleEntity.from_battle_set_enemy(base_enemy, 0)
+	enemies.append(entity)
+	if battle_set.companion_pool.size() > 0:
+		if battle_set.random_companions:
+			print("weee")
+			for i in range(battle_set.max_companions):
+				# Get random enemy
+				var enemy = battle_set.companion_pool[rand_range(0,battle_set.companion_pool.size()-1)]
+				var entity = BattleEntity.from_battle_set_enemy(enemy, i+1)
+				enemies.append(entity)
+		else:
+			for i in range(battle_set.companion_pool.size()):
+				# Get enemy
+				var enemy = battle_set.companion_pool[i]
+				var entity = BattleEntity.from_battle_set_enemy(enemy, i+1)
+				enemies.append(entity)
 			
 		
-	
+
 	var game_manager = get_node("/root/game_manager")
 	# Gets the player's characters in the correct order
 	var player_characters = game_manager.player_data.characters
