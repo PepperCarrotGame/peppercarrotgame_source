@@ -183,7 +183,7 @@ func set_player(new_player):
 	player=new_player
 
 func get_player():
-	return player;
+	return player
 
 # Actual implementation of change_scene
 func change_scene_impl(path, cached = false, callback_object=null, callback = null, no_free = true):
