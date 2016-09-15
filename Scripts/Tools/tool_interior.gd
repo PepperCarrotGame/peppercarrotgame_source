@@ -1,4 +1,3 @@
-
 extends Area2D
 
 var player_class = load("res://Scripts/player.gd")

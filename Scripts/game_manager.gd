@@ -1,6 +1,6 @@
 # ==== Pepper & Carrot Game ====
 #
-# Purpose: Manages game state and configuration files
+# Purpose: Manages game state and configuration files, and loading of stuff
 #
 # ==============================
 
@@ -133,8 +133,7 @@ func _ready():
 	
 	print("battle_set")
 	battle_manager.start_battle(battle_set)"""
-	#var battle_manager = get_node("/root/battle_manager")
-	#battle_manager.start_battle()
+	
 	# Load player state
 
 	set_process(true)
