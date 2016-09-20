@@ -96,6 +96,7 @@ class PlayerData:
 		for key in characters:
 			var character = characters[key]
 			characters[key] = CharacterSave.get_full_character_from_dict(character)
+		playerinfo.characters = characters
 		playerinfo.selected_characters = dict["selected_characters"]
 		return playerinfo
 func _ready():

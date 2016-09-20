@@ -12,12 +12,12 @@
     },
     "power": {
       "level_growth": 9,
-      "stat_multiplier": 500,
+      "stat_multiplier": 350,
       "raw_value": 150000
     },
     "speed": {
       "level_growth": 7,
-      "stat_multiplier": 75,
+      "stat_multiplier": 50,
       "raw_value": 700000
     }
   },

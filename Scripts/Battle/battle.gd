@@ -85,7 +85,7 @@ func start_battle(battle_set):
 		var battle_positions =  get_tree().get_nodes_in_group("battle_position")
 		var character = characters[key]
 		print("Looping for character: " + character.character_info.name)
-		character.state = BattleWaitState.new(character, BattleWaitState, BattleExecuteState)
+		character.state = BattleWaitState.new(character, BattleWaitState, BattleExecuteState, BattleDeadState)
 		character.battle = self
 		for position in battle_positions:
 			print(str(position.type) + str(position.number))
@@ -106,10 +106,12 @@ func _process(delta):
 	var non_playable_side_alive = false
 	for key in characters:
 		var character = characters[key]
-		if character.player_controlled and character.character_info.HP > 0:
-			playable_side_alive = true
-		elif character.character_info.HP > 0:
-			non_playable_side_alive = true
+		if character.character_info.HP > 0:
+			
+			if character.player_controlled:
+				playable_side_alive = true
+			else:
+				non_playable_side_alive = true
 	if not non_playable_side_alive:
 		# L, L ,L!
 		battle_victory()
@@ -134,8 +136,10 @@ func _process(delta):
 			debug_text = debug_text + "Character " + tr(character.character_info.name) + "\n"
 			if character.state extends BattleWaitState:
 				debug_text = debug_text + "State: WaitingState, Waiting delta: " + str(character.state.wait_delta) + "\n"
-			else:
+			elif character.state extends BattleExecuteState:
 				debug_text = debug_text + "State: ExecuteState, Execute delta: " + str(character.state.execute_delta) + "\n"
+			else:
+				debug_text = debug_text + "State: DeadState, No delta." + "\n"
 			debug_text = debug_text + "HP: " + str(character.character_info.HP) + " MP: " + str(character.character_info.MP) + "\n"
 		debug_label.set_text(debug_text)
 		
@@ -166,6 +170,8 @@ class BattleEntity:
 	var state
 	var position
 	var battle
+	func is_alive():
+		return not state extends state.dead_state
 	func _init():
 		pass
 	func receive_damage(pure_damage):
@@ -206,16 +212,32 @@ class BattleState:
 	var battle_entity
 	var wait_state
 	var execute_state
-	func _init(battle_entity, wait_state, execute_state):
+	var dead_state
+	func _init(battle_entity, wait_state, execute_state, dead_state):
 		self.battle_entity = battle_entity
 		self.wait_state = wait_state
 		self.execute_state = execute_state
+		self.dead_state = dead_state
 	func Update(delta):
-		pass
+		if battle_entity.character_info.HP <= 0:
+			battle_entity.character_info.HP = 0
+			# TODO: Play death animation or something
+			var new_state = dead_state.new(battle_entity, wait_state, execute_state, dead_state)
+			battle_entity.change_state(new_state)
 	func OnExit():
 		pass
 	func OnEnter():
 		pass
+class BattleDeadState:
+	extends BattleState
+	func OnEnter():
+		.OnEnter()
+	func OnExit():
+		.OnExit()
+	func _init(battle_entity, wait_state, execute_state, dead_state).(battle_entity, wait_state, execute_state, dead_state):
+		pass
+	func Update(delta):
+		.Update(delta)
 class BattleWaitState:
 	extends BattleState
 	
@@ -228,9 +250,9 @@ class BattleWaitState:
 		# Increment the time for waiting
 		wait_delta = wait_delta + battle_entity.character_info.stats["speed"].get_public_value()*delta
 		if wait_delta >= WAIT_TIME:
-			var new_state = execute_state.new(battle_entity, wait_state, execute_state)
+			var new_state = execute_state.new(battle_entity, wait_state, execute_state, dead_state)
 			battle_entity.change_state(new_state)
-	func _init(battle_entity, wait_state, execute_state).(battle_entity, wait_state, execute_state):
+	func _init(battle_entity, wait_state, execute_state, dead_state).(battle_entity, wait_state, execute_state, dead_state):
 		pass
 
 class BattleExecuteState:
@@ -251,14 +273,14 @@ class BattleExecuteState:
 		self.attack = attack
 		self.enemy = enemy
 		battle_entity.battle.set_process(true)
-	func _init(battle_entity, wait_state, execute_state).(battle_entity, wait_state, execute_state):
+	func _init(battle_entity, wait_state, execute_state, dead_state).(battle_entity, wait_state, execute_state, dead_state):
 		pass
 
 	func Update(delta):
 		# Execute delta increment formula is: (Public_Speed/100)*attack_execute_speed
 		if execute_delta >= EXECUTE_TIME:
 			attack.do_attack(battle_entity, enemy)
-			var new_state = wait_state.new(battle_entity, wait_state, execute_state)
+			var new_state = wait_state.new(battle_entity, wait_state, execute_state, dead_state)
 			battle_entity.change_state(new_state)
 			# TODO
 			#battle_entity.sprite.play(attack.animation_name)

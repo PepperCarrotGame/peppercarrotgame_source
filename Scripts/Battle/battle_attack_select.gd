@@ -17,7 +17,7 @@ func _get_attack(battle_entity):
 	self.battle_entity = battle_entity
 	for key in battle_entity.battle.characters:
 		var enemy = battle_entity.battle.characters[key]
-		if not enemy.player_controlled:
+		if not enemy.player_controlled and enemy.is_alive():
 			print(enemy.character_info.name)
 			var button = Button.new()
 			button.set_text(enemy.character_info.name)
