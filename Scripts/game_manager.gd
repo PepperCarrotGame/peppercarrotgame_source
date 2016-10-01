@@ -46,28 +46,17 @@ class CharacterSave:
 	func _init(character):
     	self.level = character.level
     	self.internal_name = character.internal_name
-    	self.stats = character.stats
 	func to_dict():
-		var stats_dict = {}
-		for stat_name in stats:
-			var stat = stats[stat_name] 
-			stats_dict[stat_name] = stat.to_dict()
 		var save_dict ={
 			level = self.level,
-			internal_name = self.internal_name,
-			stats = stats_dict
+			internal_name = self.internal_name
 		}
 		return save_dict
 	static func get_full_character_from_dict(dict):
 		var character_info = load("res://Scripts/character_info.gd")
 		var charinfo = character_info.CharacterInfo.new()
 		charinfo.load_from_file(dict["internal_name"])
-		charinfo.stats = {}
-		var stats_dict = dict["stats"]
-		for key in stats_dict:
-			var stat = stats_dict[key]
-			var final_stat = character_info.Stat.from_dict(stat)
-			charinfo.stats[key] = final_stat
+		charinfo.level_up(dict["level"]-1)
 		return charinfo
 
 # Contains run-time information about the player
@@ -99,6 +88,10 @@ class PlayerData:
 		playerinfo.characters = characters
 		playerinfo.selected_characters = dict["selected_characters"]
 		return playerinfo
+		
+func _process(delta):
+	if(DEBUG):
+		OS.set_window_title("PCGTRPG DEBUG " + str(OS.get_frames_per_second()))
 func _ready():
 	set_pause_mode(PAUSE_MODE_PROCESS)
 	ui_layer = CanvasLayer.new()
@@ -147,7 +140,7 @@ func _ready():
 
 	#save_manager.save_game("test")
 	#save_manager.load_game("test")
-
+	randomize()
 func change_scene_door(path, door_number):
 	change_scene(path, false)
 	spawn_player(door_number)

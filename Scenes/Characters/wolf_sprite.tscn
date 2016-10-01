@@ -1,11 +1,22 @@
-[gd_scene load_steps=2 format=1]
+[gd_scene load_steps=4 format=1]
 
 [ext_resource path="res://Assets/Images/Characters/Wolf/wolf.png" type="Texture" id=1]
+
+[sub_resource type="CanvasItemShaderGraph" id=1]
+
+_code = { "fragment":"", "fragment_ofs":0, "light":"", "light_ofs":0, "vertex":"", "vertex_ofs":0 }
+_data = { "shaders":[ [ 0, 33, Vector2( 559, 11 ), null, null, [  ], 1, 0, Vector2( 50, 40 ), null, null, [  ] ], [ 0, 33, Vector2( 557, 10 ), null, null, [  ], 1, 0, Vector2( 265, 8 ), null, null, [  ] ], [ 0, 33, Vector2( 350, 40 ), null, null, [  ], 1, 0, Vector2( 50, 40 ), null, null, [  ] ] ] }
+
+[sub_resource type="CanvasItemMaterial" id=2]
+
+shader/shader = SubResource( 1 )
+shader/shading_mode = 0
 
 [node name="Node2D" type="Node2D"]
 
 [node name="Sprite" type="Sprite" parent="."]
 
+material/material = SubResource( 2 )
 transform/scale = Vector2( 0.236502, 0.236502 )
 texture = ExtResource( 1 )
 

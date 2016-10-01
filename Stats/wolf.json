@@ -4,10 +4,11 @@
   "internal_name": "wolf",
   "player_controlled": false,
   "sprite_location": "res://Scenes/Characters/wolf_sprite.tscn",
+  "portrait_sprite_location": "res://Assets/Images/Characters/Wolf/portrait.png",
   "stats" :{
     "vitality": {
       "level_growth": 10,
-      "stat_multiplier": 200,
+      "stat_multiplier": 10000,
       "raw_value": 200000
     },
     "power": {
@@ -18,7 +19,7 @@
     "speed": {
       "level_growth": 7,
       "stat_multiplier": 50,
-      "raw_value": 700000
+      "raw_value": 300000
     }
   },
   "attacks": {

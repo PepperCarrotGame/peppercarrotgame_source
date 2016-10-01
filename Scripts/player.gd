@@ -9,7 +9,7 @@ const GRAVITY = 98.0 # Pixels/second
 const JUMP_FORCE = 1250.0
 # Angle in degrees towards either side that the player can consider "floor"
 const FLOOR_ANGLE_TOLERANCE = 40
-const SLIDE_STOP_VELOCITY = 1.0 # One pixel per second
+const SLIDE_STOP_VELOCITY = 500.0 # One pixel per second
 const SLIDE_STOP_MIN_TRAVEL = 1.0 # One pixel
 const STOP_FORCE = 3000.0 # Stop force on the air and the ground
 const WALK_MAX_SPEED = 600.0
@@ -90,7 +90,7 @@ func interpolate_camera_offset(to_location, main_menu):
 func finish_interpolate_camera_offset(tween):
 	tween.free()
 func _fixed_process(delta):
-	
+	get_node("Bubble").start()
 	new_velocity = Vector2(0,GRAVITY)
 	state.Update(delta)
 	velocity += new_velocity
@@ -244,19 +244,34 @@ class PlayerWalkState:
 		
 		# Actual max speed
 		var defacto_max_walk_speed = player.WALK_MAX_SPEED*walk_input_value
+		# Velocity modifier
+		var modifier = 1.0
+		# This modifier is applied when turning around
+		var turnaround_modifier = 10.0
+		
 		if walk_left:
+			if player.velocity.x > 0:
+				modifier = turnaround_modifier
+			else:
+				modifier = 1.0
 			if player.velocity.x >= -defacto_max_walk_speed:
-					player.add_movement(Vector2(-player.WALK_FORCE*walk_input_value,0))
+					player.add_movement(Vector2(-player.WALK_FORCE*walk_input_value*modifier,0))
 
 		elif walk_right:
+			if player.velocity.x < 0:
+				modifier = turnaround_modifier
+			else:
+				modifier = 1.0
 			if not player.velocity.x >= defacto_max_walk_speed:
-				player.add_movement(Vector2(player.WALK_FORCE*walk_input_value,0))
+				player.add_movement(Vector2(player.WALK_FORCE*walk_input_value*modifier,0))
 		else:
 			player.change_state(player.PlayerStandState.new(player))
 
 		if abs(player.velocity.x) > defacto_max_walk_speed:
 			# This makes sure 100% that the player never goes past the expected maximum speed
-			# This is because when sliding down ramps the player just kept getting more speed
+			# It has some issues like the player being able to get up to 50 units of speed more 
+			# In some circumstances, even if it should never happen.
+			# This is needed because when sliding down ramps the player just kept getting more speed
 			# And we don't want that do we?
 			var abv = abs(player.velocity.x)
 			var vsign = sign(player.velocity.x)

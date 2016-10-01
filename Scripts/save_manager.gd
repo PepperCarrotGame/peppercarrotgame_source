@@ -38,4 +38,5 @@ func load_game_no_map(filename):
 	var game_manager = get_node("/root/game_manager")
 	var final_player_data = game_manager.PlayerData.get_full_player_data_from_dict(player_data_dict)
 	game_manager.player_data = final_player_data
+	print("rv: %s" % str(final_player_data.characters["pepper"].stats["vitality"].raw_value))
 	last_scene_loaded_from_save = final_dict["current_scene"]

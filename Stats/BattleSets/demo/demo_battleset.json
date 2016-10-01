@@ -1,19 +1,24 @@
 {
   "random_companions": false,
   "can_repeat_companions": false,
-  "max_companions": 1,
+  "max_companions": 2,
   "is_number_of_companions_random": true,
   "main_enemy":
   {
     "type": "wolf",
-    "adapts_to_player_party_level": true
+    "adapts_to_player_party_level": true,
   },
   "companion_pool":
   [
     {
       "type": "wolf",
-      "adapts_to_player_party_level": false,
-      "level": 10
+      "adapts_to_player_party_level": true,
+      "level": 10,
+    },
+    {
+      "type": "wolf",
+      "adapts_to_player_party_level": true,
+      "level": 10,
     }
   ]
 }

@@ -14,8 +14,8 @@ class Stat:
 		self.stat_multiplier = stat_multiplier
 		self.level_growth = level_growth
 		self.raw_value = raw_value
-	func level_up(old_level):
-		raw_value = raw_value + (raw_value/(level_growth+old_level))
+	func level_up(levels_up, old_level):
+		raw_value = raw_value + (raw_value/(level_growth+old_level))*levels_up
 	func get_public_value():
 		# Returns the stat value for the user
 		return ceil((raw_value*stat_multiplier)/CONSTANT_V)
@@ -46,7 +46,8 @@ class Attack:
 		#Attack formula=[(Power + Speed) / 2] * AttackModifier
 		var speed = attacker.character_info.stats["speed"].get_public_value()
 		var power = attacker.character_info.stats["power"].get_public_value()
-		
+		if receiver.state extends receiver.state.execute_state:
+			receiver.state.get_hit()
 		receiver.character_info.HP = receiver.character_info.HP - ((power+speed)/2)*attack_modifier
 class CharacterInfo:
 	var stats = {}
@@ -56,18 +57,20 @@ class CharacterInfo:
 	var internal_name
 	var sprite_location
 	var player_controlled = false
+	var portrait_sprite_location
 	var HP = 0
 	var MP = 0
 	func _init():
 		pass
-	func level_up():
+	func level_up(levels_up):
 		# Makes all stats level up
 		for stat_name in stats:
 			var stat = stats[stat_name]
-			stat.level_up(level)
+			stat.level_up(levels_up, level)
 			HP = stats["vitality"].get_public_value()
-			MP = stats["intelligence"].get_public_value()
-			level = level+1
+			if player_controlled:
+				MP = stats["intelligence"].get_public_value()
+		level = level+levels_up
 	func to_dict():
 		pass
 	func load_from_file(character_name):
@@ -75,6 +78,7 @@ class CharacterInfo:
 		var file_contents = ""
 		var final_dict = {}
 		var file = File.new()
+		level = 1
 		if !file.file_exists(path):
 			return
 		file.open(path, File.READ)
@@ -97,7 +101,6 @@ class CharacterInfo:
 		var stats_dict = final_dict["stats"]
 		for key in stats_dict:
 			var stat = stats_dict[key]
-
 			stats[key] = Stat.new(key, stat["stat_multiplier"], stat["level_growth"],stat["raw_value"])
 		var attacks_dict = final_dict["attacks"]
 		for key in attacks_dict:
@@ -106,3 +109,5 @@ class CharacterInfo:
 		HP = stats["vitality"].get_public_value()
 		if player_controlled:
 			MP = stats["intelligence"].get_public_value()
+		portrait_sprite_location = final_dict["portrait_sprite_location"]
+		

@@ -22,9 +22,6 @@ margin/bottom = 585.0
 
 [node name="tests" type="Node2D" parent="."]
 
-editor/display_folded = true
-visibility/visible = false
-
 [node name="Character Name" type="Label" parent="tests"]
 
 focus/ignore_mouse = false

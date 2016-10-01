@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=8 format=1]
 
 [ext_resource path="res://Scripts/player.gd" type="Script" id=1]
-[ext_resource path="res://Scenes/Characters/pepper_sprite.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Fonts/Lavi.otf" type="DynamicFontData" id=2]
+[ext_resource path="res://Scenes/Characters/pepper_sprite.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Dialogs/dialog_bubble.tscn" type="PackedScene" id=4]
 
 [sub_resource type="CapsuleShape2D" id=1]
 
@@ -9,7 +11,14 @@ custom_solver_bias = 0.0
 radius = 35.7814
 height = 185.489
 
-[sub_resource type="SampleLibrary" id=2]
+[sub_resource type="DynamicFont" id=2]
+
+font/size = 32
+font/use_mipmaps = true
+font/use_filter = false
+font/font = ExtResource( 2 )
+
+[sub_resource type="SampleLibrary" id=3]
 
 
 [node name="Player" type="KinematicBody2D"]
@@ -39,6 +48,7 @@ scale = Vector2( 1, 1 )
 
 [node name="DebugLabel" type="Label" parent="PlayerDebug"]
 
+rect/scale = Vector2( 0.5, 0.5 )
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -47,6 +57,8 @@ margin/left = 0.0
 margin/top = 0.0
 margin/right = 40.0
 margin/bottom = 14.0
+custom_fonts/font = SubResource( 2 )
+text = "pl"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
@@ -73,7 +85,7 @@ drag_margin/bottom = 0.2
 
 [node name="Sprite" type="Node2D" parent="."]
 
-[node name="PepperSprite" parent="Sprite" instance=ExtResource( 2 )]
+[node name="PepperSprite" parent="Sprite" instance=ExtResource( 3 )]
 
 [node name="Root" parent="Sprite/PepperSprite"]
 
@@ -126,7 +138,7 @@ transform/rot = -55.5252
 [node name="SamplePlayer" type="SamplePlayer" parent="."]
 
 config/polyphony = 3
-config/samples = SubResource( 2 )
+config/samples = SubResource( 3 )
 default/volume_db = 0.0
 default/pitch_scale = 1.0
 default/pan = 0.0
@@ -139,6 +151,12 @@ default/filter/gain = 1.0
 default/reverb_room = 2
 default/reverb_send = 0.0
 default/chorus_send = 0.0
+
+[node name="Bubble" parent="." instance=ExtResource( 4 )]
+
+transform/pos = Vector2( 58, -50 )
+z/z = 1000
+animated_text = "Hello, World!"
 
 
 [editable path="Sprite/PepperSprite"]

@@ -36,8 +36,7 @@ func _ready():
 		get_node("Spike/thinking").set_hidden(false)
 		
 	# If character is on the right side flip the spike
-	if (right_character):
-		get_node("Spike").set_scale(Vector2(-1, 1))
+
 
 
 func _process(delta):
@@ -51,7 +50,10 @@ func _process(delta):
 	else:
 		if button_released:
 			close_dialog()
-
+	if (right_character):
+		get_node("Spike").set_scale(Vector2(-1, 1))
+	else:
+		get_node("Spike").set_scale(Vector2(1, 1))
 
 func check_button():
 	var button = Input.is_action_pressed("jump")

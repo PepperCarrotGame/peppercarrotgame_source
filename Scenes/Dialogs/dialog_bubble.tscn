@@ -1,8 +1,15 @@
-[gd_scene load_steps=4 format=1]
+[gd_scene load_steps=5 format=1]
 
 [ext_resource path="res://Scripts/Dialogs/dialog_bubble.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Images/dialog_bubble.tex" type="Texture" id=2]
-[ext_resource path="res://Fonts/OpenSans.fnt" type="BitmapFont" id=3]
+[ext_resource path="res://Fonts/Lavi.otf" type="DynamicFontData" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+
+font/size = 32
+font/use_mipmaps = true
+font/use_filter = true
+font/font = ExtResource( 3 )
 
 [node name="Bubble" type="Node2D"]
 
@@ -63,15 +70,16 @@ region_rect = Rect2( 182, 45, 70, 50 )
 
 [node name="Text" type="Label" parent="."]
 
+rect/scale = Vector2( 0.5, 0.5 )
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = -8.0
 margin/top = -164.0
-margin/right = 193.0
-margin/bottom = -64.0
-custom_fonts/font = ExtResource( 3 )
+margin/right = 392.0
+margin/bottom = 36.0
+custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Put animated text here."
 autowrap = true

@@ -1,10 +1,44 @@
-[gd_scene load_steps=6 format=1]
+[gd_scene load_steps=13 format=1]
 
 [ext_resource path="res://Scripts/Battle/battle.gd" type="Script" id=1]
-[ext_resource path="res://Scenes/Battle/tools/battle_position.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Scenes/Battle/battle_attack_select.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Scenes/Characters/wolf_sprite.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Scenes/Characters/pepper_sprite.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Fonts/Lavi.otf" type="DynamicFontData" id=2]
+[ext_resource path="res://Scenes/Battle/tools/battle_position.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Battle/battle_attack_select.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Fonts/Lavi.tres" type="DynamicFontData" id=5]
+[ext_resource path="res://Scenes/Characters/wolf_sprite.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/Characters/pepper_sprite.tscn" type="PackedScene" id=7]
+
+[sub_resource type="DynamicFont" id=5]
+
+font/size = 32
+font/use_mipmaps = false
+font/use_filter = false
+font/font = ExtResource( 2 )
+
+[sub_resource type="CanvasItemShaderGraph" id=1]
+
+_code = { "fragment":"uniform color Color=vec4(0.832031,0.195007,0.195007,1);\nvec3 nd2sl0=Color.rgb;\nfloat nd2sl1=Color.a;\nCOLOR.rgb=nd2sl0;\n", "fragment_ofs":0, "light":"", "light_ofs":0, "vertex":"", "vertex_ofs":0 }
+_data = { "shaders":[ [ 0, 33, Vector2( 350, 40 ), null, null, [  ], 1, 0, Vector2( 50, 40 ), null, null, [  ] ], [ 0, 33, Vector2( 350, 40 ), null, null, [ 0, 2, 0 ], 1, 0, Vector2( 50, 40 ), null, null, [  ], 2, 28, Vector2( 187, 99 ), "Color", Color( 0.832031, 0.195007, 0.195007, 1 ), [  ] ], [ 0, 33, Vector2( 350, 40 ), null, null, [  ], 1, 0, Vector2( 50, 40 ), null, null, [  ] ] ] }
+
+[sub_resource type="CanvasItemMaterial" id=2]
+
+shader/shader = SubResource( 1 )
+shader/shading_mode = 0
+shader_param/Color = Color( 0.832031, 0.195007, 0.195007, 1 )
+
+[sub_resource type="DynamicFont" id=3]
+
+font/size = 32
+font/use_mipmaps = true
+font/use_filter = false
+font/font = ExtResource( 5 )
+
+[sub_resource type="DynamicFont" id=4]
+
+font/size = 32
+font/use_mipmaps = true
+font/use_filter = true
+font/font = ExtResource( 5 )
 
 [node name="BattleScene" type="Node2D"]
 
@@ -12,6 +46,7 @@ script/script = ExtResource( 1 )
 
 [node name="DebugLabel" type="Label" parent="."]
 
+rect/scale = Vector2( 0.5, 0.5 )
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 3
@@ -20,34 +55,35 @@ margin/left = 0.0
 margin/top = 0.0
 margin/right = 40.0
 margin/bottom = 14.0
+custom_fonts/font = SubResource( 5 )
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="BattlePosition" parent="." instance=ExtResource( 2 )]
+[node name="BattlePosition" parent="." instance=ExtResource( 3 )]
 
 transform/pos = Vector2( 652.174, 489.329 )
 type = "Enemy"
 number = 2
 
-[node name="BattlePosition4" parent="." instance=ExtResource( 2 )]
+[node name="BattlePosition4" parent="." instance=ExtResource( 3 )]
 
 transform/pos = Vector2( 918.695, 489.494 )
 type = "Enemy"
 number = 0
 
-[node name="BattlePosition1" parent="." instance=ExtResource( 2 )]
+[node name="BattlePosition1" parent="." instance=ExtResource( 3 )]
 
 transform/pos = Vector2( 778.457, 275.021 )
 type = "Enemy"
 number = 1
 
-[node name="BattlePosition2" parent="." instance=ExtResource( 2 )]
+[node name="BattlePosition2" parent="." instance=ExtResource( 3 )]
 
 transform/pos = Vector2( 359.036, 401.032 )
 number = 0
 
-[node name="BattlePosition3" parent="." instance=ExtResource( 2 )]
+[node name="BattlePosition3" parent="." instance=ExtResource( 3 )]
 
 transform/pos = Vector2( 176.334, 270.61 )
 number = 1
@@ -59,7 +95,7 @@ offset = Vector2( 0, 0 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
 
-[node name="AttackSelector" parent="CanvasLayer" instance=ExtResource( 3 )]
+[node name="AttackSelector" parent="CanvasLayer" instance=ExtResource( 4 )]
 
 anchor/right = 1
 anchor/bottom = 1
@@ -69,12 +105,73 @@ margin/top = 107.0
 margin/right = 650.0
 margin/bottom = 318.0
 
-[node name="Node2D" parent="." instance=ExtResource( 4 )]
+[node name="BattleBar" type="Panel" parent="CanvasLayer"]
+
+anchor/left = 3
+anchor/top = 1
+anchor/right = 3
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 255.0
+margin/top = 72.0
+margin/right = -140.0
+margin/bottom = 32.0
+
+[node name="Panel" type="Panel" parent="CanvasLayer/BattleBar"]
+
+material/material = SubResource( 2 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 316.0
+margin/top = 0.0
+margin/right = 395.0
+margin/bottom = 40.0
+
+[node name="Label" type="Label" parent="CanvasLayer/BattleBar"]
+
+rect/scale = Vector2( 0.5, 0.5 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 30.0
+margin/top = 11.0
+margin/right = 109.0
+margin/bottom = 43.0
+custom_fonts/font = SubResource( 3 )
+text = "WAIT"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Label1" type="Label" parent="CanvasLayer/BattleBar"]
+
+rect/scale = Vector2( 0.5, 0.5 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 321.0
+margin/top = 13.0
+margin/right = 463.0
+margin/bottom = 45.0
+custom_fonts/font = SubResource( 4 )
+text = "EXECUTE"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Node2D" parent="." instance=ExtResource( 6 )]
 
 visibility/visible = false
 transform/pos = Vector2( 824.538, 390.797 )
 
-[node name="PepperSprite" parent="." instance=ExtResource( 5 )]
+[node name="PepperSprite" parent="." instance=ExtResource( 7 )]
 
 visibility/visible = false
 transform/pos = Vector2( 235.671, 332.675 )
