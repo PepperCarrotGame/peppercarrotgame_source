@@ -20,7 +20,7 @@ func _get_attack(battle_entity):
 		if not enemy.player_controlled and enemy.is_alive():
 			print(enemy.character_info.name)
 			var button = Button.new()
-			button.set_text(enemy.character_info.name)
+			button.set_text(tr(enemy.character_info.name))
 			button.set_meta("enemy",enemy)
 
 			button.connect("pressed", self,"_target_select_callback")

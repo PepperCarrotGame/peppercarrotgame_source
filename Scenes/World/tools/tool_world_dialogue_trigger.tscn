@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=1]
+
+[ext_resource path="res://Scripts/Tools/world_dialogue_trigger.gd" type="Script" id=1]
+
+[node name="WorldDialogueTrigger" type="Node2D"]
+
+script/script = ExtResource( 1 )
+first_dialogue = null
+
+

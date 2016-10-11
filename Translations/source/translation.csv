@@ -9,7 +9,7 @@
 #PG_MainMenu_NewGame,New game,Nueva partida,
 #PG_MainMenu_Options,Options,Opciones,
 #PG_MainMenu_Exit,Exit,Salir,
-#PG_MainMenu_DisableDebug,Disable Debug,,
+#PG_MainMenu_DisableDebug,Disable Debug,Desactivar Debug,
 #PG_Character_Pepper,Pepper,Pepper,ペッパー
 #PG_Character_Carrot,Carrot,Carrot,キャロット
 #PG_Character_Coriander,Coriander,Celandria,コリアンダー
@@ -18,5 +18,6 @@
 #PG_Character_Truffel,Truffel,Truffel,
 #PG_Character_Shichimi,Shichimi,Shichimi,
 #PG_Character_Yuzu,Yuzu,Yuzu,
+#PG_Character_Wolf,Wolf,Lobo,
 #PG_Attack_Pepper_BigBang,Big bang,Big bang,
 #PG_Attack_Wolf_Bite,Bite,Mordedura,

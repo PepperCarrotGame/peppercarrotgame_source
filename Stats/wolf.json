@@ -7,13 +7,13 @@
   "portrait_sprite_location": "res://Assets/Images/Characters/Wolf/portrait.png",
   "stats" :{
     "vitality": {
-      "level_growth": 10,
-      "stat_multiplier": 10000,
-      "raw_value": 200000
+      "level_growth": 5,
+      "stat_multiplier": 400,
+      "raw_value": 400000
     },
     "power": {
-      "level_growth": 9,
-      "stat_multiplier": 350,
+      "level_growth": 10,
+      "stat_multiplier": 325,
       "raw_value": 150000
     },
     "speed": {

@@ -1,0 +1,58 @@
+[gd_scene load_steps=5 format=1]
+
+[ext_resource path="res://Scripts/Tools/player_world_dialogue_trigger.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/World/tools/tool.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/Images/Tools/tools_door.tex" type="Texture" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 32, 32 )
+
+[node name="WorldDialogueTrigger" type="Node2D"]
+
+script/script = ExtResource( 1 )
+first_dialogue = null
+
+[node name="Sprite" parent="." instance=ExtResource( 2 )]
+
+visibility/opacity = 0.5
+texture = ExtResource( 3 )
+modulate = Color( 0, 0.707031, 0.127045, 1 )
+
+[node name="Label" type="Label" parent="Sprite"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = -16.0
+margin/top = -19.0
+margin/right = 24.0
+margin/bottom = -5.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "DIAL"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Area2D" type="Area2D" parent="."]
+
+input/pickable = true
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+[connection signal="body_enter" from="Area2D" to="." method="_on_Area2D_body_enter"]
+
+

@@ -7,7 +7,6 @@
 extends Node
 
 var current_scene = null
-var stored_scene = null
 
 const INPUT_ACTIONS = ["ui_accept", "jump", "up", "down", "left", "right"]
 
@@ -152,25 +151,25 @@ func spawn_player(door_number=-1):
 			if door.door_number == door_number:
 				var player_instance = PLAYER_SCENE.instance()
 				get_tree().get_current_scene().add_child(player_instance)
-				player_instance.set_pos(door.get_pos())
+				player_instance.set_global_pos(door.get_global_pos())
 				print("Player spawned on door: " + str(door_number))
 				return
 	var player_spawn = get_tree().get_nodes_in_group("player_start")
 	if player_spawn.size() > 0:
 		var player_instance = PLAYER_SCENE.instance()
-		game_manager.current_scene.add_child(player_instance)
 		player_instance.set_pos(player_spawn[0].get_pos())
+		game_manager.current_scene.add_child(player_instance)
 		print("Player spawned")
 	else:
 		print("found no spawn")
 
-func change_scene(path, cached = false, callback_object=null ,callback = null, no_free = false):
+func change_scene(path, callback_object=null ,callback = null, no_free = false):
 	# Make sure there's no scene code running to avoid crashes
-	call_deferred("change_scene_impl", path, cached, callback_object, callback, no_free)
+	call_deferred("change_scene_impl", path, callback_object, callback, no_free)
 	
-func change_to_cached_scene():
+func change_to_packed_scene_impl(packed_scene):
 	# Make sure there's no scene code running to avoid crashes
-	call_deferred("change_to_cached_scene_impl")
+	call_deferred("change_to_packed_scene_impl", packed_scene)
 
 func set_player(new_player):
 	player=new_player
@@ -179,18 +178,10 @@ func get_player():
 	return player
 
 # Actual implementation of change_scene
-func change_scene_impl(path, cached = false, callback_object=null, callback = null, no_free = false):
+func change_scene_impl(path, callback_object=null, callback = null, no_free = false):
 	var tree_root = get_tree().get_root()
-	# This is for caching scenes only
-	if(cached == true and current_scene):
-		# Pack the scene state in a resource
-		var packed_scene = PackedScene.new()
-		packed_scene.pack(current_scene)
-		stored_scene = packed_scene
-		if not no_free:
-			current_scene.free()
 		
-	elif(current_scene):
+	if current_scene:
 		if not no_free:
 			current_scene.free()
 	var scene = ResourceLoader.load(path)
@@ -198,7 +189,6 @@ func change_scene_impl(path, cached = false, callback_object=null, callback = nu
 	tree_root.add_child(current_scene)
 	
 	print("Loaded scene: ", path)
-	print("Caching last scene: ", cached)
 	
 	if callback:
 		callback_object.call(callback, current_scene)
@@ -206,13 +196,12 @@ func change_scene_impl(path, cached = false, callback_object=null, callback = nu
 	spawn_player(-1)
 
 
-func change_to_cached_scene_impl():
+func change_to_packed_scene(packed_scene):
 	var tree_root = get_tree().get_root()
-	if(current_scene and stored_scene):
+	if current_scene and packed_scene:
 		current_scene.free()
 		#Create an instance from the packed scene
-		current_scene = stored_scene.instance()
-		stored_scene = null
+		current_scene = packed_scene.instance()
 		
 		tree_root.add_child(current_scene)
 		

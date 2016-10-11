@@ -5,8 +5,8 @@
 # ==============================
 extends KinematicBody2D
 
-const GRAVITY = 98.0 # Pixels/second
-const JUMP_FORCE = 1250.0
+const GRAVITY = 60.0 # Pixels/second
+const JUMP_FORCE = 800.0
 # Angle in degrees towards either side that the player can consider "floor"
 const FLOOR_ANGLE_TOLERANCE = 40
 const SLIDE_STOP_VELOCITY = 500.0 # One pixel per second
@@ -39,17 +39,17 @@ var state
 var velocity = Vector2()
 var new_velocity = Vector2()
 func _ready():
-	set_fixed_process(true)
 	state = PlayerStandState.new(self)
 	sprite_root = get_node("Sprite")
 	var animation_player = get_node("Sprite/PepperSprite/AnimationPlayer")
 	animation_player.connect("finished",self,"animation_finished")
 	var game_manager = get_node("/root/game_manager")
 	game_manager.set_player(self)
+	set_fixed_process(true)
 
-func play_sample(sample):
-	get_node("SamplePlayer").play(sample)
-
+func footstep():
+	var choice = round(rand_range(1,4))
+	get_node("SamplePlayer").play("wdl_footstep_" + str(choice))
 func get_camera():
 	return get_node("Camera2D")
 
@@ -90,7 +90,6 @@ func interpolate_camera_offset(to_location, main_menu):
 func finish_interpolate_camera_offset(tween):
 	tween.free()
 func _fixed_process(delta):
-	get_node("Bubble").start()
 	new_velocity = Vector2(0,GRAVITY)
 	state.Update(delta)
 	velocity += new_velocity
@@ -103,14 +102,14 @@ func _fixed_process(delta):
 			state.collide()
 
 		if new_velocity.x == 0 and get_travel().length() < SLIDE_STOP_MIN_TRAVEL and abs(velocity.x) < SLIDE_STOP_VELOCITY and get_collider_velocity() == Vector2():
-			# Since this formula will always slide the character around, 
-			# a special case must be considered to to stop it from moving 
+			# Since this formula will always slide the character around,
+			# a special case must be considered to to stop it from moving
 			# if standing on an inclined floor. Conditions are:
 			# 1) Standing on floor (on_air_time == 0)
 			# 2) Did not move more than one pixel (get_travel().length() < SLIDE_STOP_MIN_TRAVEL)
 			# 3) Not moving horizontally (abs(velocity.x) < SLIDE_STOP_VELOCITY)
 			# 4) Collider is not moving
-			
+
 			revert_motion()
 			velocity.y = 0.0
 		else:
@@ -131,7 +130,7 @@ func _fixed_process(delta):
 
 func disable_input(input_state):
 	input_disabled = input_state
-	
+
 # This is our custom function for checking if an action is pressed
 # mainly to allow disable_input to actually work
 func custom_is_action_pressed(action):
@@ -155,7 +154,7 @@ class PlayerState:
 	var walk_right
 	# Value of input, when using keyboard this is either -+1 or 0, but when using joystick it can be other values
 	# for throttling the speed down
-	var walk_input_value 
+	var walk_input_value
 	var name = "PlayerState"
 	var player
 	const JOYSTICK_MIN = 0.1
@@ -166,7 +165,7 @@ class PlayerState:
 		self.walk_right = player.custom_is_action_pressed("right")
 		var axis = player.custom_joy_axis(0, JOY_AXIS_0)
 		self.walk_input_value = 1
-		
+
 		if abs(axis) > JOYSTICK_MIN:
 			if axis > 0:
 				self.walk_right = true
@@ -208,13 +207,13 @@ class PlayerGroundState:
 # ==============================
 class PlayerStandState:
 	extends PlayerGroundState
-	
+
 	func _init(player).(player):
 		name = "PlayerStandState"
-		
+
 	func collide():
 		pass
-	
+
 	func Update(delta):
 		.Update(delta)
 		player.change_animation("idle")
@@ -225,7 +224,7 @@ class PlayerStandState:
 		if vlen < 0:
 			vlen = 0
 		player.velocity.x= vlen*vsign
-		
+
 		if walk_left or walk_right:
 			player.change_state(player.PlayerWalkState.new(player))
 
@@ -241,14 +240,14 @@ class PlayerWalkState:
 		.Update(delta)
 		player.change_animation("walk")
 		var jump = player.custom_is_action_pressed("jump")
-		
+
 		# Actual max speed
 		var defacto_max_walk_speed = player.WALK_MAX_SPEED*walk_input_value
 		# Velocity modifier
 		var modifier = 1.0
 		# This modifier is applied when turning around
 		var turnaround_modifier = 10.0
-		
+
 		if walk_left:
 			if player.velocity.x > 0:
 				modifier = turnaround_modifier
@@ -269,7 +268,7 @@ class PlayerWalkState:
 
 		if abs(player.velocity.x) > defacto_max_walk_speed:
 			# This makes sure 100% that the player never goes past the expected maximum speed
-			# It has some issues like the player being able to get up to 50 units of speed more 
+			# It has some issues like the player being able to get up to 50 units of speed more
 			# In some circumstances, even if it should never happen.
 			# This is needed because when sliding down ramps the player just kept getting more speed
 			# And we don't want that do we?
@@ -282,7 +281,7 @@ class PlayerWalkState:
 		player.set_animation_speed(1)
 # ==============================
 # Unused state, originally meant for landing animation
-# but having a landing animation that can't be cancelled 
+# but having a landing animation that can't be cancelled
 # in a singleplayer game is dumb, plus even if we could cancel
 # the animation we had to slow the speed so that it looked right
 # which is a PITA for bunny hopping
@@ -308,7 +307,7 @@ class PlayerLandState:
 	func animation_finished(name):
 		if name == "land":
 			player.change_state(player.PlayerStandState.new(player))
-			
+
 # ==============================
 # Handles aerial control shenanigans and handles landing
 # ==============================
@@ -339,12 +338,12 @@ class PlayerFallState:
 	func collide():
 		# Ran against something, is it the floor? Get normal
 		var n = player.get_collision_normal()
-		
+
 		if rad2deg(acos(n.dot(Vector2(0, -1)))) < player.FLOOR_ANGLE_TOLERANCE:
 			# If angle to the "up" vectors is < angle tolerance
 			# char is on floor
 			player.change_state(player.PlayerStandState.new(player))
-			
+
 # ==============================
 # Handles jump animation and jetpack.
 # The player used to get a small boost at the start of this state

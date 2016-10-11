@@ -22,7 +22,7 @@ func save_check():
 		save_manager.load_game_no_map(auto_save_path)
 		
 		var game_manager = get_node("/root/game_manager")
-		game_manager.change_scene(save_manager.last_scene_loaded_from_save, false,null,null,true)
+		game_manager.change_scene(save_manager.last_scene_loaded_from_save,null,null,true)
 		call_deferred("background_setup")
 		
 # If there is an autosave place the camera at the first camera menu marker tool

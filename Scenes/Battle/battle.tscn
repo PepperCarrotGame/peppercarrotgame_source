@@ -8,32 +8,32 @@
 [ext_resource path="res://Scenes/Characters/wolf_sprite.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scenes/Characters/pepper_sprite.tscn" type="PackedScene" id=7]
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=1]
 
 font/size = 32
 font/use_mipmaps = false
 font/use_filter = false
 font/font = ExtResource( 2 )
 
-[sub_resource type="CanvasItemShaderGraph" id=1]
+[sub_resource type="CanvasItemShaderGraph" id=2]
 
 _code = { "fragment":"uniform color Color=vec4(0.832031,0.195007,0.195007,1);\nvec3 nd2sl0=Color.rgb;\nfloat nd2sl1=Color.a;\nCOLOR.rgb=nd2sl0;\n", "fragment_ofs":0, "light":"", "light_ofs":0, "vertex":"", "vertex_ofs":0 }
 _data = { "shaders":[ [ 0, 33, Vector2( 350, 40 ), null, null, [  ], 1, 0, Vector2( 50, 40 ), null, null, [  ] ], [ 0, 33, Vector2( 350, 40 ), null, null, [ 0, 2, 0 ], 1, 0, Vector2( 50, 40 ), null, null, [  ], 2, 28, Vector2( 187, 99 ), "Color", Color( 0.832031, 0.195007, 0.195007, 1 ), [  ] ], [ 0, 33, Vector2( 350, 40 ), null, null, [  ], 1, 0, Vector2( 50, 40 ), null, null, [  ] ] ] }
 
-[sub_resource type="CanvasItemMaterial" id=2]
+[sub_resource type="CanvasItemMaterial" id=3]
 
-shader/shader = SubResource( 1 )
+shader/shader = SubResource( 2 )
 shader/shading_mode = 0
 shader_param/Color = Color( 0.832031, 0.195007, 0.195007, 1 )
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=4]
 
 font/size = 32
 font/use_mipmaps = true
 font/use_filter = false
 font/font = ExtResource( 5 )
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=5]
 
 font/size = 32
 font/use_mipmaps = true
@@ -55,7 +55,7 @@ margin/left = 0.0
 margin/top = 0.0
 margin/right = 40.0
 margin/bottom = 14.0
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 1 )
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
@@ -122,7 +122,7 @@ margin/bottom = 32.0
 
 [node name="Panel" type="Panel" parent="CanvasLayer/BattleBar"]
 
-material/material = SubResource( 2 )
+material/material = SubResource( 3 )
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -143,7 +143,7 @@ margin/left = 30.0
 margin/top = 11.0
 margin/right = 109.0
 margin/bottom = 43.0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 4 )
 text = "WAIT"
 percent_visible = 1.0
 lines_skipped = 0
@@ -160,7 +160,7 @@ margin/left = 321.0
 margin/top = 13.0
 margin/right = 463.0
 margin/bottom = 45.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 5 )
 text = "EXECUTE"
 percent_visible = 1.0
 lines_skipped = 0

@@ -1,9 +1,12 @@
-[gd_scene load_steps=8 format=1]
+[gd_scene load_steps=11 format=1]
 
 [ext_resource path="res://Scripts/player.gd" type="Script" id=1]
 [ext_resource path="res://Fonts/Lavi.otf" type="DynamicFontData" id=2]
 [ext_resource path="res://Scenes/Characters/pepper_sprite.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Scenes/Dialogs/dialog_bubble.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Assets/Sound/footsteps/wdl_footstep_A.wav" type="Sample" id=4]
+[ext_resource path="res://Assets/Sound/footsteps/wdl_footstep_B.wav" type="Sample" id=5]
+[ext_resource path="res://Assets/Sound/footsteps/wdl_footstep_C.wav" type="Sample" id=6]
+[ext_resource path="res://Assets/Sound/footsteps/wdl_footstep_D.wav" type="Sample" id=7]
 
 [sub_resource type="CapsuleShape2D" id=1]
 
@@ -20,8 +23,14 @@ font/font = ExtResource( 2 )
 
 [sub_resource type="SampleLibrary" id=3]
 
+samples/wdl_footstep_1 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 4 ) }
+samples/wdl_footstep_2 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 5 ) }
+samples/wdl_footstep_3 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 6 ) }
+samples/wdl_footstep_4 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 7 ) }
 
-[node name="Player" type="KinematicBody2D"]
+[node name="PlayerObject" type="Node2D"]
+
+[node name="Player" type="KinematicBody2D" parent="."]
 
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
@@ -32,21 +41,21 @@ collision/mask = 1
 collision/margin = 0.08
 script/script = ExtResource( 1 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 
 transform/pos = Vector2( -3.44012, 12.5274 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
 
-[node name="PlayerDebug" type="CanvasLayer" parent="."]
+[node name="PlayerDebug" type="CanvasLayer" parent="Player"]
 
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
 
-[node name="DebugLabel" type="Label" parent="PlayerDebug"]
+[node name="DebugLabel" type="Label" parent="Player/PlayerDebug"]
 
 rect/scale = Vector2( 0.5, 0.5 )
 focus/ignore_mouse = true
@@ -63,7 +72,7 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="Player"]
 
 process/pause_mode = 2
 anchor_mode = 1
@@ -77,65 +86,19 @@ limit/bottom = 10000000
 drag_margin/h_enabled = true
 drag_margin/v_enabled = true
 smoothing/enable = true
-smoothing/speed = 3.0
+smoothing/speed = 2.0
 drag_margin/left = 0.2
 drag_margin/top = 0.2
 drag_margin/right = 0.2
 drag_margin/bottom = 0.2
 
-[node name="Sprite" type="Node2D" parent="."]
+[node name="Sprite" type="Node2D" parent="Player"]
 
-[node name="PepperSprite" parent="Sprite" instance=ExtResource( 3 )]
+editor/display_folded = true
 
-[node name="Root" parent="Sprite/PepperSprite"]
+[node name="PepperSprite" parent="Player/Sprite" instance=ExtResource( 3 )]
 
-transform/pos = Vector2( 0, 68.4304 )
-transform/rot = -14.685
-
-[node name="RUpperLeg" parent="Sprite/PepperSprite/Root"]
-
-transform/rot = 55.4373
-
-[node name="RLowerLeg" parent="Sprite/PepperSprite/Root/RUpperLeg"]
-
-transform/pos = Vector2( 12.5166, 890.56 )
-transform/rot = -70.9174
-
-[node name="RFoot" parent="Sprite/PepperSprite/Root/RUpperLeg/RLowerLeg"]
-
-transform/pos = Vector2( 3.74939, 921.513 )
-transform/rot = -3.99821
-
-[node name="RUpperArm" parent="Sprite/PepperSprite/Root/Torso"]
-
-transform/rot = 10.6024
-
-[node name="RLowerArm" parent="Sprite/PepperSprite/Root/Torso/RUpperArm"]
-
-transform/rot = 61.11
-
-[node name="LUpperArm" parent="Sprite/PepperSprite/Root/Torso"]
-
-transform/rot = -14.8513
-
-[node name="LLowerArm" parent="Sprite/PepperSprite/Root/Torso/LUpperArm"]
-
-transform/rot = 105.583
-
-[node name="LUpperLeg" parent="Sprite/PepperSprite/Root"]
-
-transform/rot = 10.6371
-
-[node name="LLowerLeg" parent="Sprite/PepperSprite/Root/LUpperLeg"]
-
-transform/rot = -6.65236
-
-[node name="LFoot" parent="Sprite/PepperSprite/Root/LUpperLeg/LLowerLeg"]
-
-transform/pos = Vector2( 3.75, 921.517 )
-transform/rot = -55.5252
-
-[node name="SamplePlayer" type="SamplePlayer" parent="."]
+[node name="SamplePlayer" type="SamplePlayer" parent="Player"]
 
 config/polyphony = 3
 config/samples = SubResource( 3 )
@@ -152,11 +115,11 @@ default/reverb_room = 2
 default/reverb_send = 0.0
 default/chorus_send = 0.0
 
-[node name="Bubble" parent="." instance=ExtResource( 4 )]
+[node name="DialoguePosition" type="Node2D" parent="Player"]
 
-transform/pos = Vector2( 58, -50 )
-z/z = 1000
-animated_text = "Hello, World!"
+editor/display_folded = true
+transform/pos = Vector2( 97, -50 )
+
+[node name="Bubble" parent="Player/DialoguePosition" instance_placeholder="res://Scenes/Dialogs/dialog_bubble.tscn"]
 
 
-[editable path="Sprite/PepperSprite"]

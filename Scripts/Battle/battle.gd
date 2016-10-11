@@ -83,9 +83,7 @@ func start_battle(battle_set):
 	var enemy_number = 0
 	for enemy in enemies:
 		# level adaptation
-		print("adapts: " + str(enemy.adapts_to_player_party_level))
 		if enemy.adapts_to_player_party_level:
-			print("adapts")
 			var enemy_level = 0
 			var number_of_characters = 0
 			for key in game_manager.player_data.characters:

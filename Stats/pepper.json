@@ -13,7 +13,7 @@
     },
     "power": {
       "level_growth": 3,
-      "stat_multiplier": 420,
+      "stat_multiplier": 100,
       "raw_value": 300000
     },
     "intelligence": {

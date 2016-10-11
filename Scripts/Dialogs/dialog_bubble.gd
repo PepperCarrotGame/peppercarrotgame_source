@@ -14,14 +14,23 @@ export(bool) var right_character = false
 export(String, MULTILINE) var animated_text = "Put animated text here."
 export(NodePath) var next_dialog
 export(NodePath) var action
+export(bool)var should_fade_in = false
+export(bool)var should_fade_out = false 
+
 
 var counter = 0
 var finished = false
 var button_pressed = false
 var button_released = false
 
+
 func start():
 	set_hidden(false)
+	if should_fade_in:
+		set_opacity(0)
+		get_node("AnimationPlayer").play("fade_in")
+	else:
+		set_opacity(1)
 	set_process(true)
 
 func _ready():
@@ -36,7 +45,8 @@ func _ready():
 		get_node("Spike/thinking").set_hidden(false)
 		
 	# If character is on the right side flip the spike
-
+	if (right_character):
+		get_node("Spike").set_scale(Vector2(-1, 1))
 
 
 func _process(delta):
@@ -50,10 +60,7 @@ func _process(delta):
 	else:
 		if button_released:
 			close_dialog()
-	if (right_character):
-		get_node("Spike").set_scale(Vector2(-1, 1))
-	else:
-		get_node("Spike").set_scale(Vector2(1, 1))
+
 
 func check_button():
 	var button = Input.is_action_pressed("jump")
@@ -78,7 +85,6 @@ func check_button():
 func finish_animation():
 	get_node("Text").set_text(animated_text)
 	finished = true
-
 func animate_text(delta):
 	counter += delta
 	var characters = int(counter*speed)
@@ -86,11 +92,14 @@ func animate_text(delta):
 	get_node("Text").set_text(animated_text.substr(0, characters));
 	if (characters > animated_text.length()):
 		finished = true
+		if should_fade_out:
+			get_node("AnimationPlayer").play("fade_out")
 		# close_dialog()
 
 
 func close_dialog():
 	set_process(false)
+	set_hidden(true)
 	if (next_dialog):
 		var node = get_node(next_dialog)
 		if (node.has_method("start")):
@@ -101,4 +110,3 @@ func close_dialog():
 		if (node.has_method("start")):
 			node.start()
 	
-	set_hidden(true)
