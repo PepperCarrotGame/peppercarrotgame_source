@@ -22,19 +22,12 @@ func save_check():
 		save_manager.load_game_no_map(auto_save_path)
 		
 		var game_manager = get_node("/root/game_manager")
-		game_manager.change_scene(save_manager.last_scene_loaded_from_save,null,null,true)
+		game_manager.change_scene(save_manager.last_scene_loaded_from_save,null, null,true, true)
 		call_deferred("background_setup")
 		
 # If there is an autosave place the camera at the first camera menu marker tool
 func background_setup():
-	# Camera detach
-	var tree_root = get_tree().get_root()
-	var game_manager = get_node("/root/game_manager")
-	var player = game_manager.get_player()
-	var camera_start = get_tree().get_nodes_in_group("menu_camera")[0]
-	var offset = camera_start.get_pos()-player.get_pos()
-	player.get_camera().set_offset(offset)
-	player.disable_input(true)
+	pass
 
 # This disables the game's debugging features, but does not disable the engine's, to be used for demos maybe?
 func _on_disable_debug_button_pressed():

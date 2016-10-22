@@ -144,7 +144,7 @@ func change_scene_door(path, door_number):
 	change_scene(path, false)
 	spawn_player(door_number)
 
-func spawn_player(door_number=-1):
+func spawn_player(door_number=-1, camera_spawn=false):
 	var doors = get_tree().get_nodes_in_group("doors")
 	if door_number != -1:
 		for door in doors:
@@ -152,20 +152,26 @@ func spawn_player(door_number=-1):
 				var player_instance = PLAYER_SCENE.instance()
 				get_tree().get_current_scene().add_child(player_instance)
 				player_instance.set_global_pos(door.get_global_pos())
+
 				print("Player spawned on door: " + str(door_number))
 				return
 	var player_spawn = get_tree().get_nodes_in_group("player_start")
 	if player_spawn.size() > 0:
 		var player_instance = PLAYER_SCENE.instance()
 		player_instance.set_pos(player_spawn[0].get_pos())
+		if camera_spawn:
+			var camera_start = get_tree().get_nodes_in_group("menu_camera")[0]
+			player_instance.get_camera().set_offset(camera_start.get_pos() - player_instance.get_pos())
+			player_instance.disable_input(true)
+		print(camera_spawn)
 		game_manager.current_scene.add_child(player_instance)
 		print("Player spawned")
 	else:
 		print("found no spawn")
 
-func change_scene(path, callback_object=null ,callback = null, no_free = false):
+func change_scene(path, callback_object=null ,callback = null, no_free = false, camera_spawn = false):
 	# Make sure there's no scene code running to avoid crashes
-	call_deferred("change_scene_impl", path, callback_object, callback, no_free)
+	call_deferred("change_scene_impl", path, callback_object, callback, no_free, camera_spawn)
 	
 func change_to_packed_scene_impl(packed_scene):
 	# Make sure there's no scene code running to avoid crashes
@@ -178,7 +184,7 @@ func get_player():
 	return player
 
 # Actual implementation of change_scene
-func change_scene_impl(path, callback_object=null, callback = null, no_free = false):
+func change_scene_impl(path, callback_object=null, callback = null, no_free = false, camera_spawn=false):
 	var tree_root = get_tree().get_root()
 		
 	if current_scene:
@@ -193,7 +199,7 @@ func change_scene_impl(path, callback_object=null, callback = null, no_free = fa
 	if callback:
 		callback_object.call(callback, current_scene)
 	
-	spawn_player(-1)
+	spawn_player(-1, camera_spawn)
 
 
 func change_to_packed_scene(packed_scene):

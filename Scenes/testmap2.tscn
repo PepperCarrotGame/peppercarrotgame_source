@@ -110,7 +110,8 @@ transform/pos = Vector2( 953.678, -452.621 )
 
 [node name="Node2D" parent="." instance=ExtResource( 10 )]
 
-transform/pos = Vector2( -394.164, -546.152 )
+transform/pos = Vector2( 932.982, -445.188 )
+transform/scale = Vector2( 1, 1 )
 
 [node name="Player_start" parent="." instance=ExtResource( 11 )]
 
