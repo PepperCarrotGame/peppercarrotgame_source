@@ -9,7 +9,7 @@ extends Node
 var character_info = preload("res://Scripts/character_info.gd")
 # The space wait time takes on the bar 
 const WAIT_TIME_PERCENT = 80.0
-
+const BATTLE_BAR_CLASS = preload("res://Scenes/Battle/UI/battle_bar.tscn")
 const BATTLE_PORTRAIT_SCENE = preload("res://Scenes/Battle/UI/battle_portrait.tscn")
 
 ### TODO: FIX THIS
@@ -19,7 +19,7 @@ const BATTLE_PORTRAIT_SCENE = preload("res://Scenes/Battle/UI/battle_portrait.ts
 # while waiting then they will go back to the waiting period
 
 var battle_portraits = []
-
+var battle_bars = []
 var characters = {}
 
 func _ready():
@@ -49,6 +49,9 @@ func update_gui():
 				var bar_size_x_limited = battle_bar.get_size().x*(EXECUTE_TIME_PERCENT/100)
 				portrait_pos.x = execute_origin_pos + (bar_size_x_limited * (battle_entity.state.execute_delta/EXECUTE_TIME))
 			battle_portrait.set_pos(portrait_pos)
+			
+	for bar in battle_bars:
+		bar.update_stats()
 
 # It's time to dududuudududdduduel
 func start_battle(battle_set):
@@ -126,6 +129,7 @@ func start_battle(battle_set):
 	
 
 	# Give character states and set sprite world position
+	var current_bar_number = 1
 	for key in characters:
 		var battle_positions =  get_tree().get_nodes_in_group("battle_position")
 		var character = characters[key]
@@ -149,7 +153,13 @@ func start_battle(battle_set):
 		battle_portrait.battle_entity = character
 		battle_portrait.get_node("Sprite").set_texture(load(character.character_info.portrait_sprite_location))
 		battle_portraits.append(battle_portrait)
-		
+		# ADD HEALTH BAR
+		if character.player_controlled:
+			var battle_bar = BATTLE_BAR_CLASS.instance()
+			battle_bar.set_battle_entity(character)
+			battle_bars.append(battle_bar)
+			battle_bar.set_pos(Vector2(300,0))
+			get_node(".").add_child(battle_bar)
 	set_process(true)
 	
 func _process(delta):

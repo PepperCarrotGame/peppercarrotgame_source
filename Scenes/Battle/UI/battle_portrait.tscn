@@ -7,6 +7,7 @@
 [node name="BattlePortrait" type="Node2D"]
 
 script/script = ExtResource( 1 )
+show_triangle = false
 
 [node name="Sprite" type="Sprite" parent="."]
 
@@ -14,8 +15,9 @@ transform/pos = Vector2( 0, -38 )
 transform/scale = Vector2( 0.424461, 0.424461 )
 texture = ExtResource( 2 )
 
-[node name="Sprite 2" type="Sprite" parent="."]
+[node name="triangle" type="Sprite" parent="."]
 
+visibility/visible = false
 transform/pos = Vector2( 0, -6 )
 transform/scale = Vector2( 0.0759051, 0.0759051 )
 texture = ExtResource( 3 )
