@@ -45,6 +45,22 @@ margin/right = 0.75
 margin/bottom = 0.0
 alignment = 1
 
+[node name="SaveGameButton" type="Button" parent="VBoxContainer"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 326.0
+margin/right = 640.0
+margin/bottom = 346.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Save game to slot 1"
+flat = false
+
 [node name="ResumeButton" type="Button" parent="VBoxContainer"]
 
 focus/ignore_mouse = false
@@ -52,9 +68,9 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
-margin/top = 338.0
+margin/top = 350.0
 margin/right = 640.0
-margin/bottom = 358.0
+margin/bottom = 370.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -68,9 +84,9 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
-margin/top = 362.0
+margin/top = 374.0
 margin/right = 640.0
-margin/bottom = 382.0
+margin/bottom = 394.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -95,5 +111,7 @@ valign = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
+
+[connection signal="pressed" from="VBoxContainer/SaveGameButton" to="." method="_on_SaveGameButton_pressed"]
 
 

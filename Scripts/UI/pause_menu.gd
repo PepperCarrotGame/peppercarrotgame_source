@@ -18,3 +18,9 @@ func _on_ResumeButton_pressed():
 	get_tree().set_pause(false)
 	set_hidden(true)
 	pass # replace with function body
+func _on_SaveGameButton_pressed():
+	var save_manager = get_node("/root/save_manager")
+	save_manager.save_game("autosav")
+	save_manager.save_game("1")
+	print("save")
+	pass # replace with function body

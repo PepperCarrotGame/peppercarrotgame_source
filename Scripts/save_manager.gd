@@ -7,7 +7,11 @@ extends Node
 
 var last_scene_loaded_from_save
 
-func save_game(filename):
+func save_game(filename, create_autosave = true):
+	_save_game_impl(filename)
+	if create_autosave:
+		_save_game_impl("autosave")
+func _save_game_impl(filename):
 	var save = File.new()
 	save.open("user://" + filename + ".fsav", File.WRITE)
 	var game_manager = get_node("/root/game_manager")

@@ -179,7 +179,6 @@ class PlayerState:
 				player.sprite_root.set_scale(Vector2(-1,1))
 			elif walk_right:
 				player.sprite_root.set_scale(Vector2(1,1))
-
 		if jump and can_jump:
 			player.velocity.y = -player.JUMP_FORCE
 			player.change_state(player.PlayerJumpState.new(player))

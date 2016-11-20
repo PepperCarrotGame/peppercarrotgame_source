@@ -27,6 +27,7 @@ _data = { "points":Vector2Array( -207.906, 646.102, 109.865, -109.865, -1113.63,
 [node name="ThickPlatform" type="StaticBody2D" parent="."]
 
 material/material = { "Angle":1.79, "BakeInterval":50.0, "BorderPosition1":0.91, "BorderPosition2":0.73, "BorderTexture1":"res://Assets/platform2d-example/grass_border.png", "BorderTexture2":"res://Assets/platform2d-example/rock_border.png", "BorderThickness1":100.0, "BorderThickness2":100.0, "FillSize":1.0, "FillTexture":"res://Assets/platform2d-example/dirt.png" }
+z/z = -10
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
@@ -111,7 +112,6 @@ transform/pos = Vector2( 953.678, -452.621 )
 [node name="Node2D" parent="." instance=ExtResource( 10 )]
 
 transform/pos = Vector2( 932.982, -445.188 )
-transform/scale = Vector2( 1, 1 )
 
 [node name="Player_start" parent="." instance=ExtResource( 11 )]
 
