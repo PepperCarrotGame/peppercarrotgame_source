@@ -59,7 +59,7 @@ var game_states = preload("res://Scripts/game_states.gd")
 ## Global game state machine.
 var state_machine = null
 
-## Global player data, including inventory, character levels, character order etc, this is automatically set by the <save_manager>
+## Global player data, including inventory, character levels, character order etc, this is automatically set by the @ref save_manager
 # when loading a new save.
 var player_data = null
 

@@ -1,43 +1,56 @@
 # ==== Pepper & Carrot Game ====
 #
-# Purpose: Player movement code
+## @package player
+# Player movement code
 #
 # ==============================
 extends KinematicBody2D
 
-const GRAVITY = 60.0 # Pixels/second
+const GRAVITY = 60.0
 const JUMP_FORCE = 800.0
-# Angle in degrees towards either side that the player can consider "floor"
+
+## Angle in degrees towards either side that the player can consider "floor"
 const FLOOR_ANGLE_TOLERANCE = 40
 const SLIDE_STOP_VELOCITY = 500.0 # One pixel per second
 const SLIDE_STOP_MIN_TRAVEL = 1.0 # One pixel
+
 const STOP_FORCE = 3000.0 # Stop force on the air and the ground
 const WALK_MAX_SPEED = 600.0
 const MAX_AIRBORNE_SPEED = 800.0
 const WALK_FORCE = 50.0
 
-# Not an actual jetpack, just mario styled variable jump height.
+## Not an actual jetpack, just mario styled variable jump height.
 const JUMP_JETPACK_FORCE = 100.0
 const MAX_JETPACK_TIME = 0.1
 
+## Wether or not input is disabled
 var input_disabled = false
 
-# Maximum time you can be in the air and still be able to jump, save the frames and kill the animals.
+## Maximum time you can be in the air and still be able to jump, save the frames and kill the animals.
 const JUMP_MAX_AIRBORNE_TIME = 0.2 # 12 frames...
-var on_air_time = 0 # Time we've been on the air
 
-const AIR_CONTROL_FORCE = 600 # This force is applied when drifting in the air
+## Time we've been on the air
+var on_air_time = 0 
+## This force is applied when drifting in the air
+const AIR_CONTROL_FORCE = 600
 
 const AIR_MAX_SPEED = 100
+
 var sprite_root
 
-# FUCKING BIG HACK: Because godot is dumb and it sometimes fails to report a collision when checking
+## FUCKING BIG HACK: Because godot is dumb and it sometimes fails to report a collision when checking
 # is_colliding() from another node we have to have this
 var is_actually_colliding = false
-var state
 
+## Current player state
+var state
+## Current velocity
 var velocity = Vector2()
+
+## Next frame velocity
 var new_velocity = Vector2()
+
+## Constructor
 func _ready():
 	state = PlayerStandState.new(self)
 	sprite_root = get_node("Sprite")
@@ -47,21 +60,31 @@ func _ready():
 	game_manager.set_player(self)
 	set_fixed_process(true)
 
+
+## Executes when a footstep happens
 func footstep():
 	var choice = round(rand_range(1,4))
 	get_node("SamplePlayer").play("wdl_footstep_" + str(choice))
+	
+## Gets the camera.
+# @return The camera node.
 func get_camera():
 	return get_node("Camera2D")
 
+## Fired when the current animation is finished.
 func animation_finished():
 	if state.has_method("animation_finished"):
 		var name = get_node("Sprite/PepperSprite/AnimationPlayer").get_current_animation()
 		state.animation_finished(name)
 
+## Sets the animation speed
+# @param speed New animation speed.
 func set_animation_speed(speed):
 	var animation_player = get_node("Sprite/PepperSprite/AnimationPlayer")
 	animation_player.set_speed(speed)
 
+## Changes the state.
+# @param new_state State to change to.
 func change_state(new_state):
 	if state and state.has_method("OnExit"):
 		state.OnExit()
@@ -69,16 +92,21 @@ func change_state(new_state):
 	if state.has_method("OnEnter"):
 		state.OnEnter()
 
+## Adds a vector to velocity on the next frame.
+# @param movement Vector3 of the new velocity
 func add_movement(movement):
 	new_velocity += movement
 
+## Changes the current character animation
+# @þaram new_animation New animation.
 func change_animation(new_animation):
 	var animation = get_node("Sprite/PepperSprite/AnimationPlayer").get_current_animation()
 	if new_animation != animation:
 		get_node("Sprite/PepperSprite/AnimationPlayer").play(new_animation)
 
-# Used when transitioning from the main menu.
-func interpolate_camera_offset(to_location, main_menu):
+## Used when transitioning from the main menu.
+# @param to_location Objective location for the camera.
+func interpolate_camera_offset(to_location):
 	var tween = Tween.new()
 	var camera = get_node("Camera2D")
 	add_child(tween)
@@ -86,7 +114,8 @@ func interpolate_camera_offset(to_location, main_menu):
 	tween.interpolate_callback(self, 1, "finish_interpolate_camera_offset",tween)
 	tween.start()
 
-# Deletes the tween object from memory.
+## Deletes the tween object from memory, used as a callback from interpolate_camera_offset().
+# @param tween Tween object.
 func finish_interpolate_camera_offset(tween):
 	tween.free()
 func _fixed_process(delta):
@@ -128,16 +157,25 @@ func _fixed_process(delta):
 		var text = "State: %s\nVelocity: %s Animation: %s Animation pos: %s" % [str(state.name), str(velocity), animation, str(animation_pos)]
 		get_node("PlayerDebug/DebugLabel").set_text(text)
 
+## Changes the input to enabled or disabled
+# @param input_state True if input should be disabled, false if not.
 func disable_input(input_state):
 	input_disabled = input_state
 
-# This is our custom function for checking if an action is pressed
-# mainly to allow disable_input to actually work
+## This is our custom function for checking if an action is pressed
+# mainly to allow disable_input to actually work.
+# @param action Action to check.
+# @return If the action is pressed.
 func custom_is_action_pressed(action):
 	if not input_disabled:
 		return Input.is_action_pressed(action)
 	else:
 		return false
+		
+## Gets the joy axis status
+# @param controller Controller number to check.
+# @param axis Axis to check.
+# @return Value of input on axis, 0 if input is disabled.
 func custom_joy_axis(controller, axis):
 	if not input_disabled:
 		return Input.get_joy_axis(controller, axis)
@@ -145,21 +183,38 @@ func custom_joy_axis(controller, axis):
 		return 0
 
 # ==============================
-# Player state base class, controls jumping and turning around too.
+## Player state base class, controls jumping and turning around too.
 # ==============================
 class PlayerState:
+	## If the player can turn around or not
 	var can_turn_around = true
+	## If the player can jump
 	var can_jump = true
-	var walk_left
-	var walk_right
-	# Value of input, when using keyboard this is either -+1 or 0, but when using joystick it can be other values
+	## If walk_left is being pressed
+	var walk_left = false
+	## If walk right is being pressed.
+	var walk_right = false
+	
+	## Value of input, when using keyboard this is either -+1 or 0, but when using joystick it can be other values
 	# for throttling the speed down
-	var walk_input_value
+	var walk_input_value = null
+	
+	## Name of the state for the debugger
 	var name = "PlayerState"
-	var player
+	
+	## Player object
+	var player = null
+	
+	## Minimum joystick input
 	const JOYSTICK_MIN = 0.1
+	
+	## Constructor
+	# @param player player object
 	func _init(player):
 		self.player = player
+		
+	## Update function, should be called once each frame
+	# @param delta Delta time.
 	func Update(delta):
 		self.walk_left = player.custom_is_action_pressed("left")
 		self.walk_right = player.custom_is_action_pressed("right")
@@ -185,7 +240,9 @@ class PlayerState:
 			return
 
 # ==============================
-# Standard state for all ground based states, handles leaving the ground
+## Standard state for all ground based states, handles leaving the ground 
+#
+# inherits: PlayerState
 # ==============================
 class PlayerGroundState:
 	extends PlayerState
@@ -202,7 +259,9 @@ class PlayerGroundState:
 				player.change_state(player.PlayerFallState.new(player))
 
 # ==============================
-# Player standing state, makes sure the player stops when not running and handles starting to run.
+## Player standing state, makes sure the player stops when not running and handles starting to run.
+#
+# inherits: PlayerGroundState
 # ==============================
 class PlayerStandState:
 	extends PlayerGroundState
@@ -229,7 +288,9 @@ class PlayerStandState:
 
 
 # ==============================
-# Player walking, makes sure the player never goes over the maximum walking speed.
+## Player walking, makes sure the player never goes over the maximum walking speed.
+#
+# inherits: PlayerGroundState
 # ==============================
 class PlayerWalkState:
 	extends PlayerGroundState
@@ -279,11 +340,13 @@ class PlayerWalkState:
 	func OnExit():
 		player.set_animation_speed(1)
 # ==============================
-# Unused state, originally meant for landing animation
+## Unused state, originally meant for landing animation
 # but having a landing animation that can't be cancelled
 # in a singleplayer game is dumb, plus even if we could cancel
 # the animation we had to slow the speed so that it looked right
 # which is a PITA for bunny hopping
+#
+# inherits: PlayerGroundState
 # ==============================
 class PlayerLandState:
 	extends PlayerGroundState
@@ -308,7 +371,9 @@ class PlayerLandState:
 			player.change_state(player.PlayerStandState.new(player))
 
 # ==============================
-# Handles aerial control shenanigans and handles landing
+## Handles aerial control shenanigans and handles landing
+#
+# inherits: PlayerState
 # ==============================
 class PlayerFallState:
 	extends PlayerState
@@ -344,11 +409,13 @@ class PlayerFallState:
 			player.change_state(player.PlayerStandState.new(player))
 
 # ==============================
-# Handles jump animation and jetpack.
+## Handles jump animation and jetpack.
 # The player used to get a small boost at the start of this state
 # however this is not necessary anymore since air acceleration is
 # so high bunnyhopping is already very easy to do and be useful,
 # for you, speedrunners.
+#
+# inherits: PlayerFallState
 # ==============================
 class PlayerJumpState:
 	extends PlayerFallState
