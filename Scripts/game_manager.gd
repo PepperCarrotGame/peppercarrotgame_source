@@ -71,7 +71,7 @@ class CharacterSave:
 	var level
 	var internal_name
 	var stats
-	## Initializes the object, you probably want to use <get_full_character_from_dict> instead.
+	## Initializes the object, you probably want to use get_full_character_from_dict() instead.
 	# @param Character Basic json character dict with level and internal name
 	# @return The full character information object.
 	func _init(character):

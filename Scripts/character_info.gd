@@ -1,24 +1,47 @@
 # ==== Pepper & Carrot tactical RPG ====
-#
-# Purpose: Set of classes to hold battle character stats
+## @package character_info
+# Set of classes to hold battle character stats
 #
 # ==============================
+
+## Standard stat value class (health, rea etc...)
+#
+# Formula:
+# Stat = [(raw_value * stat_multiplier)/CONSTANT_V]
 class Stat:
+	## Stat internal name.
 	var name = "stat"
+	## stat_multiplier (see formula).
 	var stat_multiplier = 0.0
+	## raw_value (see formula).
 	var raw_value = 0.0
+	## level_growth (see formula).
 	var level_growth = 0.0
-	const CONSTANT_V = 1638400.0 # ???
+	## CONSTANT_V (see formula).
+	const CONSTANT_V = 1638400.0
+	
+	## Constructor
+	# @param name The stat name
+	# @param stat_multiplier The stat multiplier.
+	# @param level_growth The level growth.
+	# @param raw_value The raw value.
 	func _init(name,stat_multiplier, level_growth, raw_value):
 		self.name = name
 		self.stat_multiplier = stat_multiplier
 		self.level_growth = level_growth
 		self.raw_value = raw_value
+	## Levels up the stat.
+	# @param levels_up Number of levels we i ncrease, or decrease.
+	# @param old_level The old level.
 	func level_up(levels_up, old_level):
 		raw_value = raw_value + (raw_value/(level_growth+old_level))*levels_up
+	## Gets the public value of the stat, which is computed differently and serves as a
+	# guide for the user.
 	func get_public_value():
 		# Returns the stat value for the user
 		return ceil((raw_value*stat_multiplier)/CONSTANT_V)
+		
+	## Converts this to a dictionary.
 	func to_dict():
 		var dict = {
 			name = self.name,
@@ -27,21 +50,38 @@ class Stat:
 			level_growth = self.level_growth
 		}
 		return dict
+	## Generates a Stat object from a dictionary.
+	# @param dict The dictionary to use.
+	# 
+	# @return The Stat object.
 	static func from_dict(dict):
 		var stat = new(dict["name"],dict["stat_multiplier"], dict["level_growth"], dict["raw_value"])
 		return stat
+
+## Attack class.
 class Attack:
+	## Attack visual name (use localization string like #PCG_Attack_BigBang
 	var name
+	## Attack internal name.
 	var internal_name
+	## Attack modifier.
 	var attack_modifier
+	## Attack animation name.
 	var animation_name
+	## Attack execute speed (n/s).
 	var execute_speed
+	
+	## Constructor.
 	func _init(name, internal_name, attack_modifier, animation_name, execute_speed):
 		self.name = name
 		self.internal_name = internal_name
 		self.attack_modifier = attack_modifier
 		self.animation_name = animation_name
 		self.execute_speed = execute_speed
+		
+	## Applies an attack from a BattleEntity to another BattleEntity
+	# @param attacker The BattleEntity that is attacking.
+	# @param receiver The BattleEntity that receives the attack.
 	func do_attack(attacker,receiver):
 		#Attack formula=[(Power + Speed) / 2] * AttackModifier
 		var speed = attacker.character_info.stats["speed"].get_public_value()
@@ -49,19 +89,46 @@ class Attack:
 		if receiver.state extends receiver.state.execute_state:
 			receiver.state.get_hit()
 		receiver.character_info.HP = receiver.character_info.HP - ((power+speed)/2)*attack_modifier
+		
+## Character information class
 class CharacterInfo:
+	
+	## Stats for the character, this is a dictionary and each key should be named after
+	# the internal name of the stat it contains
 	var stats = {}
+	
+	## Stats available to the character, this is a dictionary and each key should be named after
+	# the internal name of the stat it contains
 	var attacks = {}
+	
+	## Character current level
 	var level
+	
+	## Character visualname (should be a localized string like #PCG_Character_Pepper)
 	var name
+	
+	## Character internal name like "pepper"
 	var internal_name
+	
+	## res:// path to this character's overworld sprite scene.
 	var sprite_location
+	
+	## If this character is controlled by the user.
 	var player_controlled = false
+	
+	## res:// path to this character's portrait sprite scene.
 	var portrait_sprite_location
+	
+	## Health points in public value type.
 	var HP = 0
+	## Rea points in public value type.
 	var MP = 0
+	## Constructor.
 	func _init():
 		pass
+		
+	## Levels a character up.
+	# @param levels_up number of levels to change.
 	func level_up(levels_up):
 		# Makes all stats level up
 		for stat_name in stats:
@@ -71,8 +138,14 @@ class CharacterInfo:
 			if player_controlled:
 				MP = stats["intelligence"].get_public_value()
 		level = level+levels_up
+	
+	## Converts this to a dictionary.
+	# TODO: this
 	func to_dict():
 		pass
+		
+	## Loads a character_info from file located at res://Stats/<character_name>.json
+	# @param character_name Name of the character.
 	func load_from_file(character_name):
 		var path = "res://Stats/" + character_name + ".json"
 		var file_contents = ""
@@ -90,6 +163,8 @@ class CharacterInfo:
 		final_dict.parse_json(file_contents)
 
 		from_dict(final_dict)
+	## Generates a battle_entity from a dictionary.
+	# @param final_dict Dictionary to generate from.
 	func from_dict(final_dict):
 		# Base info parsing
 		level = final_dict["level"]

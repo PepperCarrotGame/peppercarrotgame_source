@@ -1,20 +1,41 @@
 # ==== Pepper & Carrot tactical RPG ====
 #
-# Purpose: BattlesSets hold information for battles and how they are handled.
+## @package battle_set
+# BattlesSets hold information for battles and how they are handled.
 #
 # ==============================
 extends Node
 
+## If there can be more than one companion generated from the same type.
 var can_repeat_companions = false
+
+## Max number of companions, not including the main one.
 var max_companions = 0
-var is_number_of_companions_random
+
+var is_number_of_companions_random = false
+
+## Extra companion battle_set_enemies
 var companion_pool = []
+
+## Main enemy, always appears
 var main_enemy
+
+## If the extra companions are random.
 var random_companions = false
+
+## This class holds the information for each character in the companion_pool
 class battle_set_enemy:
+	## Enemy type, should be a string (internal name)
 	var type
+	## If the level should be evened out with the player's.
 	var adapts_to_player_party_level = false
+	## Starting level, only useful if adapts_to_player_party_level
 	var level = 0
+	
+	## Construct
+	# @param type Enemy type
+	# @param adapts_to_player_party_level
+	# @level Starting Level.
 	func _init(type, adapts_to_player_party_level, level):
 		self.type = type
 		self.adapts_to_player_party_level = adapts_to_player_party_level
@@ -24,7 +45,10 @@ func _ready():
 	# Called every time the node is added to the scene.
 	# Initialization here
 	pass
-
+## Generate BattleSet from file.
+# @param file_path File path to generate from.
+#
+# @return New BattleSet.
 static func from_file(file_path):
 	var file = File.new()
 	if !file.file_exists(file_path):

@@ -1,6 +1,6 @@
-	# ==== Pepper & Carrot Game ====
-#
-# Purpose: Handles battles
+# ==== Pepper & Carrot Game ====
+## @package battle
+# Handles battles
 #
 # ==============================
 
@@ -12,21 +12,30 @@ const WAIT_TIME_PERCENT = 80.0
 const BATTLE_BAR_CLASS = preload("res://Scenes/Battle/UI/battle_bar.tscn")
 const BATTLE_PORTRAIT_SCENE = preload("res://Scenes/Battle/UI/battle_portrait.tscn")
 
-### TODO: FIX THIS
+# TODO: FIX THIS
 # Battle system goes like this:
 # There's a waiting period, after that waiting period is over the
 # player has to act, if an attack is done and the player is attacked
 # while waiting then they will go back to the waiting period
 
+## Battle portrait classes in the UI, for updating and shit.
 var battle_portraits = []
+
+## Battle bars in the UI, (health, rea etc...) for updating and shit.
 var battle_bars = []
+
+## All the BattleEntities in the battle, for updating and shit.
 var characters = {}
 
 func _ready():
 	pass
+	
+## Gets an attack from the user
 func get_attack(attacker):
 	get_node("CanvasLayer/AttackSelector")._get_attack(attacker)
 
+
+## Updates the UI information.
 func update_gui():
 	# Place the character portrait
 	for battle_portrait in battle_portraits:
@@ -53,7 +62,7 @@ func update_gui():
 	for bar in battle_bars:
 		bar.update_stats()
 
-# It's time to dududuudududdduduel
+## Starts battle from a battle_set
 func start_battle(battle_set):
 	var game_manager = get_node("/root/game_manager")
 	var base_enemy = battle_set.main_enemy
@@ -193,6 +202,7 @@ func _process(delta):
 		update_debug()
 	update_gui()
 
+## Updates the debug text, disabled when game_manager.DEBUG is set to false.
 func update_debug():
 	var debug_label = get_node("DebugLabel")
 	var debug_text = "Battle debug \n"
@@ -209,6 +219,7 @@ func update_debug():
 		debug_text = debug_text + "HP: %s MP: %s \n" % [str(character.character_info.HP), str(character.character_info.MP)]
 	debug_label.set_text(debug_text)
 
+## Fired when the player wins the battle.
 func battle_victory():
 	#TODO: THIS
 	var debug_label = get_node("DebugLabel")
@@ -217,10 +228,10 @@ func battle_victory():
 
 	pass
 
+## Yes, this is loss
 # | |.
 # |||_
-# Yes, this is loss
-
+# Joking aside, this fires when player wins the battle.
 func battle_loss():
 	# TODO: THIS TOO
 	var debug_label = get_node("DebugLabel")
@@ -228,22 +239,41 @@ func battle_loss():
 	set_process(false)
 	pass
 
+## Class that holds all the individual character information
+# during a battle and it also holds references to information
+# for the character.
 class BattleEntity:
-	var sprite
-	var character_info
-	var player_controlled
-	var state
-	var position
-	var battle
+	## Character sprite in the wold
+	var sprite = null
+	## character_info for this character.
+	var character_info = null
+	## True if the character is directly controlled by the player.
+	var player_controlled = null
+	## Current BattleState.
+	var state = null
+	## Position inside the team.
+	var position = null
+	## The battle object.
+	var battle = null
+	## If this entity should adapt to the party level.
 	var adapts_to_player_party_level = false
+	## Checks if the player is alive.
+	# @return False if the character is dead.
 	func is_alive():
 		return not state extends state.dead_state
+		
+	##Constructor
 	func _init():
 		pass
+	## Fired when the battle_entity receives damage.
+	# @param pure_damage the "true" damage the character should receive
+	# calculating how much this damage actually is is something the
+	# attacker should do.
 	func receive_damage(pure_damage):
 		character_info.HP = character_info.HP - pure_damage
 		state.receive_damage(pure_damage)
 	
+	## Changes the current state for a new one.
 	func change_state(new_state):
 		# Call the exit method on the existing battle state, if it exists
 		if state:
@@ -251,6 +281,12 @@ class BattleEntity:
 		# Call the enter method on the new state and assign it
 		new_state.OnEnter()
 		state = new_state
+	
+	## Asks the battle object for an attack if this is a player_controlled
+	# character or selects it's own if this is AI
+	# TODO: make AI actually work.
+	# @return A dictionary containing two keys called "attack" and "enemy"
+	# attack is the attack that should be executed, enemy is the target.
 	func get_attack():
 		var result_dict = {"attack": null, "enemy": null}
 		if player_controlled:
@@ -263,6 +299,8 @@ class BattleEntity:
 			result_dict["enemy"] = battle.characters["pepper"]
 			pass
 		return result_dict
+	## Create a BattleEntity from a battle_set enemy.
+	# @return The BattleEntity.
 	static func from_battle_set_enemy(enemy_set, position):
 		var character_info = load("res://Scripts/character_info.gd")
 		var charinfo = character_info.CharacterInfo.new()
@@ -275,28 +313,51 @@ class BattleEntity:
 		battle_entity.adapts_to_player_party_level = enemy_set.adapts_to_player_party_level
 		return battle_entity
 
+## Base battle state.
 class BattleState:
+	## Base execute phase time value, this is not in any specific unit
+	# since characters have different speeds.
 	const EXECUTE_TIME = 100
+	## Base waiting phase time value, this is not in any specific unit
+	# since character have different speeds.
 	const WAIT_TIME = 200
+	## BattleEntity of this character.
 	var battle_entity
+	## State class to switch to when entering the WAIT phase.
 	var wait_state
+	## State class tos witch to when entering the EXECUTE phase.
 	var execute_state
+	## State used when the character is dead.
 	var dead_state
+	
+	## Constructor.
+	# @param battle_entity Battle entity for this state.
+	# @param wait_state Wait state for this state.
+	# @param execute_state Execute state for this state.
+	# @param dead_state Dead state for this state.
 	func _init(battle_entity, wait_state, execute_state, dead_state):
 		self.battle_entity = battle_entity
 		self.wait_state = wait_state
 		self.execute_state = execute_state
 		self.dead_state = dead_state
+		
+	## Update function for the state, should be called every frame.
+	# @delta Delta time.
 	func Update(delta):
 		if battle_entity.character_info.HP <= 0:
 			battle_entity.character_info.HP = 0
 			# TODO: Play death animation or something
 			var new_state = dead_state.new(battle_entity, wait_state, execute_state, dead_state)
 			battle_entity.change_state(new_state)
+	## Called on changing states.
 	func OnExit():
 		pass
+	## Called on entering a new state.
 	func OnEnter():
 		pass
+		
+## State used when the character is dead, jim.
+# Inherits: BattleState.
 class BattleDeadState:
 	extends BattleState
 	func OnEnter():
@@ -307,6 +368,8 @@ class BattleDeadState:
 		pass
 	func Update(delta):
 		.Update(delta)
+## State used when the character is waiting to execute.
+# Inherits: BattleState.
 class BattleWaitState:
 	extends BattleState
 	
@@ -324,6 +387,8 @@ class BattleWaitState:
 	func _init(battle_entity, wait_state, execute_state, dead_state).(battle_entity, wait_state, execute_state, dead_state):
 		pass
 
+## State used when the character is executing an attack.
+# Inherits: BattleState.
 class BattleExecuteState:
 	extends BattleState
 	var execute_delta = 0

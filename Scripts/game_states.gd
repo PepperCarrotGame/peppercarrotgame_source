@@ -1,11 +1,13 @@
 # ==== Pepper & Carrot Game ====
 #
-# Purpose: Game states aka gamemodes.
+## @package game_states 
+# AKA gamemodes, they manage global stuff like the pause UI.
 #
 # ==============================
 
 var state_machine = preload("res://Scripts/state_machine.gd")
 
+## Base game state, should not be used.
 class GameState:
 	extends "res://Scripts/state_machine.gd".State
 	func Update(delta):
@@ -14,11 +16,17 @@ class GameState:
 		pass
 	func _init(state_machine).(state_machine):
 		pass
+## State that manages the game when ingame
 class InGameState:
 	extends GameState
 	var pause_menu_scene = preload("res://Scenes/UI/pause_menu.tscn")
+	## Current pause menu node.
 	var pause_menu
+	
+	## State name (for the debugger)
 	const name = "ingame"
+	
+	## If the player can pause or no.
 	var can_pause = true
 	func OnEnter():
 		#PAUSE_MODE_PROCESS

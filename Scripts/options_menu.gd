@@ -1,12 +1,15 @@
 # ==== Pepper & Carrot Game ====
-#
-# Purpose: Code for the options menu
+## @package options_menu
+# Code for the options menu
 #
 # ==============================
 
 extends Container
 
+## Buttons that are allowed by the options menu rebinder, by default it only allows game_manager.INPUT_ACTIONS
 var allowed_actions = game_manager.INPUT_ACTIONS
+
+## The button
 var button = null
 func _ready():
 	
@@ -27,11 +30,14 @@ func _process(delta):
 	var parent_size = Vector2(get_node("ScrollContainer").get_size().x, button_container.get_size().y)
 	button_container.set_size(parent_size)
 
+## Returns to the main menu.
+# TODO: Fix this.
 func _on_back_button_pressed():
 	var game_manager = get_node("/root/game_manager")
 	game_manager.change_to_cached_scene()
 	pass
 
+## Enables set_process_input
 func wait_for_input():
 	set_process_input(true)
 
@@ -44,6 +50,7 @@ func _input(event):
 
 			change_key(button.action, event)
 
+## Changes the key to a new one
 func change_key(action, event):
 	# Clean all previous bindings
 	

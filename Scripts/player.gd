@@ -98,7 +98,7 @@ func add_movement(movement):
 	new_velocity += movement
 
 ## Changes the current character animation
-# @þaram new_animation New animation.
+# @param new_animation New animation.
 func change_animation(new_animation):
 	var animation = get_node("Sprite/PepperSprite/AnimationPlayer").get_current_animation()
 	if new_animation != animation:
