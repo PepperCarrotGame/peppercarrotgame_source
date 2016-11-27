@@ -1,0 +1,47 @@
+[gd_scene load_steps=4 format=1]
+
+[ext_resource path="res://addons/closeup_dialogs/close_up_dialog.gd" type="Script" id=1]
+[ext_resource path="res://addons/closeup_dialogs/closeup_dialog_starter_icon.png" type="Texture" id=2]
+[ext_resource path="res://addons/closeup_dialogs/close_up_dialog_node.gd" type="Script" id=3]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="CloseUpDialogController" type="Node2D" parent="."]
+
+script/script = ExtResource( 1 )
+__meta__ = { "_editor_icon":ExtResource( 2 ) }
+first_dialog = NodePath("CloseUpDialogNode")
+finish_callback_node = null
+finish_callback_method = null
+
+[node name="CloseUpDialogNode" type="Node2D" parent="CloseUpDialogController"]
+
+script/script = ExtResource( 3 )
+__meta__ = { "_editor_icon":ExtResource( 2 ) }
+character = "pepper"
+emotion = null
+next_dialog = NodePath("../CloseUpDialogNode2")
+position = "Left"
+text = "Hello, World!"
+
+[node name="CloseUpDialogNode2" type="Node2D" parent="CloseUpDialogController"]
+
+script/script = ExtResource( 3 )
+__meta__ = { "_editor_icon":ExtResource( 2 ) }
+character = "coriander"
+emotion = null
+next_dialog = NodePath("../CloseUpDialogNode3")
+position = "Right"
+text = "This is working\? I hope so!"
+
+[node name="CloseUpDialogNode3" type="Node2D" parent="CloseUpDialogController"]
+
+script/script = ExtResource( 3 )
+__meta__ = { "_editor_icon":ExtResource( 2 ) }
+character = "pepper"
+emotion = "normal"
+next_dialog = null
+position = "Left"
+text = "Outdated memes."
+
+

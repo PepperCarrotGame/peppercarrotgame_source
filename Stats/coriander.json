@@ -1,11 +1,11 @@
 {
   "level": 1,
-  "name": "#PG_Character_Pepper",
-  "internal_name": "pepper",
+  "name": "#PG_Character_Coriander",
+  "internal_name": "coriander",
   "player_controlled": true,
-  "sprite_location": "res://Scenes/Characters/pepper_sprite.tscn",
-  "dialog_sprite": "res://Scenes/UI/character_closeups/pepper.tscn",
-  "portrait_sprite_location": "res://Assets/Images/Characters/Pepper/portrait.png",
+  "sprite_location": "res://Scenes/Characters/coriander_sprite.tscn",
+  "dialog_sprite": "res://Scenes/UI/character_closeups/coriander.tscn",
+  "portrait_sprite_location": "res://Assets/Images/Characters/Coriander/portrait.png",
   "stats" :{
     "vitality": {
       "level_growth": 7,

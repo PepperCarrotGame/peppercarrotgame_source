@@ -25,7 +25,7 @@ var height = 720
 ## Boolean, sets wether or not the game is in fullscreen mode.
 var fullscreen = false
 
-
+var text_speed = 10
 
 ## Boolean, sets wether or not the music should play.
 var music = true

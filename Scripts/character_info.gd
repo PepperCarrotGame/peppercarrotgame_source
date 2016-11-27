@@ -112,7 +112,8 @@ class CharacterInfo:
 	
 	## res:// path to this character's overworld sprite scene.
 	var sprite_location
-	
+	## res:// path to this character's dialog sprite scene.
+	var dialog_sprite
 	## If this character is controlled by the user.
 	var player_controlled = false
 	
@@ -172,6 +173,8 @@ class CharacterInfo:
 		internal_name = final_dict["internal_name"]
 		player_controlled = final_dict["player_controlled"]
 		sprite_location = final_dict["sprite_location"]
+		if final_dict.has("dialog_sprite"):
+			dialog_sprite = final_dict["dialog_sprite"]
 		# Stats parsing
 		var stats_dict = final_dict["stats"]
 		for key in stats_dict:

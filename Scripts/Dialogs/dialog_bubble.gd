@@ -23,7 +23,6 @@ var finished = false
 var button_pressed = false
 var button_released = false
 
-
 func start():
 	set_hidden(false)
 	if should_fade_in:
