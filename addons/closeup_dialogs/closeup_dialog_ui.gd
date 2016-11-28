@@ -28,16 +28,26 @@ var _dialog_node_index = 0
 var _current_sprite
 var _last_sprite
 var _last_dialog
+
+var _waiting_for_startup_animation_to_end = true
+
+func _ready():
+	get_node("UI").set_hidden(true)
+	get_tree().set_pause(true)
+
 ## Starts playing a full dialog from a dialog controller
 # @param dialog_controller The dialog controller.
 func start_dialog(dialog_controller):
-	print("start")
+	var game_manager = get_node("/root/game_manager")
 	_dialog_nodes = dialog_controller._dialog_nodes
 	_character_scenes = dialog_controller._character_sprites
-	_play_dialog_node(_dialog_nodes[0])
-	set_process(true)
-	set_process_input(true)
-	
+	get_node("AnimationPlayer").connect("finished", self, "_animation_finished")
+	get_node("AnimationPlayer").play("DialogStartup")
+func _animation_finished():
+	if get_node("AnimationPlayer").get_current_animation() == "DialogStartup":
+		_play_dialog_node(_dialog_nodes[0])
+		set_process(true)
+		set_process_input(true)
 ## Starts playing a node
 func _play_dialog_node(dialog):
 	print("PLAY")
@@ -46,7 +56,6 @@ func _play_dialog_node(dialog):
 	_current_dialog = dialog
 	_current_text = ""
 	_is_playing = true
-	
 	if _last_dialog:
 		# If the character is not the same but it's on the same side we should free it
 		if _last_dialog.position == _current_dialog.position:
@@ -58,13 +67,13 @@ func _play_dialog_node(dialog):
 	_current_sprite = _character_scenes[_current_dialog.character]
 	_current_sprite.set_opacity(1)
 	if _current_dialog.position == "Left":
-		_current_sprite.set_pos(get_node("PlaceHolderLeft").get_pos())
+		_current_sprite.set_pos(get_node("UI/PlaceHolderLeft").get_pos())
 		_current_sprite.set_flip_h(false)
 	else:
-		_current_sprite.set_pos(get_node("PlaceHolderRight").get_pos())
+		_current_sprite.set_pos(get_node("UI/PlaceHolderRight").get_pos())
 		_current_sprite.set_flip_h(true)
-	add_child(_current_sprite)
-	
+	get_node("UI").add_child(_current_sprite)
+	get_node("UI").set_hidden(false)
 	set_process(true)
 func _process(delta):
 	if _is_playing:
@@ -92,5 +101,5 @@ func _input(event):
 				_play_dialog_node(_dialog_nodes[_dialog_node_index])
 
 func _update_ui():
-	get_node("CharacterName").set_text(tr(_current_dialog.character_information.name))
-	get_node("Panel/Text").set_bbcode(_current_text)
+	get_node("UI/CharacterName").set_text(tr(_current_dialog.character_information.name))
+	get_node("UI/Panel/Text").set_bbcode(_current_text)

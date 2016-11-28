@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=1]
+[gd_scene load_steps=17 format=1]
 
 [ext_resource path="res://addons/platform2d/thick_platform.gd" type="Script" id=1]
 [ext_resource path="res://addons/platform2d/thick_platform_icon.png" type="Texture" id=2]
@@ -7,10 +7,13 @@
 [ext_resource path="res://Assets/platform2d-example/rock_border.png" type="Texture" id=5]
 [ext_resource path="res://Assets/Images/grad.png" type="Texture" id=6]
 [ext_resource path="res://Scenes/World/tools/tool_player_world_dialogue_trigger.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Scenes/Dialogs/dialog_bubble.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Scenes/World/npcs/enemies/test_enemy.tscn" type="PackedScene" id=9]
-[ext_resource path="res://Scenes/World/tools/tool_menu_camera.tscn" type="PackedScene" id=10]
-[ext_resource path="res://Scenes/World/tools/tool_player_start.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Scenes/World/npcs/enemies/test_enemy.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scenes/World/tools/tool_menu_camera.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/World/tools/tool_player_start.tscn" type="PackedScene" id=10]
+[ext_resource path="res://addons/closeup_dialogs/close_up_dialog.gd" type="Script" id=11]
+[ext_resource path="res://addons/closeup_dialogs/closeup_dialog_controller_icon.png" type="Texture" id=12]
+[ext_resource path="res://addons/closeup_dialogs/close_up_dialog_node.gd" type="Script" id=13]
+[ext_resource path="res://addons/closeup_dialogs/closeup_dialog_node_icon.png" type="Texture" id=14]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
@@ -94,26 +97,18 @@ texture = ExtResource( 6 )
 
 transform/pos = Vector2( 516.813, -537.952 )
 transform/scale = Vector2( 3.32855, 5.23987 )
-first_dialogue = NodePath("../Bubble")
+first_dialogue = NodePath("../CloseUpDialogController")
+dialogue_type = "close_up"
 
-[node name="Bubble" parent="." instance=ExtResource( 8 )]
-
-visibility/visible = false
-transform/pos = Vector2( 418.063, -518.035 )
-animated_text = "This should work... right\?"
-next_dialog = NodePath("")
-should_fade_in = true
-should_fade_out = true
-
-[node name="TestEnemy" parent="." instance=ExtResource( 9 )]
+[node name="TestEnemy" parent="." instance=ExtResource( 8 )]
 
 transform/pos = Vector2( 953.678, -452.621 )
 
-[node name="Node2D" parent="." instance=ExtResource( 10 )]
+[node name="Node2D" parent="." instance=ExtResource( 9 )]
 
 transform/pos = Vector2( 932.982, -445.188 )
 
-[node name="Player_start" parent="." instance=ExtResource( 11 )]
+[node name="Player_start" parent="." instance=ExtResource( 10 )]
 
 transform/pos = Vector2( -396.646, -494.875 )
 
@@ -136,5 +131,54 @@ drag_margin/left = 0.2
 drag_margin/top = 0.2
 drag_margin/right = 0.2
 drag_margin/bottom = 0.2
+
+[node name="CloseUpDialogController" type="Node2D" parent="."]
+
+script/script = ExtResource( 11 )
+__meta__ = { "_editor_icon":ExtResource( 12 ) }
+first_dialog = NodePath("CloseUpDialogNode")
+finish_callback_node = null
+finish_callback_method = null
+autoplay = false
+
+[node name="CloseUpDialogNode" type="Node2D" parent="CloseUpDialogController"]
+
+script/script = ExtResource( 13 )
+__meta__ = { "_editor_icon":ExtResource( 14 ) }
+character = "pepper"
+emotion = "normal"
+next_dialog = NodePath("../CloseUpDialogNode2")
+position = "Left"
+text = "Russian kompot is good, isn\'t it\?"
+
+[node name="CloseUpDialogNode2" type="Node2D" parent="CloseUpDialogController"]
+
+script/script = ExtResource( 13 )
+__meta__ = { "_editor_icon":ExtResource( 14 ) }
+character = "pepper"
+emotion = "normal"
+next_dialog = NodePath("../CloseUpDialogNode3")
+position = "Left"
+text = "Russian food is the best food in the universe."
+
+[node name="CloseUpDialogNode3" type="Node2D" parent="CloseUpDialogController"]
+
+script/script = ExtResource( 13 )
+__meta__ = { "_editor_icon":ExtResource( 14 ) }
+character = "coriander"
+emotion = "normal"
+next_dialog = NodePath("../CloseUpDialogNode4")
+position = "Right"
+text = "Hello, World!"
+
+[node name="CloseUpDialogNode4" type="Node2D" parent="CloseUpDialogController"]
+
+script/script = ExtResource( 13 )
+__meta__ = { "_editor_icon":ExtResource( 14 ) }
+character = "pepper"
+emotion = "normal"
+next_dialog = NodePath("")
+position = "Left"
+text = "Really tho, where the kompot at\?"
 
 

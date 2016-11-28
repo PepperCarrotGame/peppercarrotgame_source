@@ -15,6 +15,9 @@ export (NodePath) var finish_callback_node
 ## Method to call in finish_callback_node once all text has been displayed.
 export (String) var finish_callback_method
 
+## If it should start playing right away.
+export (bool) var autoplay = false
+
 ## Scene of the ui component of the closeup dialogs
 const _UI_LAYER_SCENE = preload("closeup_dialog_ui.tscn")
 
@@ -29,6 +32,8 @@ var _resource_queue
 
 # If we are currently loading the initial assets
 var _is_loading = false
+
+var _all_characters_loaded = false
 
 ## Recursive function that finds dialogs down a tree.
 #
@@ -58,10 +63,9 @@ func _ready():
 		# Load the UI layer
 		_ui_layer = _UI_LAYER_SCENE.instance()
 		_is_loading = true
-
 		set_process(true)
 func _process(delta):
-	var all_characters_loaded = true
+	_all_characters_loaded = true
 	if _is_loading:
 		# Load all the characters from the ResourceQueue
 		for character in _character_sprites:
@@ -72,16 +76,15 @@ func _process(delta):
 				_character_sprites[character].set_z(-1)
 				print("Loaded %s" % character)
 			if not _character_sprites[character]:
-				all_characters_loaded = false
-	if all_characters_loaded:
+				_all_characters_loaded = false
+	if _all_characters_loaded:
 		_is_loading = false
-		print("GO FOR AUTOSEQUENCE START")
-		get_node("/root/game_manager").ui_layer.add_child(_ui_layer)
-		_ui_layer.start_dialog(self)
-		set_process(false)
-
+		if autoplay:
+			get_node("/root/game_manager").ui_layer.add_child(_ui_layer)
+			set_process(false)
+			_ui_layer.start_dialog(self)
 func dialog_done():
 	# TODO
 	pass
 func start_dialog():
-	pass
+	autoplay = true

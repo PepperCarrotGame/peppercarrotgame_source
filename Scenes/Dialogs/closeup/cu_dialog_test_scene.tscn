@@ -13,6 +13,7 @@ __meta__ = { "_editor_icon":ExtResource( 2 ) }
 first_dialog = NodePath("CloseUpDialogNode")
 finish_callback_node = null
 finish_callback_method = null
+autoplay = true
 
 [node name="CloseUpDialogNode" type="Node2D" parent="CloseUpDialogController"]
 
