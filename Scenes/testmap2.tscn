@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=1]
+[gd_scene load_steps=18 format=1]
 
 [ext_resource path="res://addons/platform2d/thick_platform.gd" type="Script" id=1]
 [ext_resource path="res://addons/platform2d/thick_platform_icon.png" type="Texture" id=2]
@@ -9,11 +9,11 @@
 [ext_resource path="res://Scenes/World/tools/tool_player_world_dialogue_trigger.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/World/npcs/enemies/test_enemy.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scenes/World/tools/tool_menu_camera.tscn" type="PackedScene" id=9]
-[ext_resource path="res://Scenes/World/tools/tool_player_start.tscn" type="PackedScene" id=10]
-[ext_resource path="res://addons/closeup_dialogs/close_up_dialog.gd" type="Script" id=11]
-[ext_resource path="res://addons/closeup_dialogs/closeup_dialog_controller_icon.png" type="Texture" id=12]
-[ext_resource path="res://addons/closeup_dialogs/close_up_dialog_node.gd" type="Script" id=13]
-[ext_resource path="res://addons/closeup_dialogs/closeup_dialog_node_icon.png" type="Texture" id=14]
+[ext_resource path="res://addons/closeup_dialogs/close_up_dialog.gd" type="Script" id=10]
+[ext_resource path="res://addons/closeup_dialogs/closeup_dialog_controller_icon.png" type="Texture" id=11]
+[ext_resource path="res://addons/closeup_dialogs/close_up_dialog_node.gd" type="Script" id=12]
+[ext_resource path="res://addons/closeup_dialogs/closeup_dialog_node_icon.png" type="Texture" id=13]
+[ext_resource path="res://Scenes/Player/player.tscn" type="PackedScene" id=14]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
@@ -24,6 +24,11 @@ points = Vector2Array( -1113.63, -318.753, -1067.33, -337.649, -1018.18, -346.94
 
 bake_interval = 50.0
 _data = { "points":Vector2Array( -207.906, 646.102, 109.865, -109.865, -1113.63, -318.753, -192.247, -52.2178, -261.824, 1472.76, 1498.11, -317.142, -207.906, 646.102, 0, 0, -1113.63, -318.753 ) }
+
+[sub_resource type="RectangleShape2D" id=3]
+
+custom_solver_bias = 0.0
+extents = Vector2( 1709.27, 382.908 )
 
 [node name="Node2D" type="Node2D"]
 
@@ -108,10 +113,6 @@ transform/pos = Vector2( 953.678, -452.621 )
 
 transform/pos = Vector2( 932.982, -445.188 )
 
-[node name="Player_start" parent="." instance=ExtResource( 10 )]
-
-transform/pos = Vector2( -396.646, -494.875 )
-
 [node name="Camera2D" type="Camera2D" parent="."]
 
 transform/pos = Vector2( 110.233, -507.738 )
@@ -134,8 +135,8 @@ drag_margin/bottom = 0.2
 
 [node name="CloseUpDialogController" type="Node2D" parent="."]
 
-script/script = ExtResource( 11 )
-__meta__ = { "_editor_icon":ExtResource( 12 ) }
+script/script = ExtResource( 10 )
+__meta__ = { "_editor_icon":ExtResource( 11 ) }
 first_dialog = NodePath("CloseUpDialogNode")
 finish_callback_node = null
 finish_callback_method = null
@@ -143,8 +144,8 @@ autoplay = false
 
 [node name="CloseUpDialogNode" type="Node2D" parent="CloseUpDialogController"]
 
-script/script = ExtResource( 13 )
-__meta__ = { "_editor_icon":ExtResource( 14 ) }
+script/script = ExtResource( 12 )
+__meta__ = { "_editor_icon":ExtResource( 13 ) }
 character = "pepper"
 emotion = "normal"
 next_dialog = NodePath("../CloseUpDialogNode2")
@@ -153,8 +154,8 @@ text = "Russian kompot is good, isn\'t it\?"
 
 [node name="CloseUpDialogNode2" type="Node2D" parent="CloseUpDialogController"]
 
-script/script = ExtResource( 13 )
-__meta__ = { "_editor_icon":ExtResource( 14 ) }
+script/script = ExtResource( 12 )
+__meta__ = { "_editor_icon":ExtResource( 13 ) }
 character = "pepper"
 emotion = "normal"
 next_dialog = NodePath("../CloseUpDialogNode3")
@@ -163,8 +164,8 @@ text = "Russian food is the best food in the universe."
 
 [node name="CloseUpDialogNode3" type="Node2D" parent="CloseUpDialogController"]
 
-script/script = ExtResource( 13 )
-__meta__ = { "_editor_icon":ExtResource( 14 ) }
+script/script = ExtResource( 12 )
+__meta__ = { "_editor_icon":ExtResource( 13 ) }
 character = "coriander"
 emotion = "normal"
 next_dialog = NodePath("../CloseUpDialogNode4")
@@ -173,12 +174,57 @@ text = "Hello, World!"
 
 [node name="CloseUpDialogNode4" type="Node2D" parent="CloseUpDialogController"]
 
-script/script = ExtResource( 13 )
-__meta__ = { "_editor_icon":ExtResource( 14 ) }
+script/script = ExtResource( 12 )
+__meta__ = { "_editor_icon":ExtResource( 13 ) }
 character = "pepper"
 emotion = "normal"
 next_dialog = NodePath("")
 position = "Left"
 text = "Really tho, where the kompot at\?"
+
+[node name="StaticBody2D 2" type="StaticBody2D" parent="."]
+
+input/pickable = false
+shapes/0/shape = SubResource( 3 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, -2805.81, 96.8006 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D 2"]
+
+transform/pos = Vector2( -2805.81, 96.8006 )
+shape = SubResource( 3 )
+trigger = false
+_update_shape_index = 0
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="."]
+
+input/pickable = false
+shapes/0/shape = SubResource( 3 )
+shapes/0/transform = Matrix32( 0.965926, 0.258819, -0.258819, 0.965926, -2805.81, 96.8006 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+
+transform/pos = Vector2( -2805.81, 96.8006 )
+transform/rot = -15.0
+shape = SubResource( 3 )
+trigger = false
+_update_shape_index = 0
+
+[node name="PlayerObject" parent="." instance=ExtResource( 14 )]
+
+transform/pos = Vector2( -80.2624, -574.08 )
 
 

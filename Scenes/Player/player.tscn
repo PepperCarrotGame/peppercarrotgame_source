@@ -1,18 +1,19 @@
-[gd_scene load_steps=11 format=1]
+[gd_scene load_steps=12 format=1]
 
 [ext_resource path="res://Scripts/player.gd" type="Script" id=1]
 [ext_resource path="res://Fonts/Lavi.otf" type="DynamicFontData" id=2]
-[ext_resource path="res://Scenes/Characters/pepper_sprite.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Assets/Sound/footsteps/wdl_footstep_A.wav" type="Sample" id=4]
-[ext_resource path="res://Assets/Sound/footsteps/wdl_footstep_B.wav" type="Sample" id=5]
-[ext_resource path="res://Assets/Sound/footsteps/wdl_footstep_C.wav" type="Sample" id=6]
-[ext_resource path="res://Assets/Sound/footsteps/wdl_footstep_D.wav" type="Sample" id=7]
+[ext_resource path="res://Assets/Sound/footsteps/wdl_footstep_A.wav" type="Sample" id=3]
+[ext_resource path="res://Assets/Sound/footsteps/wdl_footstep_B.wav" type="Sample" id=4]
+[ext_resource path="res://Assets/Sound/footsteps/wdl_footstep_C.wav" type="Sample" id=5]
+[ext_resource path="res://Assets/Sound/footsteps/wdl_footstep_D.wav" type="Sample" id=6]
+[ext_resource path="res://Scenes/Dialogs/dialog_bubble.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/Characters/pepper_sprite.tscn" type="PackedScene" id=8]
 
 [sub_resource type="CapsuleShape2D" id=4]
 
 custom_solver_bias = 0.0
-radius = 23.8169
-height = 204.823
+radius = 27.2495
+height = 187.395
 
 [sub_resource type="DynamicFont" id=2]
 
@@ -23,21 +24,28 @@ font/font = ExtResource( 2 )
 
 [sub_resource type="SampleLibrary" id=3]
 
-samples/wdl_footstep_1 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 4 ) }
-samples/wdl_footstep_2 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 5 ) }
-samples/wdl_footstep_3 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 6 ) }
-samples/wdl_footstep_4 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 7 ) }
+samples/wdl_footstep_1 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 3 ) }
+samples/wdl_footstep_2 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 4 ) }
+samples/wdl_footstep_3 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 5 ) }
+samples/wdl_footstep_4 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 6 ) }
 
 [node name="PlayerObject" type="KinematicBody2D"]
 
 input/pickable = false
 shapes/0/shape = SubResource( 4 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, -4.86324, 20.5337 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
-collision/margin = 0.001
+collision/margin = 0.05
 script/script = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+transform/pos = Vector2( -4.86324, 20.5337 )
+shape = SubResource( 4 )
+trigger = false
+_update_shape_index = 0
 
 [node name="PlayerDebug" type="CanvasLayer" parent="."]
 
@@ -83,12 +91,6 @@ drag_margin/top = 0.2
 drag_margin/right = 0.2
 drag_margin/bottom = 0.2
 
-[node name="Sprite" type="Node2D" parent="."]
-
-editor/display_folded = true
-
-[node name="PepperSprite" parent="Sprite" instance=ExtResource( 3 )]
-
 [node name="SamplePlayer" type="SamplePlayer" parent="."]
 
 config/polyphony = 3
@@ -106,17 +108,13 @@ default/reverb_room = 2
 default/reverb_send = 0.0
 default/chorus_send = 0.0
 
-[node name="DialoguePosition" type="Node2D" parent="."]
+[node name="Bubble" parent="." instance=ExtResource( 7 )]
 
-editor/display_folded = true
-transform/pos = Vector2( 97, -50 )
+visibility/visible = false
+transform/pos = Vector2( 51.7467, -59.0443 )
 
-[node name="Bubble" parent="DialoguePosition" instance_placeholder="res://Scenes/Dialogs/dialog_bubble.tscn"]
+[node name="Sprite" type="Node2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-
-shape = SubResource( 4 )
-trigger = false
-_update_shape_index = 0
+[node name="PepperSprite" parent="Sprite" instance=ExtResource( 8 )]
 
 
