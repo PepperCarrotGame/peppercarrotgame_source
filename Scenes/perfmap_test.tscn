@@ -1,0 +1,231 @@
+[gd_scene load_steps=18 format=1]
+
+[ext_resource path="res://addons/platform2d/thick_platform.gd" type="Script" id=1]
+[ext_resource path="res://addons/platform2d/thick_platform_icon.png" type="Texture" id=2]
+[ext_resource path="res://Assets/platform2d-example/dirt.png" type="Texture" id=3]
+[ext_resource path="res://Assets/platform2d-example/grass_border.png" type="Texture" id=4]
+[ext_resource path="res://Assets/platform2d-example/rock_border.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Images/grad.png" type="Texture" id=6]
+[ext_resource path="res://Scenes/World/tools/tool_player_world_dialogue_trigger.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/World/npcs/enemies/test_enemy.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scenes/World/tools/tool_menu_camera.tscn" type="PackedScene" id=9]
+[ext_resource path="res://addons/closeup_dialogs/close_up_dialog.gd" type="Script" id=10]
+[ext_resource path="res://addons/closeup_dialogs/closeup_dialog_controller_icon.png" type="Texture" id=11]
+[ext_resource path="res://addons/closeup_dialogs/close_up_dialog_node.gd" type="Script" id=12]
+[ext_resource path="res://addons/closeup_dialogs/closeup_dialog_node_icon.png" type="Texture" id=13]
+[ext_resource path="res://Scenes/Player/player.tscn" type="PackedScene" id=14]
+
+[sub_resource type="ConvexPolygonShape2D" id=4]
+
+custom_solver_bias = 0.0
+points = Vector2Array( -1156.67, -277.928, -1107.55, -287.99, -1058.42, -297.27, -1009.01, -305.89, -959.445, -313.886, -910.124, -321.25, -860.867, -328.061, -811.468, -334.388, -762.005, -340.254, -712.552, -345.681, -662.555, -350.75, -613.005, -355.386, -563.34, -359.667, -513.293, -363.63, -463.231, -367.261, -413.525, -370.553, -363.904, -373.542, -314.089, -376.257, -264.12, -378.705, -214.367, -380.879, -164.217, -382.816, -114.366, -384.495, -64.1991, -385.946, -14.4124, -387.158, 35.6063, -388.151, 85.8131, -388.93, 135.84, -389.494, 185.644, -389.849, 235.504, -390.003, 285.687, -389.958, 335.821, -389.717, 385.542, -389.286, 435.73, -388.659, 485.698, -387.846, 535.387, -386.852, 585.629, -385.657, 635.44, -384.285, 685.33, -382.723, 735.478, -380.96, 785.481, -379.009, 835.492, -376.858, 885.366, -374.511, 935.202, -371.956, 985.055, -369.18, 1035.17, -366.157, 1085, -362.903, 1134.67, -359.392, 1184.38, -355.581, 1234.34, -351.411, 1284.26, -346.844, 1334.16, -341.782, 1383.76, -336.094, 1433.24, -329.436, 1482.46, -320.864, 1489.26, -271.728, 1477.89, -222.777, 1464.65, -174.509, 1449.33, -126.668, 1432.09, -80.1261, 1412.46, -33.9341, 1390.62, 11.0536, 1366.34, 55.0298, 1339.9, 97.2581, 1311.1, 137.951, 1279.67, 177.258, 1246.23, 214.31, 1210.34, 249.549, 1172.48, 282.469, 1132.97, 312.883, 1091.61, 341.017, 1048.45, 366.878, 1004.44, 390.046, 958.795, 411.048, 912.202, 429.666, 865.076, 445.897, 817.221, 459.961, 768.409, 472.019, 719.71, 481.941, 670.577, 489.983, 620.756, 496.263, 570.664, 500.803, 520.729, 503.666, 471.041, 504.962, 421.328, 504.788, 371.308, 503.2, 321.401, 500.263, 271.672, 496.046, 221.829, 490.571, 172.291, 483.928, 123.117, 476.183, 74.0094, 467.327, 25.0258, 457.398, -23.7751, 446.434, -71.9827, 434.561, -120.245, 421.642, -168.15, 407.799, -215.638, 393.068, -263.332, 377.254, -310.811, 360.48, -357.671, 342.897, -403.848, 324.544, -450.242, 305.046, -496.107, 284.685, -541.664, 263.341, -586.201, 241.336, -630.526, 218.246, -674.208, 194.241, -717.669, 169.02, -760.447, 142.761, -802.11, 115.66, -843.229, 87.2395, -883.297, 57.6988, -922.488, 26.7238, -960.434, -5.64473, -997.104, -39.7118, -1032.12, -75.5903, -1064.97, -113.369, -1095.01, -153.147, -1121.66, -195.452, -1143.62, -240.306, -1156.67, -277.928 )
+
+[sub_resource type="Curve2D" id=2]
+
+bake_interval = 50.0
+_data = { "points":Vector2Array( -207.906, 646.102, 894.405, -190.845, -1156.67, -277.928, -192.247, -52.2178, -261.824, 1472.76, 1498.11, -317.142, 165.87, 595.64, 0, 0, -1156.67, -277.928 ) }
+
+[sub_resource type="RectangleShape2D" id=3]
+
+custom_solver_bias = 0.0
+extents = Vector2( 1709.27, 382.908 )
+
+[node name="Node2D" type="Node2D"]
+
+[node name="ThickPlatform" type="StaticBody2D" parent="."]
+
+material/material = { "Angle":1.79, "BakeInterval":50.0, "BorderPosition1":0.91, "BorderPosition2":0.73, "BorderTexture1":"res://Assets/platform2d-example/grass_border.png", "BorderTexture2":"res://Assets/platform2d-example/rock_border.png", "BorderThickness1":100.0, "BorderThickness2":100.0, "FillSize":1.0, "FillTexture":"res://Assets/platform2d-example/dirt.png" }
+z/z = -10
+input/pickable = false
+shapes/0/shape = SubResource( 4 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+script/script = ExtResource( 1 )
+__meta__ = { "_editor_icon":ExtResource( 2 ) }
+MovingPlatform = false
+Curve = SubResource( 2 )
+BakeInterval = 50.0
+FillTexture = ExtResource( 3 )
+FillSize = 1.0
+BorderTexture1 = ExtResource( 4 )
+BorderThickness1 = 100.0
+BorderPosition1 = 0.91
+BorderTexture2 = ExtResource( 5 )
+BorderThickness2 = 100.0
+BorderPosition2 = 0.73
+Angle = 1.79
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ThickPlatform"]
+
+visibility/visible = false
+build_mode = 0
+polygon = Vector2Array( -1156.67, -277.928, -1107.55, -287.99, -1058.42, -297.27, -1009.01, -305.89, -959.445, -313.886, -910.124, -321.25, -860.867, -328.061, -811.468, -334.388, -762.005, -340.254, -712.552, -345.681, -662.555, -350.75, -613.005, -355.386, -563.34, -359.667, -513.293, -363.63, -463.231, -367.261, -413.525, -370.553, -363.904, -373.542, -314.089, -376.257, -264.12, -378.705, -214.367, -380.879, -164.217, -382.816, -114.366, -384.495, -64.1991, -385.946, -14.4124, -387.158, 35.6063, -388.151, 85.8131, -388.93, 135.84, -389.494, 185.644, -389.849, 235.504, -390.003, 285.687, -389.958, 335.821, -389.717, 385.542, -389.286, 435.73, -388.659, 485.698, -387.846, 535.387, -386.852, 585.629, -385.657, 635.44, -384.285, 685.33, -382.723, 735.478, -380.96, 785.481, -379.009, 835.492, -376.858, 885.366, -374.511, 935.202, -371.956, 985.055, -369.18, 1035.17, -366.157, 1085, -362.903, 1134.67, -359.392, 1184.38, -355.581, 1234.34, -351.411, 1284.26, -346.844, 1334.16, -341.782, 1383.76, -336.094, 1433.24, -329.436, 1482.46, -320.864, 1489.26, -271.728, 1477.89, -222.777, 1464.65, -174.509, 1449.33, -126.668, 1432.09, -80.1261, 1412.46, -33.9341, 1390.62, 11.0536, 1366.34, 55.0298, 1339.9, 97.2581, 1311.1, 137.951, 1279.67, 177.258, 1246.23, 214.31, 1210.34, 249.549, 1172.48, 282.469, 1132.97, 312.883, 1091.61, 341.017, 1048.45, 366.878, 1004.44, 390.046, 958.795, 411.048, 912.202, 429.666, 865.076, 445.897, 817.221, 459.961, 768.409, 472.019, 719.71, 481.941, 670.577, 489.983, 620.756, 496.263, 570.664, 500.803, 520.729, 503.666, 471.041, 504.962, 421.328, 504.788, 371.308, 503.2, 321.401, 500.263, 271.672, 496.046, 221.829, 490.571, 172.291, 483.928, 123.117, 476.183, 74.0094, 467.327, 25.0258, 457.398, -23.7751, 446.434, -71.9827, 434.561, -120.245, 421.642, -168.15, 407.799, -215.638, 393.068, -263.332, 377.254, -310.811, 360.48, -357.671, 342.897, -403.848, 324.544, -450.242, 305.046, -496.107, 284.685, -541.664, 263.341, -586.201, 241.336, -630.526, 218.246, -674.208, 194.241, -717.669, 169.02, -760.447, 142.761, -802.11, 115.66, -843.229, 87.2395, -883.297, 57.6988, -922.488, 26.7238, -960.434, -5.64473, -997.104, -39.7118, -1032.12, -75.5903, -1064.97, -113.369, -1095.01, -153.147, -1121.66, -195.452, -1143.62, -240.306, -1156.67, -277.928 )
+shape_range = Vector2( 0, 0 )
+trigger = false
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+transform/pos = Vector2( 15.1052, -573.999 )
+input/pickable = false
+collision/layers = 1
+collision/mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+layer = -1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 2, 2 )
+scroll/offset = Vector2( 0, 0 )
+scroll/base_offset = Vector2( 0, 0 )
+scroll/base_scale = Vector2( 1, 1 )
+scroll/limit_begin = Vector2( 0, 0 )
+scroll/limit_end = Vector2( 0, 0 )
+scroll/ignore_camera_zoom = true
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground"]
+
+transform/pos = Vector2( 764.077, 419.311 )
+texture = ExtResource( 6 )
+
+[node name="WorldDialogueTrigger" parent="." instance=ExtResource( 7 )]
+
+transform/pos = Vector2( 516.813, -537.952 )
+transform/scale = Vector2( 3.32855, 5.23987 )
+first_dialogue = NodePath("../CloseUpDialogController")
+dialogue_type = "close_up"
+
+[node name="TestEnemy" parent="." instance=ExtResource( 8 )]
+
+transform/pos = Vector2( 953.678, -452.621 )
+
+[node name="Node2D" parent="." instance=ExtResource( 9 )]
+
+transform/pos = Vector2( 932.982, -445.188 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+transform/pos = Vector2( 110.233, -507.738 )
+anchor_mode = 1
+rotating = false
+current = true
+zoom = Vector2( 1, 1 )
+limit/left = -10000000
+limit/top = -10000000
+limit/right = 10000000
+limit/bottom = 10000000
+drag_margin/h_enabled = true
+drag_margin/v_enabled = true
+smoothing/enable = false
+smoothing/speed = 5.0
+drag_margin/left = 0.2
+drag_margin/top = 0.2
+drag_margin/right = 0.2
+drag_margin/bottom = 0.2
+
+[node name="CloseUpDialogController" type="Node2D" parent="."]
+
+script/script = ExtResource( 10 )
+__meta__ = { "_editor_icon":ExtResource( 11 ) }
+first_dialog = NodePath("CloseUpDialogNode")
+finish_callback_node = null
+finish_callback_method = null
+autoplay = false
+unpause_after = true
+
+[node name="CloseUpDialogNode" type="Node2D" parent="CloseUpDialogController"]
+
+script/script = ExtResource( 12 )
+__meta__ = { "_editor_icon":ExtResource( 13 ) }
+character = "pepper"
+emotion = "normal"
+next_dialog = NodePath("../CloseUpDialogNode2")
+position = "Left"
+text = "Russian kompot is good, isn\'t it\?"
+
+[node name="CloseUpDialogNode2" type="Node2D" parent="CloseUpDialogController"]
+
+script/script = ExtResource( 12 )
+__meta__ = { "_editor_icon":ExtResource( 13 ) }
+character = "pepper"
+emotion = "normal"
+next_dialog = NodePath("../CloseUpDialogNode3")
+position = "Left"
+text = "Russian food is the best food in the universe."
+
+[node name="CloseUpDialogNode3" type="Node2D" parent="CloseUpDialogController"]
+
+script/script = ExtResource( 12 )
+__meta__ = { "_editor_icon":ExtResource( 13 ) }
+character = "coriander"
+emotion = "normal"
+next_dialog = NodePath("../CloseUpDialogNode4")
+position = "Right"
+text = "Hello, World!"
+
+[node name="CloseUpDialogNode4" type="Node2D" parent="CloseUpDialogController"]
+
+script/script = ExtResource( 12 )
+__meta__ = { "_editor_icon":ExtResource( 13 ) }
+character = "pepper"
+emotion = "normal"
+next_dialog = NodePath("")
+position = "Left"
+text = "Really tho, where the kompot at\?"
+
+[node name="StaticBody2D 2" type="StaticBody2D" parent="."]
+
+input/pickable = false
+shapes/0/shape = SubResource( 3 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, -2805.81, 96.8006 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D 2"]
+
+transform/pos = Vector2( -2805.81, 96.8006 )
+shape = SubResource( 3 )
+trigger = false
+_update_shape_index = 0
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="."]
+
+input/pickable = false
+shapes/0/shape = SubResource( 3 )
+shapes/0/transform = Matrix32( 0.965926, 0.258819, -0.258819, 0.965926, -2805.81, 96.8006 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+
+transform/pos = Vector2( -2805.81, 96.8006 )
+transform/rot = -15.0
+shape = SubResource( 3 )
+trigger = false
+_update_shape_index = 0
+
+[node name="PlayerObject" parent="." instance=ExtResource( 14 )]
+
+transform/pos = Vector2( -80.2624, -574.08 )
+
+

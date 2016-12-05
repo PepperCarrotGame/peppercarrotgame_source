@@ -9,6 +9,8 @@
 # Does things
 extends Node
 
+var _resource_queue = preload("res://Scripts/resource_queue.gd").new()
+
 var current_scene = null
 var current_scene_path
 const INPUT_ACTIONS = ["ui_accept", "jump", "up", "down", "left", "right"]
@@ -65,6 +67,22 @@ var player_data = null
 
 ## Global UI layer for placing stuff like menus.
 var ui_layer = null
+
+## If the scene is being loaded.
+var _is_loading_scene = false
+
+## Scene loading
+var _loading_screen = preload("res://Scenes/UI/loading_screen.tscn").instance()
+## Scene that is being loaded
+var _scene_being_loaded
+
+
+
+var _current_scene_no_free = false
+var _current_scene_camera_spawn = false
+var _current_scene_callback_object
+var _current_scene_callback_method
+
 
 ## Class of the character saved to file, can serialize and deserialize stuff fom a json dictionary.
 class CharacterSave:
@@ -137,9 +155,36 @@ class PlayerData:
 func _process(delta):
 	if(DEBUG):
 		OS.set_window_title("PCGTRPG DEBUG " + str(OS.get_frames_per_second()))
-		
+	
+	## Loading Process
+	
+	if _is_loading_scene:
+		if _resource_queue.is_ready(_scene_being_loaded):
+			var tree_root = get_tree().get_root()
+				
+			if current_scene:
+				if not _current_scene_no_free:
+					current_scene.free()
+			var scene = _resource_queue.get_resource(_scene_being_loaded)
+			current_scene = scene.instance()
+			current_scene_path = _scene_being_loaded
+			tree_root.add_child(current_scene)
+			
+			print("Loaded scene: ", _scene_being_loaded)
+			
+			if _current_scene_callback_object:
+				_current_scene_callback_object.call(_current_scene_callback_method, current_scene)
+			
+			spawn_player(_current_scene_camera_spawn)
+			
+			_is_loading_scene = false
+	
 ## Game initialization
 func _ready():
+	
+	# Init resource queue
+	_resource_queue.start()
+	
 	set_pause_mode(PAUSE_MODE_PROCESS)
 	ui_layer = CanvasLayer.new()
 	add_child(ui_layer)
@@ -155,9 +200,9 @@ func _ready():
 	# This avoids the singleton from loading the menu scene on load when loading in debug mode, but it allows
 	# loading the menu scene if the scene currently being loaded is the base scene (which should be the default)
 	if DEBUG and get_tree().get_current_scene().get_filename() == "res://Scenes/base_scene.xscn":
-		change_scene("res://Scenes/main_menu.xscn")
+		change_scene_load_screen("res://Scenes/main_menu.xscn")
 	elif DEBUG:
-		change_scene(get_tree().get_current_scene().get_filename())
+		change_scene_load_screen(get_tree().get_current_scene().get_filename())
 	# Load parameters from the config file, overriding the default ones
 	load_config()
 	
@@ -195,9 +240,9 @@ func change_scene_door(path, door_number):
 ## Spawns the player
 # @param door_number The door number to spawn the player at, -1 if the player should be spawned at default spawn point, defaults to -1
 # @param camera_spawn - If the camera should be set to aim at the menu_camera object and disable input to the character, defaults to false.
-func spawn_player(door_number=-1, camera_spawn=false):
-	var doors = get_tree().get_nodes_in_group("doors")
-	if door_number != -1:
+func spawn_player(camera_spawn=false):
+	#var doors = get_tree().get_nodes_in_group("doors")
+	"""if door_number != -1:
 		for door in doors:
 			if door.door_number == door_number:
 				var player_instance = PLAYER_SCENE.instance()
@@ -205,7 +250,7 @@ func spawn_player(door_number=-1, camera_spawn=false):
 				player_instance.set_global_pos(door.get_global_pos())
 
 				print("Player spawned on door: " + str(door_number))
-				return
+				return"""
 	var player_spawn = get_tree().get_nodes_in_group("player_start")
 	if player_spawn.size() > 0:
 		var player_instance = PLAYER_SCENE.instance()
@@ -220,6 +265,14 @@ func spawn_player(door_number=-1, camera_spawn=false):
 	else:
 		print("found no spawn")
 
+## Changes the scene but with a loading screen
+# @param path New scene path.
+func change_scene_load_screen(path):
+	ui_layer.add_child(_loading_screen)
+	call_deferred("change_scene_impl", path, self, "_load_screen_callback", false, false)
+
+func _load_screen_callback(current_scene=null):
+	ui_layer.remove_child(_loading_screen)
 ## Changes the scene
 # @param path New scene path.
 # @param callback_object Object to callback to when loading is done.
@@ -245,22 +298,13 @@ func get_player():
 
 # Actual implementation of change_scene
 func change_scene_impl(path, callback_object=null, callback = null, no_free = false, camera_spawn=false):
-	var tree_root = get_tree().get_root()
-		
-	if current_scene:
-		if not no_free:
-			current_scene.free()
-	var scene = ResourceLoader.load(path)
-	current_scene = scene.instance()
-	current_scene_path = path
-	tree_root.add_child(current_scene)
-	
-	print("Loaded scene: ", path)
-	
-	if callback:
-		callback_object.call(callback, current_scene)
-	
-	spawn_player(-1, camera_spawn)
+	_scene_being_loaded = path
+	_resource_queue.queue_resource(path)
+	_is_loading_scene = true
+	_current_scene_no_free = no_free
+	_current_scene_camera_spawn = camera_spawn
+	_current_scene_callback_object = callback_object
+	_current_scene_callback_method = callback
 
 ## Changes to a packaged scene
 # TODO: FIX THIS

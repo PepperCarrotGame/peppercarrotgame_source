@@ -28,6 +28,7 @@ var _dialog_node_index = 0
 var _current_sprite
 var _last_sprite
 var _last_dialog
+var _dialog_controller
 
 var _waiting_for_startup_animation_to_end = true
 
@@ -38,11 +39,14 @@ func _ready():
 ## Starts playing a full dialog from a dialog controller
 # @param dialog_controller The dialog controller.
 func start_dialog(dialog_controller):
+	get_tree().set_pause(true)
 	var game_manager = get_node("/root/game_manager")
 	_dialog_nodes = dialog_controller._dialog_nodes
 	_character_scenes = dialog_controller._character_sprites
+	get_node("UI").set_hidden(true)
 	get_node("AnimationPlayer").connect("finished", self, "_animation_finished")
 	get_node("AnimationPlayer").play("DialogStartup")
+	_dialog_controller = dialog_controller
 func _animation_finished():
 	if get_node("AnimationPlayer").get_current_animation() == "DialogStartup":
 		_play_dialog_node(_dialog_nodes[0])
@@ -99,6 +103,13 @@ func _input(event):
 		else:
 			if _dialog_nodes.size() >= _dialog_node_index+1:
 				_play_dialog_node(_dialog_nodes[_dialog_node_index])
+			elif _dialog_controller.unpause_after:
+				get_tree().set_pause(false)
+				set_hidden(true)
+				get_node("UI").remove_child(_current_sprite)
+				get_node("UI").remove_child(_last_sprite)
+				_dialog_node_index = 0
+				set_process_input(false)
 
 func _update_ui():
 	get_node("UI/CharacterName").set_text(tr(_current_dialog.character_information.name))

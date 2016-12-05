@@ -121,7 +121,7 @@ func finish_interpolate_camera_offset(tween):
 func _fixed_process(delta):
 	new_velocity = Vector2(0,GRAVITY)
 	state.Update(delta)
-	velocity += new_velocity
+	velocity += new_velocity 
 	var motion = velocity * delta
 	motion = move(motion)
 	var n = get_collision_normal()
@@ -153,9 +153,9 @@ func _fixed_process(delta):
 	var game_manager = get_node("/root/game_manager")
 	var animation_pos = get_node("Sprite/PepperSprite/AnimationPlayer").get_current_animation_pos()
 	var animation = get_node("Sprite/PepperSprite/AnimationPlayer").get_current_animation()
-	if game_manager.DEBUG:
+	"""if game_manager.DEBUG:
 		var text = "State: %s\nVelocity: %s Animation: %s Animation pos: %s" % [str(state.name), str(velocity), animation, str(animation_pos)]
-		get_node("PlayerDebug/DebugLabel").set_text(text)
+		get_node("PlayerDebug/DebugLabel").set_text(text)"""
 
 ## Changes the input to enabled or disabled
 # @param input_state True if input should be disabled, false if not.
