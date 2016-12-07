@@ -9,14 +9,15 @@
 # Does things
 extends Node
 
-var _resource_queue = preload("res://Scripts/resource_queue.gd").new()
 
-var current_scene = null
-var current_scene_path
+var _scene_manager
+
+## Global resource queue
+var resource_queue = preload("res://Scripts/resource_queue.gd").new()
+
 const INPUT_ACTIONS = ["ui_accept", "jump", "up", "down", "left", "right"]
 
-## Contains the player object in the world, should not be accessed directly, use get_player() instead.
-var player = null
+
 
 ## Sets the screen width.
 var width = 1280
@@ -49,8 +50,7 @@ var battle_set = load("res://Scripts/Battle/battle_set.gd")
 ## CONST: The settings filename, should be "user://config.cfg"
 const SETTINGS_FILENAME = "user://config.cfg"
 
-## CONST: The scene that should be spawned and that the player directly controls
-const PLAYER_SCENE = preload("res://Scenes/Player/player.tscn")
+
 
 ## Wether or not we are in game debug mode, this value is automatically set to true by <_ready> when starting the game
 # from the editor.
@@ -70,19 +70,6 @@ var ui_layer = null
 
 ## If the scene is being loaded.
 var _is_loading_scene = false
-
-## Scene loading
-var _loading_screen = preload("res://Scenes/UI/loading_screen.tscn").instance()
-## Scene that is being loaded
-var _scene_being_loaded
-
-
-
-var _current_scene_no_free = false
-var _current_scene_camera_spawn = false
-var _current_scene_callback_object
-var _current_scene_callback_method
-
 
 ## Class of the character saved to file, can serialize and deserialize stuff fom a json dictionary.
 class CharacterSave:
@@ -158,32 +145,13 @@ func _process(delta):
 	
 	## Loading Process
 	
-	if _is_loading_scene:
-		if _resource_queue.is_ready(_scene_being_loaded):
-			var tree_root = get_tree().get_root()
-				
-			if current_scene:
-				if not _current_scene_no_free:
-					current_scene.free()
-			var scene = _resource_queue.get_resource(_scene_being_loaded)
-			current_scene = scene.instance()
-			current_scene_path = _scene_being_loaded
-			tree_root.add_child(current_scene)
-			
-			print("Loaded scene: ", _scene_being_loaded)
-			
-			if _current_scene_callback_object:
-				_current_scene_callback_object.call(_current_scene_callback_method, current_scene)
-			
-			spawn_player(_current_scene_camera_spawn)
-			
-			_is_loading_scene = false
-	
 ## Game initialization
 func _ready():
 	
+	_scene_manager = get_node("/root/scene_manager")
+	
 	# Init resource queue
-	_resource_queue.start()
+	resource_queue.start()
 	
 	set_pause_mode(PAUSE_MODE_PROCESS)
 	ui_layer = CanvasLayer.new()
@@ -194,15 +162,22 @@ func _ready():
 
 	DEBUG = OS.is_debug_build()
 
-	current_scene = get_tree().get_current_scene()
-	current_scene_path = get_tree().get_current_scene().get_filename()
+	_scene_manager.current_scene = get_tree().get_current_scene()
+	_scene_manager.current_scene_path = get_tree().get_current_scene().get_filename()
+	call_deferred("_game_init")
 
+	#save_manager.save_game("test")
+	#save_manager.load_game("test")
+	randomize()
+
+func _game_init():
+	
 	# This avoids the singleton from loading the menu scene on load when loading in debug mode, but it allows
 	# loading the menu scene if the scene currently being loaded is the base scene (which should be the default)
 	if DEBUG and get_tree().get_current_scene().get_filename() == "res://Scenes/base_scene.xscn":
-		change_scene_load_screen("res://Scenes/main_menu.xscn")
+		_scene_manager.change_scene_load_screen("res://Scenes/main_menu.xscn")
 	elif DEBUG:
-		change_scene_load_screen(get_tree().get_current_scene().get_filename())
+		_scene_manager.change_scene_load_screen(get_tree().get_current_scene().get_filename())
 	# Load parameters from the config file, overriding the default ones
 	load_config()
 	
@@ -228,94 +203,36 @@ func _ready():
 	add_child(state_machine)
 	state_machine.add_state(game_states.InGameState)
 	state_machine.change_state("ingame")
-	
 
-	#save_manager.save_game("test")
-	#save_manager.load_game("test")
-	randomize()
-func change_scene_door(path, door_number):
-	change_scene(path, false)
-	spawn_player(door_number)
+## TODO: Make this work
+#"""func change_scene_door(path, door_number):
+#	change_scene(path, false)
+#	spawn_player(door_number)"""
 
-## Spawns the player
-# @param door_number The door number to spawn the player at, -1 if the player should be spawned at default spawn point, defaults to -1
-# @param camera_spawn - If the camera should be set to aim at the menu_camera object and disable input to the character, defaults to false.
-func spawn_player(camera_spawn=false):
-	#var doors = get_tree().get_nodes_in_group("doors")
-	"""if door_number != -1:
-		for door in doors:
-			if door.door_number == door_number:
-				var player_instance = PLAYER_SCENE.instance()
-				get_tree().get_current_scene().add_child(player_instance)
-				player_instance.set_global_pos(door.get_global_pos())
 
-				print("Player spawned on door: " + str(door_number))
-				return"""
-	var player_spawn = get_tree().get_nodes_in_group("player_start")
-	if player_spawn.size() > 0:
-		var player_instance = PLAYER_SCENE.instance()
-		player_instance.set_pos(player_spawn[0].get_pos())
-		if camera_spawn:
-			var camera_start = get_tree().get_nodes_in_group("menu_camera")[0]
-			player_instance.get_camera().set_offset(camera_start.get_pos() - player_instance.get_pos())
-			player_instance.disable_input(true)
-		print(camera_spawn)
-		game_manager.current_scene.add_child(player_instance)
-		print("Player spawned")
-	else:
-		print("found no spawn")
 
-## Changes the scene but with a loading screen
-# @param path New scene path.
-func change_scene_load_screen(path):
-	ui_layer.add_child(_loading_screen)
-	call_deferred("change_scene_impl", path, self, "_load_screen_callback", false, false)
 
-func _load_screen_callback(current_scene=null):
-	ui_layer.remove_child(_loading_screen)
-## Changes the scene
-# @param path New scene path.
-# @param callback_object Object to callback to when loading is done.
-# @param callback Callback method on object to callback.
-# @param no_free if set to true the previous scene will not be freed from memory.
-# @param camera_spawn if set to true, camera_spawn is passed as true to  spawn_player()
-func change_scene(path, callback_object=null ,callback = null, no_free = false, camera_spawn = false):
-	# Make sure there's no scene code running to avoid crashes
-	call_deferred("change_scene_impl", path, callback_object, callback, no_free, camera_spawn)
-	
-func change_to_packed_scene_impl(packed_scene):
-	# Make sure there's no scene code running to avoid crashes
-	call_deferred("change_to_packed_scene_impl", packed_scene)
 
-## Sets the player node to a new one.
-func set_player(new_player):
-	player=new_player
 
-## Gets the player node.
-# @return The player object.
-func get_player():
-	return player
 
-# Actual implementation of change_scene
-func change_scene_impl(path, callback_object=null, callback = null, no_free = false, camera_spawn=false):
-	_scene_being_loaded = path
-	_resource_queue.queue_resource(path)
-	_is_loading_scene = true
-	_current_scene_no_free = no_free
-	_current_scene_camera_spawn = camera_spawn
-	_current_scene_callback_object = callback_object
-	_current_scene_callback_method = callback
+#"""
+#func change_to_packed_scene_impl(packed_scene):
+#	# Make sure there's no scene code running to avoid crashes
+#	call_deferred("change_to_packed_scene_impl", packed_scene)
+#"""
+
+
 
 ## Changes to a packaged scene
 # TODO: FIX THIS
-func change_to_packed_scene(packed_scene):
-	var tree_root = get_tree().get_root()
-	if current_scene and packed_scene:
-		current_scene.free()
-		#Create an instance from the packed scene
-		current_scene = packed_scene.instance()
-		
-		tree_root.add_child(current_scene)
+#func change_to_packed_scene(packed_scene):
+#	var tree_root = get_tree().get_root()
+#	if current_scene and packed_scene:
+#		current_scene.free()
+#		#Create an instance from the packed scene
+#		current_scene = packed_scene.instance()
+#		
+#		tree_root.add_child(current_scene)
 		
 ## Load the user-defined settings from the default settings file. Create this file 
 # if it is missing and populate it with default values as defined in this class.

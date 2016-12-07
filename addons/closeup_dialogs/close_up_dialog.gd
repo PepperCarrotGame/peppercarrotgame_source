@@ -46,7 +46,7 @@ func find_dialogs(current_dialog):
 	if not current_dialog.character in _character_sprites:
 		_character_sprites[current_dialog.character] = null
 		_character_sprite_paths[current_dialog.character + "_path"] = current_dialog.character_information.dialog_sprite
-		_game_manager._resource_queue.queue_resource(current_dialog.character_information.dialog_sprite)
+		_game_manager.resource_queue.queue_resource(current_dialog.character_information.dialog_sprite)
 		
 	if current_dialog.next_dialog:
 		find_dialogs(current_dialog.get_next_dialog())
@@ -71,8 +71,8 @@ func _process(delta):
 		for character in _character_sprites:
 			var current_character_asset_path = _character_sprite_paths[character + "_path"]
 			
-			if _game_manager._resource_queue.is_ready(current_character_asset_path):
-				_character_sprites[character] = _game_manager._resource_queue.get_resource(current_character_asset_path).instance()
+			if _game_manager.resource_queue.is_ready(current_character_asset_path):
+				_character_sprites[character] = _game_manager.resource_queue.get_resource(current_character_asset_path).instance()
 				_character_sprites[character].set_z(-1)
 			if not _character_sprites[character]:
 				_all_characters_loaded = false

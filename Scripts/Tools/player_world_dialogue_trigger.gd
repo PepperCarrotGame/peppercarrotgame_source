@@ -5,6 +5,8 @@
 # ==============================
 extends Node2D
 
+var _scene_manager
+
 # Should be a bunch of dialogues put together hierarchically
 export(NodePath) var first_dialogue
 export(String, "close_up", "floating") var dialogue_type = "floating"
@@ -12,12 +14,13 @@ export(String, "close_up", "floating") var dialogue_type = "floating"
 var dialogue
 
 func _ready():
+	_scene_manager = get_node("/root/scene_manager")
 	dialogue = get_node(first_dialogue)
 
 
 func _on_Area2D_body_enter( body ):
 	game_manager = get_node("/root/game_manager")
-	if game_manager.get_player() == body:
+	if _scene_manager.get_player() == body:
 		if dialogue_type == "floating":
 			dialogue.get_parent().remove_child(dialogue)
 			body.add_child(dialogue)

@@ -54,7 +54,6 @@ func _animation_finished():
 		set_process_input(true)
 ## Starts playing a node
 func _play_dialog_node(dialog):
-	print("PLAY")
 	_counter = 0
 	_last_dialog = _current_dialog
 	_current_dialog = dialog
@@ -86,7 +85,7 @@ func _process(delta):
 		var _current_text_pos = int(_counter*speed)
 		_current_text = "[center]" + _current_dialog.text.substr(0,_current_text_pos) + "[/center]"
 		_update_ui()
-		if _current_text_pos > tr(_current_dialog.text).length():
+		if _current_text_pos >= tr(_current_dialog.text).length():
 			_finish_node_play()
 
 func _finish_node_play():

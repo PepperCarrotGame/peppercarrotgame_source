@@ -7,7 +7,11 @@
 
 extends Node2D
 
+var _scene_manager
+
 func _ready():
+	_scene_manager = get_node("/root/scene_manager")
+	
 	get_node("CanvasLayer/ButtonContainer/play_button").grab_focus()
 
 	call_deferred("save_check")
@@ -22,7 +26,7 @@ func save_check():
 		save_manager.load_game_no_map(auto_save_path)
 		
 		var game_manager = get_node("/root/game_manager")
-		game_manager.change_scene(save_manager.last_scene_loaded_from_save,null, null,true, true)
+		_scene_manager.change_scene_load_screen(save_manager.last_scene_loaded_from_save,true, true)
 		call_deferred("background_setup")
 
 ## This disables the game's debugging features, but does not disable the engine's, to be used for demos maybe?
@@ -33,7 +37,7 @@ func _on_disable_debug_button_pressed():
 
 ## Opens the options menu.
 func _on_options_button_pressed():
-	game_manager.change_scene("res://Scenes/UI/keybindings.tscn", true)
+	_scene_manager.change_scene("res://Scenes/UI/keybindings.tscn", true)
 
 ## Quits the game.
 func _on_exit_button_pressed():
@@ -41,12 +45,12 @@ func _on_exit_button_pressed():
 
 ## Starts a new game.
 func _on_play_button_pressed():
-	game_manager.change_scene("res://Scenes/test_scene.xscn")
+	_scene_manager.change_scene_load_screen("res://Scenes/test_scene.xscn")
 
 ## Continues from the background scene.
 func _on_continue_button_pressed():
 	var game_manager = get_node("/root/game_manager")
-	var player = game_manager.get_player()
+	var player = _scene_manager.get_player()
 	player.disable_input(false)
 	var tree_root = get_tree().get_root()
 	player.interpolate_camera_offset(Vector2(0,0))

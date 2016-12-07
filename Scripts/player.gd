@@ -6,6 +6,8 @@
 # ==============================
 extends KinematicBody2D
 
+var _scene_manager
+
 const GRAVITY = 60.0
 const JUMP_FORCE = 800.0
 
@@ -50,14 +52,18 @@ var velocity = Vector2()
 ## Next frame velocity
 var new_velocity = Vector2()
 
+
+
 ## Constructor
 func _ready():
+	
+	_scene_manager = get_node("/root/scene_manager")
+	
 	state = PlayerStandState.new(self)
 	sprite_root = get_node("Sprite")
 	var animation_player = get_node("Sprite/PepperSprite/AnimationPlayer")
 	animation_player.connect("finished",self,"animation_finished")
-	var game_manager = get_node("/root/game_manager")
-	game_manager.set_player(self)
+	_scene_manager.set_player(self)
 	set_fixed_process(true)
 
 
