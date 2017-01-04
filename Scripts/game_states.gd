@@ -19,9 +19,14 @@ class GameState:
 ## State that manages the game when ingame
 class InGameState:
 	extends GameState
+	
+	var pause_enabled = true
 	var pause_menu_scene = preload("res://Scenes/UI/pause_menu.tscn")
 	## Current pause menu node.
 	var pause_menu
+	
+	var _pre_pause_state
+	var _is_pause_menu_open
 	
 	## State name (for the debugger)
 	const name = "ingame"
@@ -40,16 +45,22 @@ class InGameState:
 	func _ready():
 		 set_process_input(true)
 	func _input(event):
-		var is_paused = false
-		is_paused = get_tree().is_paused()
-		if event.is_action("pause") && event.is_pressed() && !event.is_echo():
-			if is_paused:
-				get_tree().set_pause(false)
-				pause_menu.set_hidden(true)
-				print("UnPaused")
-			else:
-				get_tree().set_pause(true)
-				pause_menu.set_hidden(false)
-				pause_menu.get_controller_focus()
-				print("Paused")
-			get_tree().set_input_as_handled()
+		if pause_enabled:
+			# To avoid issues we always store the pause state before pausing.
+			if event.is_action("pause") && event.is_pressed() && !event.is_echo():
+				if _is_pause_menu_open:
+					get_tree().set_pause(_pre_pause_state)
+					pause_menu.set_hidden(true)
+					_is_pause_menu_open = false
+					print("UnPaused")
+				else:
+					_pre_pause_state = get_tree().is_paused()
+					get_tree().set_pause(true)
+					pause_menu.set_hidden(false)
+					pause_menu.get_controller_focus()
+					_is_pause_menu_open = true
+					print("Paused")
+				get_tree().set_input_as_handled()
+			
+	func disable_pause(disable):
+		pause_enabled = !disable

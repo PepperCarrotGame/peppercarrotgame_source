@@ -13,7 +13,7 @@
 [ext_resource path="res://addons/closeup_dialogs/closeup_dialog_controller_icon.png" type="Texture" id=11]
 [ext_resource path="res://addons/closeup_dialogs/close_up_dialog_node.gd" type="Script" id=12]
 [ext_resource path="res://addons/closeup_dialogs/closeup_dialog_node_icon.png" type="Texture" id=13]
-[ext_resource path="res://Scenes/Player/player.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Scenes/World/tools/tool_player_start.tscn" type="PackedScene" id=14]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
@@ -23,7 +23,7 @@ points = Vector2Array( -1113.63, -318.753, -1067.33, -337.649, -1018.18, -346.94
 [sub_resource type="Curve2D" id=2]
 
 bake_interval = 50.0
-_data = { "points":Vector2Array( -207.906, 646.102, 109.865, -109.865, -1113.63, -318.753, -192.247, -52.2178, -261.824, 1472.76, 1498.11, -317.142, -207.906, 646.102, 0, 0, -1113.63, -318.753 ) }
+_data = { "points":Vector2Array( -207.906, 646.102, 109.865, -109.865, -1113.63, -318.753, -192.247, -52.2178, 11.3845, 474.347, 204.127, -288.839, -50.5382, 469.087, 0, 0, -1113.63, -318.753 ) }
 
 [sub_resource type="RectangleShape2D" id=3]
 
@@ -135,6 +135,7 @@ drag_margin/bottom = 0.2
 
 [node name="CloseUpDialogController" type="Node2D" parent="."]
 
+editor/display_folded = true
 script/script = ExtResource( 10 )
 __meta__ = { "_editor_icon":ExtResource( 11 ) }
 first_dialog = NodePath("CloseUpDialogNode")
@@ -224,8 +225,8 @@ shape = SubResource( 3 )
 trigger = false
 _update_shape_index = 0
 
-[node name="PlayerObject" parent="." instance=ExtResource( 14 )]
+[node name="Player_start" parent="." instance=ExtResource( 14 )]
 
-transform/pos = Vector2( -80.2624, -574.08 )
+transform/pos = Vector2( 0, -620.276 )
 
 

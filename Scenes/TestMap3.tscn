@@ -1,0 +1,323 @@
+[gd_scene load_steps=22 format=1]
+
+[ext_resource path="res://Fonts/lavi_dync.fnt" type="BitmapFont" id=1]
+[ext_resource path="res://Scenes/World/tools/tool_player_start.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/World/npcs/enemies/test_enemy.tscn" type="PackedScene" id=3]
+[ext_resource path="res://addons/closeup_dialogs/close_up_dialog.gd" type="Script" id=4]
+[ext_resource path="res://addons/closeup_dialogs/closeup_dialog_controller_icon.png" type="Texture" id=5]
+[ext_resource path="res://addons/closeup_dialogs/close_up_dialog_node.gd" type="Script" id=6]
+[ext_resource path="res://addons/closeup_dialogs/closeup_dialog_node_icon.png" type="Texture" id=7]
+[ext_resource path="res://addons/platform2d/thick_platform.gd" type="Script" id=8]
+[ext_resource path="res://addons/platform2d/thick_platform_icon.png" type="Texture" id=9]
+[ext_resource path="res://Assets/platform2d-example/dirt.png" type="Texture" id=10]
+[ext_resource path="res://Assets/platform2d-example/grass_border.png" type="Texture" id=11]
+[ext_resource path="res://Assets/platform2d-example/rock_border.png" type="Texture" id=12]
+[ext_resource path="res://Scenes/World/tools/tool_player_world_dialogue_trigger.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Assets/Images/Tools/place_holder.png" type="Texture" id=14]
+
+[sub_resource type="GDScript" id=1]
+
+script/source = "extends Node2D\n\nfunc _ready():\n\tget_tree().set_debug_collisions_hint(true)"
+
+[sub_resource type="RectangleShape2D" id=2]
+
+custom_solver_bias = 0.0
+extents = Vector2( 3293.72, 10 )
+
+[sub_resource type="RectangleShape2D" id=3]
+
+custom_solver_bias = 0.0
+extents = Vector2( 211.481, 10 )
+
+[sub_resource type="ConvexPolygonShape2D" id=4]
+
+custom_solver_bias = 0.0
+points = Vector2Array( -933.804, 292.213, -531.26, 574.363, -654.001, 577.357, -952.311, 379.192 )
+
+[sub_resource type="ConvexPolygonShape2D" id=5]
+
+custom_solver_bias = 0.0
+points = Vector2Array( -1627.79, 292.213, -933.804, 292.213, -952.311, 379.192, -1627.79, 379.192 )
+
+[sub_resource type="ConvexPolygonShape2D" id=6]
+
+custom_solver_bias = 0.0
+points = Vector2Array( -1113.63, -318.753, -1069.33, -341.91, -1020.81, -353.594, -971.325, -360.847, -921.539, -365.584, -871.556, -368.651, -821.606, -370.49, -771.726, -371.379, -721.577, -371.5, -671.531, -370.972, -621.535, -369.886, -571.612, -368.309, -521.553, -366.284, -471.624, -363.856, -421.732, -361.051, -371.946, -357.894, -322.169, -354.391, -272.322, -350.542, -222.363, -346.342, -172.465, -341.797, -122.858, -336.914, -73.2556, -331.64, -23.5838, -325.918, 25.9353, -319.7, 75.4856, -312.833, 124.87, -305.099, 173.967, -295.949, 203.885, -255.911, 198.915, -206.245, 186.811, -157.633, 165.837, -112.336, 135.013, -73.0409, 95.5514, -42.4149, 50.3803, -21.16, 2.17436, -8.06867, -47.4343, -1.40738, -97.4231, 0.320024, -147.343, -1.72816, -197.051, -6.7208, -246.652, -14.0915, -295.827, -23.361, -344.654, -34.2054, -393.15, -46.3706, -441.229, -59.628, -489.2, -73.9021, -536.717, -88.9569, -583.988, -104.743, -631.071, -121.188, -678.239, -138.317, -725.217, -155.967, -771.721, -173.968, -818.261, -192.464, -864.373, -211.225, -910.396, -230.346, -956.437, -249.838, -1002.27, -269.573, -1048.07, -289.602, -1093.79, -309.876, -1113.63, -318.753 )
+
+[sub_resource type="Curve2D" id=7]
+
+bake_interval = 50.0
+_data = { "points":Vector2Array( -207.906, 646.102, 109.865, -109.865, -1113.63, -318.753, -192.247, -52.2178, 11.3845, 474.347, 204.127, -288.839, -50.5382, 469.087, 0, 0, -1113.63, -318.753 ) }
+
+[node name="TestMap3" type="Node2D"]
+
+script/script = SubResource( 1 )
+
+[node name="Label" type="Label" parent="."]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 429.0
+margin/top = 215.0
+margin/right = 882.0
+margin/bottom = 311.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "The third test map:\nLet\'s make it great this time edition"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Label1" type="Label" parent="."]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = -422.0
+margin/top = 406.0
+margin/right = -354.0
+margin/bottom = 443.0
+custom_fonts/font = ExtResource( 1 )
+text = "Battles"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Label3" type="Label" parent="."]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = -1611.0
+margin/top = 416.0
+margin/right = -1543.0
+margin/bottom = 453.0
+custom_fonts/font = ExtResource( 1 )
+text = "Dialogs"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Label2" type="Label" parent="."]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 1374.0
+margin/top = 211.0
+margin/right = 1827.0
+margin/bottom = 307.0
+custom_fonts/font = ExtResource( 1 )
+text = "1Way platforming"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Player_start" parent="." instance=ExtResource( 2 )]
+
+transform/pos = Vector2( 540.918, 588.965 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+input/pickable = false
+shapes/0/shape = SubResource( 2 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 599.921, 616.502 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+
+transform/pos = Vector2( 599.921, 616.502 )
+shape = SubResource( 2 )
+trigger = false
+_update_shape_index = 0
+
+[node name="StaticBody2D1" type="StaticBody2D" parent="."]
+
+input/pickable = false
+shapes/0/shape = SubResource( 3 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 1464.36, 436.39 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+one_way_collision/direction = Vector2( 0, 1 )
+one_way_collision/max_depth = 20.0
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D1"]
+
+transform/pos = Vector2( 1464.36, 436.39 )
+shape = SubResource( 3 )
+trigger = false
+_update_shape_index = 0
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+
+input/pickable = false
+shapes/0/shape = SubResource( 4 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, -1049.24, 7.99394 )
+shapes/0/trigger = false
+shapes/1/shape = SubResource( 5 )
+shapes/1/transform = Matrix32( 1, 0, 0, 1, -1049.24, 7.99394 )
+shapes/1/trigger = false
+collision/layers = 1
+collision/mask = 1
+one_way_collision/direction = Vector2( 0, 1 )
+one_way_collision/max_depth = 20.0
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D2"]
+
+transform/pos = Vector2( -1049.24, 7.99394 )
+build_mode = 0
+polygon = Vector2Array( -531.26, 574.363, -933.804, 292.213, -1627.79, 292.213, -1627.79, 379.192, -952.311, 379.192, -654.001, 577.357 )
+shape_range = Vector2( 0, 1 )
+trigger = false
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="."]
+
+transform/pos = Vector2( 972.838, -4.59052 )
+input/pickable = false
+shapes/0/shape = SubResource( 4 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, -1049.24, 7.99394 )
+shapes/0/trigger = false
+shapes/1/shape = SubResource( 5 )
+shapes/1/transform = Matrix32( 1, 0, 0, 1, -1049.24, 7.99394 )
+shapes/1/trigger = false
+collision/layers = 1
+collision/mask = 1
+one_way_collision/direction = Vector2( 0, 1 )
+one_way_collision/max_depth = 20.0
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D3"]
+
+transform/pos = Vector2( -1049.24, 7.99394 )
+build_mode = 0
+polygon = Vector2Array( -531.26, 574.363, -933.804, 292.213, -1627.79, 292.213, -1627.79, 379.192, -952.311, 379.192, -654.001, 577.357 )
+shape_range = Vector2( 0, 1 )
+trigger = false
+
+[node name="TestEnemy" parent="." instance=ExtResource( 3 )]
+
+transform/pos = Vector2( -1307.44, 160.725 )
+
+[node name="CloseUpDialogController" type="Node2D" parent="."]
+
+script/script = ExtResource( 4 )
+__meta__ = { "_editor_icon":ExtResource( 5 ) }
+first_dialog = NodePath("CloseUpDialogNode")
+finish_callback_node = null
+finish_callback_method = null
+autoplay = false
+unpause_after = true
+
+[node name="CloseUpDialogNode" type="Node2D" parent="CloseUpDialogController"]
+
+script/script = ExtResource( 6 )
+__meta__ = { "_editor_icon":ExtResource( 7 ) }
+character = "pepper"
+emotion = "normal"
+next_dialog = NodePath("../CloseUpDialogNode2")
+position = "Left"
+text = "Russian kompot is good, isn\'t it\?"
+
+[node name="CloseUpDialogNode2" type="Node2D" parent="CloseUpDialogController"]
+
+script/script = ExtResource( 6 )
+__meta__ = { "_editor_icon":ExtResource( 7 ) }
+character = "pepper"
+emotion = "normal"
+next_dialog = NodePath("../CloseUpDialogNode3")
+position = "Left"
+text = "Russian food is the best food in the universe."
+
+[node name="CloseUpDialogNode3" type="Node2D" parent="CloseUpDialogController"]
+
+script/script = ExtResource( 6 )
+__meta__ = { "_editor_icon":ExtResource( 7 ) }
+character = "coriander"
+emotion = "normal"
+next_dialog = NodePath("../CloseUpDialogNode4")
+position = "Right"
+text = "Hello, World!"
+
+[node name="CloseUpDialogNode4" type="Node2D" parent="CloseUpDialogController"]
+
+script/script = ExtResource( 6 )
+__meta__ = { "_editor_icon":ExtResource( 7 ) }
+character = "pepper"
+emotion = "normal"
+next_dialog = NodePath("")
+position = "Left"
+text = "Really tho, where the kompot at\?"
+
+[node name="ThickPlatform" type="StaticBody2D" parent="."]
+
+material/material = { "Angle":1.79, "BakeInterval":50.0, "BorderPosition1":0.91, "BorderPosition2":0.73, "BorderTexture1":"res://Assets/platform2d-example/grass_border.png", "BorderTexture2":"res://Assets/platform2d-example/rock_border.png", "BorderThickness1":100.0, "BorderThickness2":100.0, "FillSize":1.0, "FillTexture":"res://Assets/platform2d-example/dirt.png" }
+transform/pos = Vector2( 2940.09, 903.763 )
+z/z = -10
+input/pickable = false
+shapes/0/shape = SubResource( 6 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+script/script = ExtResource( 8 )
+__meta__ = { "_editor_icon":ExtResource( 9 ) }
+MovingPlatform = false
+Curve = SubResource( 7 )
+BakeInterval = 50.0
+FillTexture = ExtResource( 10 )
+FillSize = 1.0
+BorderTexture1 = ExtResource( 11 )
+BorderThickness1 = 100.0
+BorderPosition1 = 0.91
+BorderTexture2 = ExtResource( 12 )
+BorderThickness2 = 100.0
+BorderPosition2 = 0.73
+Angle = 1.79
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ThickPlatform"]
+
+build_mode = 0
+polygon = Vector2Array( -1113.63, -318.753, -1069.33, -341.91, -1020.81, -353.594, -971.325, -360.847, -921.539, -365.584, -871.556, -368.651, -821.606, -370.49, -771.726, -371.379, -721.577, -371.5, -671.531, -370.972, -621.535, -369.886, -571.612, -368.309, -521.553, -366.284, -471.624, -363.856, -421.732, -361.051, -371.946, -357.894, -322.169, -354.391, -272.322, -350.542, -222.363, -346.342, -172.465, -341.797, -122.858, -336.914, -73.2556, -331.64, -23.5838, -325.918, 25.9353, -319.7, 75.4856, -312.833, 124.87, -305.099, 173.967, -295.949, 203.885, -255.911, 198.915, -206.245, 186.811, -157.633, 165.837, -112.336, 135.013, -73.0409, 95.5514, -42.4149, 50.3803, -21.16, 2.17436, -8.06867, -47.4343, -1.40738, -97.4231, 0.320024, -147.343, -1.72816, -197.051, -6.7208, -246.652, -14.0915, -295.827, -23.361, -344.654, -34.2054, -393.15, -46.3706, -441.229, -59.628, -489.2, -73.9021, -536.717, -88.9569, -583.988, -104.743, -631.071, -121.188, -678.239, -138.317, -725.217, -155.967, -771.721, -173.968, -818.261, -192.464, -864.373, -211.225, -910.396, -230.346, -956.437, -249.838, -1002.27, -269.573, -1048.07, -289.602, -1093.79, -309.876, -1113.63, -318.753 )
+shape_range = Vector2( 0, 0 )
+trigger = false
+
+[node name="WorldDialogueTrigger" parent="." instance=ExtResource( 13 )]
+
+transform/pos = Vector2( -2386.62, 168.675 )
+first_dialogue = NodePath("../CloseUpDialogController")
+dialogue_type = "close_up"
+
+[node name="Sprite" type="Sprite" parent="."]
+
+transform/pos = Vector2( 599.575, 136.612 )
+z/z = -2000
+texture = ExtResource( 14 )
+
+

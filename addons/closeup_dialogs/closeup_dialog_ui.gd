@@ -1,10 +1,6 @@
 
 extends Node2D
 
-# member variables here, example:
-# var a=2
-# var b="textvar"
-
 ## All dialogs to play, ordered.
 var _dialog_nodes = []
 
@@ -32,10 +28,13 @@ var _dialog_controller
 
 var _waiting_for_startup_animation_to_end = true
 
+var _game_manager
+
 func _ready():
 	get_node("UI").set_hidden(true)
 	get_tree().set_pause(true)
-
+	_game_manager = get_node("/root/game_manager")
+	
 ## Starts playing a full dialog from a dialog controller
 # @param dialog_controller The dialog controller.
 func start_dialog(dialog_controller):
@@ -47,6 +46,7 @@ func start_dialog(dialog_controller):
 	get_node("AnimationPlayer").connect("finished", self, "_animation_finished")
 	get_node("AnimationPlayer").play("DialogStartup")
 	_dialog_controller = dialog_controller
+	_game_manager.state_machine.current_state.disable_pause(true)
 func _animation_finished():
 	if get_node("AnimationPlayer").get_current_animation() == "DialogStartup":
 		_play_dialog_node(_dialog_nodes[0])
@@ -103,13 +103,15 @@ func _input(event):
 			if _dialog_nodes.size() >= _dialog_node_index+1:
 				_play_dialog_node(_dialog_nodes[_dialog_node_index])
 			elif _dialog_controller.unpause_after:
-				get_tree().set_pause(false)
+				get_tree().set_input_as_handled()
+				
+				_game_manager.state_machine.current_state.disable_pause(false)
 				set_hidden(true)
 				get_node("UI").remove_child(_current_sprite)
 				get_node("UI").remove_child(_last_sprite)
 				_dialog_node_index = 0
 				set_process_input(false)
-
+				get_tree().call_deferred("set_pause", false)
 func _update_ui():
 	get_node("UI/CharacterName").set_text(tr(_current_dialog.character_information.name))
 	get_node("UI/Panel/Text").set_bbcode(_current_text)

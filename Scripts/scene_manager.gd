@@ -44,7 +44,7 @@ func _check_scene_load_progress():
 		if _current_scene_callback_object:
 			_current_scene_callback_object.call(_current_scene_callback_method, current_scene)
 		
-		spawn_player(_current_scene_camera_spawn)
+		call_deferred("spawn_player",_current_scene_camera_spawn)
 		
 		_is_loading_scene = false
 		
@@ -73,7 +73,7 @@ func spawn_player(camera_spawn=false):
 			player_instance.get_camera().set_offset(camera_start.get_pos() - player_instance.get_pos())
 			player_instance.disable_input(true)
 		print(camera_spawn)
-		_game_manager.current_scene.add_child(player_instance)
+		current_scene.add_child(player_instance)
 		print("Spawned player")
 	else:
 		print("Found no Spawn object node in current scene.")
