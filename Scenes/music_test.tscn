@@ -1,0 +1,60 @@
+[gd_scene load_steps=2 format=1]
+
+[sub_resource type="GDScript" id=1]
+
+script/source = "extends Node\n\nfunc _ready():\n\tmusic_manager.load_song(\"res://Music/theme_a.json\")\n\tset_process(true)\nfunc _process(delta):\n\tvar song = music_manager._current_song\n\tvar final_text = \"\"\n\tfor layer in song.layers:\n\t\tvar text = \"Layer: %s\\nPosition: %f\\nPlaying_intro\?:%s\\nBar: %s\\nMuted %s\\nVolume:%s\\n\" % [layer.name, layer.stream_player.get_pos(), layer.is_playing_intro, layer.get_current_bar(), str(layer._mute), str(layer.stream_player.get_volume())]\n\t\tfinal_text += text\n\tget_node(\"Label\").set_text(final_text)\n\t\n\nfunc _on_Button_pressed():\n\t#(\"player_side_low_health\")\n\tmusic_manager.fire_event(get_node(\"TextEdit\").get_text())\n"
+
+[node name="Node2D" type="Node2D"]
+
+script/script = SubResource( 1 )
+
+[node name="Label" type="Label" parent="."]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 40.0
+margin/bottom = 14.0
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="TextEdit" type="TextEdit" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 246.0
+margin/top = 544.0
+margin/right = 401.0
+margin/bottom = 568.0
+syntax_highlighting = false
+show_line_numbers = false
+highlight_all_occurrences = false
+caret/block_caret = false
+caret/caret_blink = false
+caret/caret_blink_speed = 0.65
+
+[node name="Button" type="Button" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 406.0
+margin/top = 546.0
+margin/right = 472.0
+margin/bottom = 566.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "FIRE"
+flat = false
+
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
+
+

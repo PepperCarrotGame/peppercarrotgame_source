@@ -43,11 +43,12 @@ class InGameState:
 	func _init(state_machine).(state_machine):
 		pass
 	func _ready():
-		 set_process_input(true)
-	func _input(event):
+		  set_process_unhandled_input(true)
+	func _unhandled_input(event):
 		if pause_enabled:
 			# To avoid issues we always store the pause state before pausing.
 			if event.is_action("pause") && event.is_pressed() && !event.is_echo():
+				get_tree().set_input_as_handled()
 				if _is_pause_menu_open:
 					get_tree().set_pause(_pre_pause_state)
 					pause_menu.set_hidden(true)

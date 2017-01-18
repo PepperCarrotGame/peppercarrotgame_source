@@ -46,7 +46,7 @@ func _on_exit_button_pressed():
 ## Starts a new game.
 func _on_play_button_pressed():
 	get_node("CanvasLayer/ButtonContainer").set_hidden(true)
-	_scene_manager.change_scene_load_screen("res://Scenes/testmap2.xscn")
+	_scene_manager.change_scene_load_screen("res://Scenes/testmap2.tscn")
 
 ## Continues from the background scene.
 func _on_continue_button_pressed():
