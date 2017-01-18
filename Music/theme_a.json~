@@ -1,8 +1,8 @@
 {
   "name": "theme_a",
-  "beats_per_bar": 3,
-  "beats_per_minute": 90,
-  "bars": 16,
+  "beats_per_bar": 4,
+  "beats_per_minute": 120,
+  "bars": 60,
   "layers": [
     {
       "name": "normal",

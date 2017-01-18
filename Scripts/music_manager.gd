@@ -29,9 +29,9 @@ func _process(delta):
 func fire_event(event):
 	for layer in _current_song.layers:
 		if event in layer.unmute_events:
-				layer.set_mute(true)
-		if event in layer.mute_events:
 				layer.set_mute(false)
+		if event in layer.mute_events:
+				layer.set_mute(true)
 
 ## Internal, loads the files that are waiting in the async resource queue
 func _load_files():
