@@ -2,7 +2,7 @@
 
 [sub_resource type="GDScript" id=1]
 
-script/source = "extends Node\n\nfunc _ready():\n\tmusic_manager.load_song(\"res://Music/theme_a.json\")\n\tset_process(true)\nfunc _process(delta):\n\tvar song = music_manager._current_song\n\tvar final_text = \"\"\n\tfor layer in song.layers:\n\t\tvar text = \"Layer: %s\\nPosition: %f\\nPlaying_intro\?:%s\\nBar: %s\\nMuted %s\\nVolume:%s\\n\" % [layer.name, layer.stream_player.get_pos(), layer.is_playing_intro, layer.get_current_bar(), str(layer._mute), str(layer.stream_player.get_volume())]\n\t\tfinal_text += text\n\tget_node(\"Label\").set_text(final_text)\n\t\n\nfunc _on_Button_pressed():\n\t#(\"player_side_low_health\")\n\tmusic_manager.fire_event(get_node(\"TextEdit\").get_text())\n"
+script/source = "extends Node\n\nfunc _ready():\n\tmusic_manager.load_song(\"res://Music/theme_a.json\")\n\tset_process(true)\nfunc _process(delta):\n\tvar song = music_manager._current_song\n\tvar final_text = \"\"\n\tfor layer in song.layers:\n\t\tvar text = \"Layer: %s\\nPosition: %f\\nPlaying_intro\?:%s\\nBar: %s\\nVolume:%s\\nVolume Rate:%s\\n\" % [layer.name, layer.stream_player.get_pos(), layer.is_playing_intro, layer.get_current_bar(), str(layer.stream_player.get_volume()), str(layer.volume_rate)]\n\t\tfinal_text += text\n\tget_node(\"Label\").set_text(final_text)\n\t\n\nfunc _on_Button_pressed():\n\t#(\"player_side_low_health\")\n\tmusic_manager.fire_event(get_node(\"TextEdit\").get_text())\n"
 
 [node name="Node2D" type="Node2D"]
 

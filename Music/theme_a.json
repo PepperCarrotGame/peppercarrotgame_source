@@ -2,6 +2,7 @@
   "name": "theme_a",
   "beats_per_bar": 3,
   "beats_per_minute": 90,
+  "volume_rate": 1.0,
   "bars": 16,
   "layers": [
     {

@@ -29,9 +29,9 @@ func _process(delta):
 func fire_event(event):
 	for layer in _current_song.layers:
 		if event in layer.unmute_events:
-				layer.set_mute(false)
+				layer.set_volume(1,_current_song.volume_rate)
 		if event in layer.mute_events:
-				layer.set_mute(true)
+				layer.set_volume(0, -_current_song.volume_rate)
 
 ## Internal, loads the files that are waiting in the async resource queue
 func _load_files():
@@ -94,6 +94,7 @@ class Music:
 	var beats_per_minute
 	var bars
 	var layers = []
+	var volume_rate
 
 	static func from_file(path):
 		var file_contents = ""
@@ -117,6 +118,7 @@ class Music:
 		music.name = dict["name"]
 		music.beats_per_bar = dict["beats_per_bar"]
 		music.beats_per_minute = dict["beats_per_minute"]
+		music.volume_rate = dict["volume_rate"]
 		music.bars = dict["bars"]
 		# Parse MusicLayers
 		for dict_layer in dict["layers"]:
@@ -148,28 +150,48 @@ class Music:
 		var unmute_events = []
 		var is_playing_intro = true
 		
-		
 		var _change_vol_on_bar
+		var volume_target = 1
+		var volume_rate
 		
-		var _mute = false
-		
-		func set_mute(mute):
-			_change_vol_on_bar = get_current_bar()+1 % int(bars) # This will also unmute on the next bar if we are on the last one of the previous loop
-															# pretty tasty huh?
-			_mute = mute
-				
+		## Sets the volume to a value, by default it does this on the next bar
+		# @param volume The volume target.
+		# @param volume_rate speed at which the volume should be changed.
+		# @param start_change_on_bar Set to true if the volume change should be on the next bar.
+		func set_volume(volume, rate,start_change_on_bar=true):
+			if start_change_on_bar:
+				_change_vol_on_bar = get_current_bar()+1 % int(bars) # This will also unmute on the next bar if we are on the last one of the previous loop
+																	# pretty tasty huh?
+			else:
+				_change_vol_on_bar = null
+				stream_player.set_volume(volume)
+			volume_rate = rate
+			volume_target = volume
+
 		func _process(delta):
-			if _change_vol_on_bar:
-				if get_current_bar() == _change_vol_on_bar:
-					if _mute:
-						stream_player.set_volume(0)
-					else:
-						stream_player.set_volume(1)
-					_change_vol_on_bar = null
+			_update_volume(delta)
 			if is_playing_intro and stream_player.get_pos() == stream_player.get_length():
 				is_playing_intro == false
 				stream_player.set_stream(resource)
 				stream_player.set_loop(true)
 				stream_player.play()
+				
+		func _update_volume(delta):
+			var volume = stream_player.get_volume()
+			if volume != volume_target:
+				# This ensures that the volume is only changed if we actually should.
+				if _change_vol_on_bar:
+					if get_current_bar() == _change_vol_on_bar:
+						_change_vol_on_bar = null
+					else:
+						return
+				
+				# This is the new volume
+				var volume_test = stream_player.get_volume()+(volume_rate*delta)
+				
+				if (volume_rate > 0 and volume > volume_target) or (volume_rate < 0 and volume < volume_target):
+					stream_player.set_volume(volume_target)
+				else:
+					stream_player.set_volume(volume_test)
 		func get_current_bar():
 			return floor((stream_player.get_pos()/stream_player.get_length())*bars)

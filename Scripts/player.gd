@@ -159,9 +159,9 @@ func _fixed_process(delta):
 	var game_manager = get_node("/root/game_manager")
 	var animation_pos = get_node("Sprite/PepperSprite/AnimationPlayer").get_current_animation_pos()
 	var animation = get_node("Sprite/PepperSprite/AnimationPlayer").get_current_animation()
-	"""if game_manager.DEBUG:
+	if game_manager.DEBUG:
 		var text = "State: %s\nVelocity: %s Animation: %s Animation pos: %s" % [str(state.name), str(velocity), animation, str(animation_pos)]
-		get_node("PlayerDebug/DebugLabel").set_text(text)"""
+		get_node("PlayerDebug/DebugLabel").set_text(text)
 
 ## Changes the input to enabled or disabled
 # @param input_state True if input should be disabled, false if not.
