@@ -171,7 +171,9 @@ func _ready():
 	randomize()
 
 func _game_init():
-	
+
+	# GPL disclaimer.
+        print("Pepper & Carrot: Tactical RPG, Copyright (C) 2017 Fran Paredes, Alex Roman & Bart Deruyter\nPepper & Carrot: Tactical RPG comes with ABSOLUTELY NO WARRANTY;\nThis is free software, and you are welcome to redistribute it\nunder certain conditions.")
 	# This avoids the singleton from loading the menu scene on load when loading in debug mode, but it allows
 	# loading the menu scene if the scene currently being loaded is the base scene (which should be the default)
 	if DEBUG and get_tree().get_current_scene().get_filename() == "res://Scenes/base_scene.xscn":
