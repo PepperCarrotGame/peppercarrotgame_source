@@ -99,7 +99,7 @@ texture = ExtResource( 6 )
 
 [node name="WorldDialogueTrigger" parent="." instance=ExtResource( 7 )]
 
-transform/pos = Vector2( -396.78, -601.17 )
+transform/pos = Vector2( -392.899, -575.442 )
 transform/scale = Vector2( 3.32855, 5.23987 )
 first_dialogue = NodePath("../CloseUpDialogController")
 dialogue_type = "close_up"

@@ -23,7 +23,7 @@ func _save_game_impl(filename):
 	save.close()
 
 func load_game(filename):
-	load_game_no_map()
+	load_game_no_map(filename)
 	var game_manager = get_node("/root/game_manager")
 	game_manager.change_scene(last_scene_loaded_from_save)
 # Loads a game's info, without loading a map.

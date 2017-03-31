@@ -2,8 +2,8 @@ extends Node
 
 var _scene_manager
 
-var character_info = load("res://Scripts/character_info.gd")
-var battle_script = load("res://Scripts/Battle/battle.gd")
+var character_info = preload("res://Scripts/character_info.gd")
+var battle_script = preload("res://Scripts/Battle/battle.gd")
 	
 var _battle_set
 func start_battle(battle_set):
