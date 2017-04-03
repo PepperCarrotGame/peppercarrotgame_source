@@ -13,3 +13,7 @@ Art should follow the style set by journey, some concept art was done, look at t
 # Code of Conduct
 
 There's absolutely no code of conduct, we are here to code.
+
+# Resources
+* [API docs.](http://pcdocs.modulous.net/annotated.html)
+* [1 hour long video describing most of the game's code](https://www.youtube.com/watch?v=CI2YE_Cpayk)
